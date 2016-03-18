@@ -1,7 +1,7 @@
 'use strict';
 
-define(["react", "jsx!components/home"],
-function(React,   Home) {
+define(["react", "jsx!_/home"],
+function(React,         Home) {
 
 	var App = React.createClass({
 	  render: function() {
@@ -12,11 +12,6 @@ function(React,   Home) {
 	    );
 	  }
 	});
-
-	// React.renderComponent(
-    //     <Timer />,
-    //     document.getElementById('react-blender-ui')
-    // );
 
   return App;
 });

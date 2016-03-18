@@ -5,7 +5,7 @@ requirejs.config({
     //and never includes a ".js" extension since
     //the paths config could be for a directory.
     paths: {
-        components      : '../components',
+        _: '../components',
         react           : 'react-with-addons.min',
         reactDOM        : 'react-dom.min',
         JSXTransformer  : 'jsx-transformer',
@@ -17,8 +17,8 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['react', 'reactDOM', 'jsx!components/app'],
-function   (React,   ReactDOM, app) {
+requirejs(['react', 'reactDOM', 'jsx!_/app'],
+function   (React,   ReactDOM,         app) {
     ReactDOM.render(
       React.createElement(app), //  <App />,
       document.getElementById("react-blender-ui")

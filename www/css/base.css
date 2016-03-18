@@ -3,3 +3,34 @@ body {
 	height: 100%vh;
 	background-color: grey;
 }
+
+/*APP*/
+
+/*COLUMN*/
+
+/*HOME*/
+
+/*ROW*/
+
+.split-topright {
+	width: 0;
+	height: 0;
+	border-top: 20px solid red;
+	border-left: 20px solid transparent;
+	float: right;
+}
+
+.split-topright:hover {
+	border-top: 20px solid white;
+}
+
+.split-bottomleft {
+	width: 0;
+	height: 0;
+	border-bottom: 20px solid red;
+	border-right: 20px solid transparent;
+}
+
+.split-bottomleft:hover {
+	border-bottom: 20px solid white;
+}
