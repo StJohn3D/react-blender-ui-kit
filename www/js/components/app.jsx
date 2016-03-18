@@ -1,21 +1,22 @@
 'use strict';
 
-define(["react"], function(React) {
+define(["react", "jsx!components/home"],
+function(React,   Home) {
 
 	var App = React.createClass({
 	  render: function() {
 	    return (
-	      <div className="main">
-	      	Hello world!
+	      <div className="app">
+	      	<Home />
 	      </div>
 	    );
 	  }
 	});
 
-	// ReactDOM.render(
-	// 	<App />,
-	// 	document.getElementById("react-blender-ui")
-	// );
+	// React.renderComponent(
+    //     <Timer />,
+    //     document.getElementById('react-blender-ui')
+    // );
 
   return App;
 });
