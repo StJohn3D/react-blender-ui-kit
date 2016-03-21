@@ -1,14 +1,21 @@
 'use strict';
 
-define(["react"],
-function(React) {
+define(["react", "jsx!_/panel-empty"],
+function(React,         EmptyPanel) {
 
 	var Panel = React.createClass({
 		getInitialState: function() {
 			return {
 				width: this.props.width || 'auto',
 				height: this.props.height || 'auto',
+				content: this.props.content || <EmptyPanel />
 			};
+		},
+		handleResizeH: function(e, id) {
+			console.log(e.target);
+			console.log(id);
+			console.log(this);
+			console.log(window.reactBlenderUI.mouseY);
 		},
 		render: function() {
 			var style = {
@@ -17,15 +24,10 @@ function(React) {
 			};
 
 			return (
-				<div className="outline panel" style={style}>
-					<ul>
-						<li>Topic 1</li>
-						<li>Topic 2</li>
-						<li>Topic 3</li>
-						<li>Topic 4</li>
-						<li>Topic 5</li>
-					</ul>
-				</div>
+				<section className="panel" style={style}>
+					{this.state.content}
+					<div className="resize-h" onClick={this.handleResizeH.bind(this)}></div>
+				</section>
 			);
 		}
 	});

@@ -36,7 +36,24 @@ body {
 
 /*PANEL*/
 .panel {
-  display: table-cell;
+	display: table-cell;
+	background-color: grey;
+	border: 1px solid black;
+	position:relative;
+	padding: 10px;
+}
+
+.resize-h {
+  position:absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  z-index: 99999;
+  background-color: black;
+  float: right;
+} .resize-h:hover {
+  cursor: ew-resize;
 }
 
 .split-topright {
@@ -60,11 +77,4 @@ body {
 
 .split-bottomleft:hover {
 	border-bottom: 20px solid white;
-}
-
-
-/*OUTLINE*/
-.outline {
-	background-color: grey;
-	border: 1px solid black;
 }

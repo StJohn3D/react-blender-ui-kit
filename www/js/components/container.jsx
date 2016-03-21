@@ -10,14 +10,6 @@ function(React,         Row) {
 				content: this.props.content || [],
 			};
 		},
-		handleSplit: function() {
-			this.setState(function(state) {
-				var updatedRows = state.rows.push(1);
-				return {
-					rows: updatedRows,
-				}
-			});
-		},
 		flowContent: function() {
 			var flowDirection = this.state.flow;
 			var content = this.state.content;
