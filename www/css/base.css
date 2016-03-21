@@ -1,16 +1,43 @@
 body {
-	width: 100%vw;
-	height: 100%vh;
-	background-color: grey;
+	height: 100vh;
+	width: 100vw;
+	margin: 0px;
 }
 
 /*APP*/
+#react-blender-ui {
+	width: 100%;
+	height: 100%;
+}
 
-/*COLUMN*/
-
-/*HOME*/
+/*CONTAINER*/
+.container {
+	width: 100%;
+	height: 100%;
+	min-height: 200px;
+	display: table;
+	background-color: blue;
+}
 
 /*ROW*/
+.row {
+	display: table-row;
+	min-width: 200px;
+}
+
+@media (max-width: 420px) {
+	.panel, .row, .container {
+		display: block;
+		width: 100%;
+		height: auto;
+		min-height: auto;
+	}
+}
+
+/*PANEL*/
+.panel {
+  display: table-cell;
+}
 
 .split-topright {
 	width: 0;
@@ -33,4 +60,11 @@ body {
 
 .split-bottomleft:hover {
 	border-bottom: 20px solid white;
+}
+
+
+/*OUTLINE*/
+.outline {
+	background-color: grey;
+	border: 1px solid black;
 }

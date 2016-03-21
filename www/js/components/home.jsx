@@ -1,18 +1,24 @@
 'use strict';
 
-define(["react", "jsx!_/column"],
-function(React,         Column) {
+define(["react", "jsx!_/container", "jsx!_/panel"],
+function(React,         Container,         Panel) {
 
 	var Home = React.createClass({
-	  render: function() {
-	    return (
-	      <section className="container">
-	      	This is the home page! And Im New
-	      	<Column />
-	      </section>
-	    );
-	  }
+		render: function() {
+			return (
+				<Container flow="Horizontal" content={[
+					<Panel width='250px' />,
+											<Container content={[
+												<Panel height='100px' />,
+												<Container flow="Horizontal" content={[
+													<Panel />, <Panel width='250px' />,
+												]} />,
+												<Panel height='50px' />
+											]}/>
+				]}/>
+			);
+		}
 	});
 
-  return Home;
+	return Home;
 });

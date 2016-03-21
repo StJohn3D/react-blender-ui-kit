@@ -1,19 +1,21 @@
 'use strict';
 
-define(["react"],
-function(React) {
-
+define(["react", "jsx!_/container"],
+function(React,          Container) {
 	var Row = React.createClass({
-	  render: function() {
-	    return (
-	      <section className="row">
-	      	<div className="split-topright"></div>
-	      	I am a Row!!
-	      	<div className="split-bottomleft"></div>
-	      </section>
-	    );
-	  }
+		getInitialState: function() {
+			return {
+				content: this.props.content || [],
+			};
+		},
+		render: function() {
+			return (
+				<section className="row">
+					{this.state.content}
+				</section>
+			);
+		}
 	});
 
-  return Row;
+	return Row;
 });

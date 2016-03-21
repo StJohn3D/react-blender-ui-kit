@@ -6,9 +6,7 @@ function(React,         Home) {
 	var App = React.createClass({
 	  render: function() {
 	    return (
-	      <div className="app">
 	      	<Home />
-	      </div>
 	    );
 	  }
 	});
