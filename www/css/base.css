@@ -10,6 +10,13 @@ body {
 	height: 100%;
 }
 
+.debug {
+	padding: 10px;
+	background-color: black;
+	color: white;
+	height: 100%;
+}
+
 /*CONTAINER*/
 .container {
 	width: 100%;
@@ -40,7 +47,6 @@ body {
 	background-color: grey;
 	border: 1px solid black;
 	position:relative;
-	padding: 10px;
 }
 
 .resize-h {
@@ -77,4 +83,9 @@ body {
 
 .split-bottomleft:hover {
 	border-bottom: 20px solid white;
+}
+
+/*COMPONENTS*/
+.outline {
+	padding: 10px;
 }

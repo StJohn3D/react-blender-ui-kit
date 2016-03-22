@@ -1,6 +1,6 @@
 'use strict';
 
-define(["react", "jsx!_/container", "jsx!_/panel"],
+define(["react", "jsx!_/ui/container", "jsx!_/ui/panel"],
 function(React,         Container,         Panel) {
 
 	var Home = React.createClass({
