@@ -1,7 +1,7 @@
 'use strict';
 
 define(["react", "jsx!_/ui/container"],
-function(React,          Container) {
+function(React ,  Container) {
 	var Row = React.createClass({
 		getInitialState: function() {
 			return {

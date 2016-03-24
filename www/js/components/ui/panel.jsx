@@ -1,7 +1,7 @@
 'use strict';
 
 define(["react", "jsx!_/panel-empty"],
-function(React,         EmptyPanel) {
+function(React ,  EmptyPanel) {
 
 	var Panel = React.createClass({
 		getInitialState: function() {

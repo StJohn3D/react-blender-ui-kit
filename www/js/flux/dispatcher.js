@@ -4,12 +4,15 @@
 	// 	http://facebook.github.io/flux/docs/dispatcher.html#content
 	//
 	//  NOTE: isDispatching in this implementation is a simple property
+	//			isDispatching > .isDispatching
 */
 
 define(["flux/sj-promise"],
 function(        Promise) {
 	
 	var Dispatcher = function() {
+		var timeStamp = new Date().toDateString();
+		console.log('New Dispatcher created ' + timeStamp);
 
 		/// ************************************************************************
 	    /// Constructor Safe Check
@@ -38,24 +41,24 @@ function(        Promise) {
 	    /// Privileged Methods
 	    /// ************************************************************************
 	 	this.register = function(callback) {
-	 		var token = Date.now();
-	 		_callbacks[token] = callback;
-	 		return token;
+	 		var handlerID = Date.now();
+	 		_callbacks[handlerID] = callback;
+	 		return handlerID;
 	 	};
 
-	 	this.unregister = function(token) {
-	 		delete _callbacks[token];
+	 	this.unregister = function(handlerID) {
+	 		delete _callbacks[handlerID];
 	 	};
 
-	 	this.waitFor = function(tokenArray) {
+	 	this.waitFor = function(handlerIDArray) {
 	 		console.log('Dispatcher.waitFor is not yet implemented');
 	 	};
 
 	 	this.dispatch = function(payload) {
 	 		_isDispatching = true;
 
-	 		var tokens = Object.keys(_callbacks);
-	 		tokens.forEach(function(t) {
+	 		var handlerIDs = Object.keys(_callbacks);
+	 		handlerIDs.forEach(function(t) {
 	 			_callbacks[t](payload);
 	 		});
 
@@ -64,5 +67,5 @@ function(        Promise) {
 
 	};
 
-	return Dispatcher;
+	return new Dispatcher();
 });

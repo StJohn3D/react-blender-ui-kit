@@ -9,57 +9,46 @@
 	//			hasChanged > .hasChanged
 */
 
-define([], function() {
+define(["microevent", "flux/dispatcher"], function(Microevent, Dispatcher) {
 	
-	var Store = function(dispatcher) {
+	var Store = function() {
 
 		/// ************************************************************************
 	    /// Constructor Safe Check
 	    /// ************************************************************************
-	    if ( !( this instanceof Store ) ) return new Store(dispatcher);
-	    if ( !dispatcher ) throw("Stores cannot be initilized without a dispatcher");
+	    if ( !( this instanceof Store ) ) return new Store();
 
 		/// ************************************************************************
 	    /// Private Properties
 	    /// ************************************************************************
-	    var _subscribers = {};
+
+	    var _onDispatch = undefined;
 
 	    /// ************************************************************************
 	    /// Private Methods
 	    /// ************************************************************************
-	    var _emitChange = function() {
-	    	// if ( dispatcher.isDispatching ) {
-	    	// 	var tokens = Object.keys(_subscribers);
-		    // 	tokens.forEach(function(t) {
-		    // 		_subscribers[t](payload);
-		    // 	});
-	    	// } else {
-	    	// 	// do something else?
-	    	// };
-	    	
-	    };
+	    var onDispatch = function(payload) {
+	    	//Resolve duplicates?
 
-	    var _onDispatch = function(payload) {
-	    	var type = payload.type;
-	    	var action = payload.action;
-
-	    	switch (type) {
-	    		//handle action
+	    	if ( typeof _onDispatch !== "undefined" ) {
+	    		_onDispatch(payload);
+	    	} else {
+	    		console.log('onDispatch not yet implemented');
 	    	}
 	    };
 
 	    /// ************************************************************************
 	    /// Register self with dispatcher
 	    /// ************************************************************************
-	    var _dispatchToken = dispatcher.register(function(payload) {
-	    	_onDispatch(payload);
+	    var _dispatchToken = Dispatcher.register(function(payload) {
+	    	onDispatch(payload);
 	    });
 
 	    /// ************************************************************************
 	    /// Public Properties
 	    /// ************************************************************************
 	    Object.defineProperty(this, 'dispatcher', {
-		      get: function() { return dispatcher; }
+		      get: function() { return Dispatcher; }
 		});
 
 		Object.defineProperty(this, 'dispatchToken', {
@@ -69,7 +58,7 @@ define([], function() {
 		Object.defineProperty(this, 'hasChanged', {
 		      get: function() {
 		      	var val = "Normally this should return a boolean, but it's note yet fully implemented";
-		      	if ( dispatcher.isDispatching ) {
+		      	if ( Dispatcher.isDispatching ) {
 		      		// Check store and return
 		      	} else {
 		      		// do something else?
@@ -78,21 +67,32 @@ define([], function() {
 		      }
 		});
 
+		Object.defineProperty(this, 'onDispatch', {
+		      get: function() { return _onDispatch; },
+		      set: function(func) {
+		      	_onDispatch = func;
+		      }
+		});
+
 	    /// ************************************************************************
 	    /// Privileged Methods
 	    /// ************************************************************************
 	    this.addListener = function(callback) {
-	    	var token = Date.now();
-	    	_subscribers[token] = callback;
+	    	var store = this;
+	    	store.bind( 'change', callback );
 	    	return {
-	    		id    : token,
 	    		remove: function() {
-	    			delete _subscribers[token];
+	    			store.unbind( 'change', callback );
 	    		}
 	    	};
 	    };
 
+	    this.emitChange = function() {
+	    	this.trigger( 'change' );
+	    };
+
 	};
+	Microevent.mixin( Store );
 
 	return Store;
 });
