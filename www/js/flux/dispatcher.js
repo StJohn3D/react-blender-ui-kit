@@ -11,9 +11,6 @@ define(["flux/sj-promise"],
 function(        Promise) {
 	
 	var Dispatcher = function() {
-		var timeStamp = new Date().toDateString();
-		console.log('New Dispatcher created ' + timeStamp);
-
 		/// ************************************************************************
 	    /// Constructor Safe Check
 	    /// ************************************************************************
@@ -66,6 +63,8 @@ function(        Promise) {
 	 	};
 
 	};
+
+	console.log('New Dispatcher created ' + new Date().toDateString());
 
 	return new Dispatcher();
 });
