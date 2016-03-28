@@ -1,7 +1,7 @@
 'use strict';
 
-define(["react", "jsx!_/ui/container", "jsx!_/ui/panel", "jsx!_/pages/home", "jsx!_/debug", "flux/dispatcher"],
-function(React ,  Container          ,  Panel          ,  Home             ,  Debug       ,  Dispatcher) {
+define(["react", "jsx!_/ui/container", "jsx!_/ui/panel", "jsx!_/pages/home", "jsx!_/debug", "flux/actions/mouse-actions"],
+function(React ,  Container          ,  Panel          ,  Home             ,  Debug       ,  MouseActions) {
 
 	var App = React.createClass({
 		getInitialState: function() {
@@ -12,11 +12,7 @@ function(React ,  Container          ,  Panel          ,  Home             ,  De
 			};
 		},
 		handleMouseMove: function() {
-			Dispatcher.dispatch({
-				type: "MOUSE_MOVE",
-				mouseX: event.screenX,
-				mouseY: event.screenY
-			});
+			MouseActions.moved( event.screenX, event.screenY ); //SJ: Send new mouse X & Y positions
 		},
 		render: function() {
 			return (

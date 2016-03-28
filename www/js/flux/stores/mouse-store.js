@@ -17,15 +17,17 @@ function(Store      ,  newChildOf) {
 	});
 
 	MouseStore.onDispatch = function(payload) {
-		switch (payload.type) {
-			case "MOUSE_MOVE":
-				_mouseX = payload.mouseX;
-				_mouseY = payload.mouseY;
-				MouseStore.emitChange();
-				break;
-			default:
-				console.log("MouseStore: I don't know what to do with this " + payload);
-				break;
+		if (payload.source === "MOUSE") {
+			switch (payload.type) {
+				case "MOVE":
+					_mouseX = payload.mouseX;
+					_mouseY = payload.mouseY;
+					MouseStore.emitChange();
+					break;
+				default:
+					console.log("MouseStore: I don't know what to do with this " + payload);
+					break;
+			}
 		}
 	};
 
