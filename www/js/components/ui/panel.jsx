@@ -11,18 +11,22 @@ function(React ,  EmptyPanel        ,  MouseActions               ,  MouseStore)
 				content: this.props.content || <EmptyPanel />
 			};
 		},
-		handleResizeH: function(e, id) {
-			var panel = this;
+		handleResizeH: function(event, value) {
 			var listenerID;
 			var startX = MouseStore.mouseX;
-			var startWidth = panel.state.width.replace(/px/, '');
+			var startWidth = this.getDOMNode().clientWidth;
+			console.log(this.getDOMNode().clientWidth);
+
 			var updateSize = function() {
-				if ( MouseStore.leftButtonState === "UP" ) listenerID.remove();
-				panel.setState(function(state) {
+				if ( MouseStore.leftButtonState === "UP" ) {
+					listenerID.remove();
+				};
+				this.setState(function(state) {
 					var newWidth = Number(startWidth) + (MouseStore.mouseX - startX);
 		            return { width: newWidth + 'px' };
 	        	});
-			};
+			}.bind(this);
+
 			listenerID = MouseStore.addListener(updateSize);
 		},
 		render: function() {
