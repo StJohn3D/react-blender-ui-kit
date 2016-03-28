@@ -1,20 +1,32 @@
 'use strict';
 
-define(["flux/dispatcher"], function(Dispatcher) {
+define(["flux/action"], function(Action) {
 
-	var sendAction = function(payload) {
-		payload.source = "MOUSE";
-		Dispatcher.dispatch(payload);
+	var MouseActions = new Action("MOUSE");
+	
+	MouseActions.move = function() {
+		MouseActions.sendAction({
+			type  : "MOVE",
+			event : event,
+			mouseX: event.clientX,
+			mouseY: event.clientY
+		});
 	};
 
-	var MouseActions = {
-		moved: function(x, y) {
-			sendAction({
-				type  : "MOVE",
-				mouseX: x,
-				mouseY: y
-			});
-		},
+	MouseActions.up = function() {
+		MouseActions.sendAction({
+			type  : "UP",
+			event : event,
+			button: event.button ? "MIDDLE" : "LEFT",
+		});
+	};
+
+	MouseActions.down = function() {
+		MouseActions.sendAction({
+			type  : "DOWN",
+			event : event,
+			button: event.button ? "MIDDLE" : "LEFT",
+		});
 	};
 
 	return MouseActions;

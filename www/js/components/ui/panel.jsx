@@ -1,7 +1,7 @@
 'use strict';
 
-define(["react", "jsx!_/panel-empty"],
-function(React ,  EmptyPanel) {
+define(["react", "jsx!_/panel-empty", "flux/actions/mouse-actions", "flux/stores/mouse-store"],
+function(React ,  EmptyPanel        ,  MouseActions               ,  MouseStore) {
 
 	var Panel = React.createClass({
 		getInitialState: function() {
@@ -12,10 +12,18 @@ function(React ,  EmptyPanel) {
 			};
 		},
 		handleResizeH: function(e, id) {
-			console.log(e.target);
-			console.log(id);
-			console.log(this);
-			console.log(window.reactBlenderUI.mouseY);
+			var panel = this;
+			var listenerID;
+			var startX = MouseStore.mouseX;
+			var startWidth = panel.state.width.replace(/px/, '');
+			var updateSize = function() {
+				if ( MouseStore.leftButtonState === "UP" ) listenerID.remove();
+				panel.setState(function(state) {
+					var newWidth = Number(startWidth) + (MouseStore.mouseX - startX);
+		            return { width: newWidth + 'px' };
+	        	});
+			};
+			listenerID = MouseStore.addListener(updateSize);
 		},
 		render: function() {
 			var style = {
@@ -26,7 +34,7 @@ function(React ,  EmptyPanel) {
 			return (
 				<section className="panel" style={style}>
 					{this.state.content}
-					<div className="resize-h" onClick={this.handleResizeH.bind(this)}></div>
+					<div className="resize-h" onMouseDown={this.handleResizeH}></div>
 				</section>
 			);
 		}

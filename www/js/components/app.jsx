@@ -11,12 +11,13 @@ function(React ,  Container          ,  Panel          ,  Home             ,  De
 				debugMode: true,
 			};
 		},
-		handleMouseMove: function() {
-			MouseActions.moved( event.screenX, event.screenY ); //SJ: Send new mouse X & Y positions
-		},
 		render: function() {
 			return (
-				<div className="App" onMouseMove={this.handleMouseMove}>
+				<div className="App"
+					 onMouseMove={MouseActions.move}
+					 onMouseUp={MouseActions.up}
+					 onMouseDown={MouseActions.down}
+				>
 					<Container content={[
 						<Home />,
 						<Panel height='100px' content={<Debug />} />

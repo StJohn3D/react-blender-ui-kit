@@ -1,7 +1,7 @@
 'use strict';
 
-define(["react", "jsx!_/ui/container", "jsx!_/ui/panel"],
-function(React,         Container,         Panel) {
+define(["react", "jsx!_/ui/container", "jsx!_/ui/panel", "jsx!_/debug"],
+function(React ,  Container          ,  Panel          ,  Debug) {
 
 	var Home = React.createClass({
 		render: function() {
@@ -9,7 +9,7 @@ function(React,         Container,         Panel) {
 				<Container flow="Horizontal" content={[
 					<Panel width='250px' />,
 											<Container content={[
-												<Panel height='100px' />,
+												<Panel content={<Debug />} height='100px' />,
 												<Container flow="Horizontal" content={[
 													<Panel />, <Panel width='250px' />,
 												]} />,
