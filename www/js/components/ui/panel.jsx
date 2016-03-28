@@ -15,7 +15,6 @@ function(React ,  EmptyPanel        ,  MouseActions               ,  MouseStore)
 			var listenerID;
 			var startX = MouseStore.mouseX;
 			var startWidth = this.getDOMNode().clientWidth;
-			console.log(this.getDOMNode().clientWidth);
 
 			var updateSize = function() {
 				if ( MouseStore.leftButtonState === "UP" ) {
