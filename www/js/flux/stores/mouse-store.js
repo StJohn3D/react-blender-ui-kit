@@ -1,6 +1,6 @@
 'use strict';
 
-define(["flux/store", "flux/newChildOf"],
+define(["flux/store", "com/newChildOf"],
 function(Store      ,  newChildOf) {
 
 	var MouseStore = newChildOf(Store);

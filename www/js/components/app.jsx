@@ -20,7 +20,7 @@ function(React ,  Container          ,  Panel          ,  Home             ,  De
 				>
 					<Container content={[
 						<Home />,
-						<Panel height='100px' content={<Debug />} />
+						// <Panel height='100px' content={<Debug />} />
 					]}/>
 				</div>
 			);

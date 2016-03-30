@@ -7,6 +7,7 @@ requirejs.config({
     paths: {
         _    : '../components',
         flux : '../flux',
+        com  : '../com',
         react           : 'react-with-addons.min',
         reactDOM        : 'react-dom.min',
         JSXTransformer  : 'jsx-transformer',

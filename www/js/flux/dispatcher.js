@@ -7,7 +7,7 @@
 	//			isDispatching > .isDispatching
 */
 
-define(["flux/sj-promise"],
+define(["com/sj-promise"],
 function(        Promise) {
 	
 	var Dispatcher = function() {

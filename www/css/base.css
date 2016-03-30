@@ -51,7 +51,7 @@ body {
 .panel {
 	display: table-cell;
 	background-color: grey;
-	border: 1px solid black;
+	border: 0.5px solid black;
 	position:relative;
 }
 
@@ -59,10 +59,10 @@ body {
   position:absolute;
   top: 0;
   right: 0;
-  width: 3px;
+  width: 5px;
   height: 100%;
   z-index: 99999;
-  background-color: black;
+  background-color: blue;
   float: right;
 } .resize-h:hover {
   cursor: ew-resize;
