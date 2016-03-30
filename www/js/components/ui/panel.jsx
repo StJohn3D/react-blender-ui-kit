@@ -12,18 +12,31 @@ function(React ,  EmptyPanel        ,  MouseActions               ,  MouseStore)
 				type: this.props.type,
 			};
 		},
+		setWidthFromClient: function() {
+			this.setState(function(state) {
+				var newWidth = React.findDOMNode(this).clientWidth;
+				return { width: newWidth + 'px' };
+			});
+		},
+		setWidthToAuto: function() {
+			this.setState(function(state) {
+				return { width: 'auto' };
+			});
+		},
 		handleResizeH: function(event, value) {
 			var listenerID;
 			var startX = MouseStore.mouseX;
 			var startWidth = this.getDOMNode().clientWidth;
 
-			console.log(this.props.neighbors);
-			this.props.neighbors.right.setState(function() {
-				return { width: 'auto' };
-			});
+			this.props.refs[this.props.containerIndex + 1].setWidthToAuto();
+
 			var updateSize = function() {
 				if ( MouseStore.leftButtonState === "UP" ) {
 					listenerID.remove();
+					for( var index in this.props.refs ) {
+						var ref = this.props.refs[index];
+						ref.setWidthFromClient();
+					};
 				};
 				this.setState(function(state) {
 					var newWidth = Number(startWidth) + (MouseStore.mouseX - startX);
@@ -47,7 +60,8 @@ function(React ,  EmptyPanel        ,  MouseActions               ,  MouseStore)
 				<section className="panel" style={style}>
 					{this.state.content}
 					{resizeH}
-					<span>Width: {this.state.width}</span>
+					<span>Width: {this.state.width}</span><br />
+					<span>Index: {this.props.containerIndex}</span>
 				</section>
 			);
 		}

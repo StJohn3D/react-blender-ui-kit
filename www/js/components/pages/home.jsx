@@ -12,7 +12,7 @@ function(React ,  Container          ,  Panel          ,  Debug) {
 														<Panel content={<Debug />} height='100px' />,
 														<Panel content={
 															<Container flow="Horizontal" reverse={false} content={[
-																<Panel />, <Panel width='250px' />, <Panel width='250px' />,
+																<Panel width='250px' />, <Panel />, <Panel width='250px' />, <Panel />,
 															]} />
 														} />,
 														<Panel height='100px' />

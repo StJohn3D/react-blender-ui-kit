@@ -11,6 +11,7 @@ function(React ,  Row) {
 				content: this.props.content || [],
 			};
 		},
+		refs: [],
 		flowContent: function() {
 			var flowDirection = this.state.flow;
 			var content = this.state.content;
@@ -20,15 +21,14 @@ function(React ,  Row) {
 
 			var contentIndex = 0;
 			var lastIndex = content.length - 1;
+			var refs = this.refs = [];
 			return content.map(function(i) {
 				i.props.type = "ONLY";
+				i.props.containerIndex = contentIndex;
+				i.props.refs = refs;
 				var returnVal = i;
-				var neighbors = i.props.neighbors = {};
-
-				var addRight = function() {
-					content[contentIndex+1].ref = function(cp) {
-						neighbors.right = cp;
-					};
+				i.ref = function( component ) {
+					refs.push(component);
 				};
 
 				switch ( flowDirection ) {
@@ -36,14 +36,10 @@ function(React ,  Row) {
 						if ( content.length > 1 ) {
 							if ( contentIndex === 0 ) {
 								i.props.type = "LEFT";
-								addRight();
 							} else if ( contentIndex < lastIndex ) {
 								i.props.type = "INNER_H";
-								addRight();
-								neighbors.left = content[contentIndex-1];
 							} else {
 								i.props.type = "RIGHT";
-								neighbors.left = content[contentIndex-1];
 							}
 						}
 						break;
@@ -53,14 +49,10 @@ function(React ,  Row) {
 						if ( content.length > 1 ) {
 							if ( contentIndex === 0 ) {
 								i.props.type = "TOP";
-								neighbors.below = content[contentIndex+1];
 							} else if ( contentIndex < lastIndex ) {
 								i.props.type = "INNER_V";
-								neighbors.below = content[contentIndex+1];
-								neighbors.above = content[contentIndex-1];
 							} else {
 								i.props.type = "BOTTOM";
-								neighbors.above = content[contentIndex-1];
 							}
 						}
 						break;

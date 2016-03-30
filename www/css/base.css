@@ -59,7 +59,7 @@ body {
   position:absolute;
   top: 0;
   right: 0;
-  width: 5px;
+  width: 10px;
   height: 100%;
   z-index: 99999;
   background-color: blue;
