@@ -99,9 +99,9 @@ function(React, Row, UI_Store) {
 			this.listenerIDs.push(UI_Store.addListener(this.handleResizeEvent));
 		},
 		componentWillUnmount: function() {
-			for ( var index in this.listenerIDs ) {
-				this.listenerID[index].remove();
-			};
+			this.listenerIDs.forEach(function( listenerID ) {
+				listenerID.remove();
+			});
 		},
 		render: function() {
 			return (
