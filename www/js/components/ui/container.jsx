@@ -7,6 +7,7 @@ function(React, Row, UI_Store) {
 
 	var Container = React.createClass({
 		getInitialState: function() {
+			this.props.isUI = "CONTAINER";
 			return {
 				flow: this.props.flow ? this.props.flow.toUpperCase() : "VIRTICAL", //HORIZONTAL
 				reverse: this.props.reverse || false,
@@ -67,6 +68,40 @@ function(React, Row, UI_Store) {
 				contentIndex++;
 				return returnVal;
 			});
+		},
+		handleResizeEvent: function() {
+			if ( UI_Store.isResizing === "FALSE" ) {
+				var panelQueue = [];
+
+				this.refs.forEach(function(ref) {
+					if ( ref.props.isUI === "PANEL" ) {
+						panelQueue.push({
+							panelRef: ref,
+							newWidth: ref.getClientWidth()
+						});
+					} else {
+						console.log("WARNING: It is strongly recommended to ONLY put panels inside container's content attribute.");
+						console.log("		  Not doing so can result in strange behavior.");
+						console.log("		  The following should be inside a panel...");
+						console.log(ref);
+					}
+				});
+
+				panelQueue.forEach(function(panel) {
+					panel.panelRef.setState(function(state) {
+						return { width: panel.newWidth };
+					});
+				});
+			}
+		},
+		listenerIDs: [],
+		componentDidMount: function() {
+			this.listenerIDs.push(UI_Store.addListener(this.handleResizeEvent));
+		},
+		componentWillUnmount: function() {
+			for ( var index in this.listenerIDs ) {
+				this.listenerID[index].remove();
+			};
 		},
 		render: function() {
 			return (

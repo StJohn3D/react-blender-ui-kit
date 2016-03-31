@@ -24,7 +24,7 @@ define(["react",
 	        window.removeEventListener("resize", UI_Actions.windowResize);
 	    },
 		render: function() {
-			// SJ: 	React's synthetic event doesn't support window.resize
+			// SJ: 	React's synthetic event doesn't support window.onresize
 			//		So that is being handled above in componentDidMount
 			//		and componentWillUnmount.
 			return (
@@ -34,7 +34,7 @@ define(["react",
 					 onMouseDown={MouseActions.down}
 				>
 					<Container content={[
-						<Home />,
+						<Panel content={<Home />} />,
 						<Panel height='100px' content={<Debug />} />
 					]}/>
 				</div>

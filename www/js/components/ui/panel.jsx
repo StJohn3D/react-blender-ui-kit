@@ -4,12 +4,12 @@ define(["react",
 		"jsx!_/panel-empty",
 		"flux/actions/mouse-actions",
 		"flux/actions/ui-actions",
-		"flux/stores/mouse-store",
-		"flux/stores/ui-store",
-], function( React, EmptyPanel, MouseActions, UI_Actions, MouseStore, UI_Store) {
+		"flux/stores/mouse-store"
+], function( React, EmptyPanel, MouseActions, UI_Actions, MouseStore) {
 
 	var Panel = React.createClass({
 		getInitialState: function() {
+			this.props.isUI = "PANEL";
 			return {
 				width: this.props.width || 'auto',
 				height: this.props.height || 'auto',
@@ -17,11 +17,8 @@ define(["react",
 				type: this.props.type,
 			};
 		},
-		setWidthFromClient: function() {
-			this.setState(function(state) {
-				var newWidth = React.findDOMNode(this).clientWidth;
-				return { width: newWidth + 'px' };
-			});
+		getClientWidth: function() {
+			return React.findDOMNode(this).clientWidth;
 		},
 		setWidthToAuto: function() {
 			this.setState(function(state) {
@@ -49,20 +46,6 @@ define(["react",
 
 			UI_Actions.resizing();
 			listenerID = MouseStore.addListener(updateSize);
-		},
-		handleResizeEvent: function() {
-			if ( UI_Store.isResizing === "FALSE" ) {
-				this.setWidthFromClient();
-			}
-		},
-		listenerIDs: [],
-		componentDidMount: function() {
-			this.listenerIDs.push(UI_Store.addListener(this.handleResizeEvent));
-		},
-		componentWillUnmount: function() {
-			for ( var index in this.listenerIDs ) {
-				this.listenerID[index].remove();
-			};
 		},
 		render: function() {
 			var style = {

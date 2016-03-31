@@ -70,7 +70,6 @@ define(["microevent", "flux/dispatcher"], function(Microevent, Dispatcher) {
 		Object.defineProperty(this, 'onDispatch', {
 		      get: function() { return _onDispatch; },
 		      set: function(func) {
-		      	console.log(this);
 		      	_onDispatch = func;
 		      }
 		});
