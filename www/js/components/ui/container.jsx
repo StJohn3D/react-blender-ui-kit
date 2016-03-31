@@ -1,7 +1,9 @@
 'use strict';
 
-define(["react", "jsx!_/ui/row"],
-function(React ,  Row) {
+define(["react",
+		"jsx!_/ui/row",
+		"flux/stores/ui-store"],
+function(React, Row, UI_Store) {
 
 	var Container = React.createClass({
 		getInitialState: function() {

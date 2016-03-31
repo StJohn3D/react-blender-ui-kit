@@ -20,7 +20,18 @@ body {
 	padding: 10px;
 	background-color: black;
 	color: white;
+}
+
+.table {
+	display: table;
+	width: 100%;
 	height: 100%;
+}
+
+.cell {
+	display: table-cell;
+	empty-cells: show;
+	min-width: 200px;
 }
 
 /*CONTAINER*/
@@ -58,12 +69,11 @@ body {
 .resize-h {
   position:absolute;
   top: 0;
-  right: 0;
+  right: -5px;
   width: 10px;
   height: 100%;
   z-index: 99999;
-  background-color: blue;
-  float: right;
+  background-color: transparent;
 } .resize-h:hover {
   cursor: ew-resize;
 }

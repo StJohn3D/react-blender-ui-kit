@@ -1,7 +1,12 @@
 'use strict';
 
-define(["react", "jsx!_/panel-empty", "flux/actions/mouse-actions", "flux/stores/mouse-store"],
-function(React ,  EmptyPanel        ,  MouseActions               ,  MouseStore) {
+define(["react",
+		"jsx!_/panel-empty",
+		"flux/actions/mouse-actions",
+		"flux/actions/ui-actions",
+		"flux/stores/mouse-store",
+		"flux/stores/ui-store",
+], function( React, EmptyPanel, MouseActions, UI_Actions, MouseStore, UI_Store) {
 
 	var Panel = React.createClass({
 		getInitialState: function() {
@@ -32,19 +37,32 @@ function(React ,  EmptyPanel        ,  MouseActions               ,  MouseStore)
 
 			var updateSize = function() {
 				if ( MouseStore.leftButtonState === "UP" ) {
+					UI_Actions.doneResizing();
 					listenerID.remove();
-					for( var index in this.props.refs ) {
-						var ref = this.props.refs[index];
-						ref.setWidthFromClient();
-					};
-				};
-				this.setState(function(state) {
-					var newWidth = Number(startWidth) + (MouseStore.mouseX - startX);
-		            return { width: newWidth + 'px' };
-	        	});
+				} else {
+					this.setState(function(state) {
+						var newWidth = Number(startWidth) + (MouseStore.mouseX - startX);
+			            return { width: newWidth + 'px' };
+		        	});
+				}
 			}.bind(this);
 
+			UI_Actions.resizing();
 			listenerID = MouseStore.addListener(updateSize);
+		},
+		handleResizeEvent: function() {
+			if ( UI_Store.isResizing === "FALSE" ) {
+				this.setWidthFromClient();
+			}
+		},
+		listenerIDs: [],
+		componentDidMount: function() {
+			this.listenerIDs.push(UI_Store.addListener(this.handleResizeEvent));
+		},
+		componentWillUnmount: function() {
+			for ( var index in this.listenerIDs ) {
+				this.listenerID[index].remove();
+			};
 		},
 		render: function() {
 			var style = {

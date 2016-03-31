@@ -1,7 +1,13 @@
 'use strict';
 
-define(["react", "jsx!_/ui/container", "jsx!_/ui/panel", "jsx!_/pages/home", "jsx!_/debug", "flux/actions/mouse-actions"],
-function(React ,  Container          ,  Panel          ,  Home             ,  Debug       ,  MouseActions) {
+define(["react",
+		"jsx!_/ui/container",
+		"jsx!_/ui/panel",
+		"jsx!_/pages/home",
+		"jsx!_/debug",
+		"flux/actions/mouse-actions",
+		"flux/actions/ui-actions"
+], function(React, Container, Panel, Home, Debug, MouseActions, UI_Actions) {
 
 	var App = React.createClass({
 		getInitialState: function() {
@@ -11,7 +17,16 @@ function(React ,  Container          ,  Panel          ,  Home             ,  De
 				debugMode: true,
 			};
 		},
+		componentDidMount: function() {
+	        window.addEventListener("resize", UI_Actions.windowResize);
+	    },
+	    componentWillUnmount: function() {
+	        window.removeEventListener("resize", UI_Actions.windowResize);
+	    },
 		render: function() {
+			// SJ: 	React's synthetic event doesn't support window.resize
+			//		So that is being handled above in componentDidMount
+			//		and componentWillUnmount.
 			return (
 				<div className="App"
 					 onMouseMove={MouseActions.move}
@@ -20,7 +35,7 @@ function(React ,  Container          ,  Panel          ,  Home             ,  De
 				>
 					<Container content={[
 						<Home />,
-						// <Panel height='100px' content={<Debug />} />
+						<Panel height='100px' content={<Debug />} />
 					]}/>
 				</div>
 			);
