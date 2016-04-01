@@ -73,14 +73,15 @@ function(React, Row, UI_Store) {
 				return returnVal;
 			});
 		},
-		collectChildPanelsWidths: function() {
+		collectChildPanelSizes: function() {
 			var collection = [];
 			var refs = this.purgeNulls( this.refs );
 			refs.forEach(function(ref, _index) {
 				if ( ref.props.isUI === "PANEL" ) {
 					collection.push({
-						index: _index,
-						newWidth: ref.getClientWidth()
+						index : _index,
+						width : ref.getClientWidth(),
+						height: ref.getClientHeight()
 					});
 				} else {
 					console.log("WARNING: It is strongly recommended to ONLY put panels inside container's content attribute.");
@@ -99,15 +100,19 @@ function(React, Row, UI_Store) {
 				}
 			});
 		},
-		updateChildPanelsWidths: function(collection) {
-			var panelQueue = collection || this.collectChildPanelsWidths();
+		updateChildPanelSizes: function(collection) {
+			var panelQueue = collection || this.collectChildPanelSizes();
 			var refs = this.purgeNulls( this.refs );
+			var flow = this.state.flow;
 			panelQueue.forEach(function(panel) {
 				var index = panel.index;
-				var newWidth = panel.newWidth;
-				refs[index].setState(function(state) {
-					return { width: newWidth };
-				});
+				var newWidth = panel.width;
+				var newHeight = panel.height;
+				if ( flow === "HORIZONTAL" ) {
+					refs[index].setWidth(newWidth);
+				} else {
+					refs[index].setHeight(newHeight);
+				}
 			});
 		},
 		lastWidthsCollection: null,
@@ -127,7 +132,7 @@ function(React, Row, UI_Store) {
 						this.setState(function(state) {
 							return { flow: "HORIZONTAL" };
 						});
-						this.updateChildPanelsWidths(this.lastWidthsCollection);
+						this.updateChildPanelSizes(this.lastWidthsCollection);
 					}
 				}
 			}
@@ -146,19 +151,19 @@ function(React, Row, UI_Store) {
 
 			if ( UI_Store.isResizing === "FALSE" ) { //done resizing
 				checkFlow();
-				this.updateChildPanelsWidths();
+				this.updateChildPanelSizes();
 				if ( this.state.flow === "HORIZONTAL" ) {
-					this.lastWidthsCollection = this.collectChildPanelsWidths();
+					this.lastWidthsCollection = this.collectChildPanelSizes();
 				}
 			}
 		},
 		listenerIDs: [],
 		componentDidMount: function() {//Called once after initial render
-			this.updateChildPanelsWidths();
+			this.updateChildPanelSizes();
 			this.listenerIDs.push(UI_Store.addListener(this.handleResizeEvent));
 		},
 		componentDidUpdate: function() {//Called after each update render (The dom has changed)
-			this.updateChildPanelsWidths();
+			this.updateChildPanelSizes();
 		},
 		componentWillUnmount: function() {
 			this.listenerIDs.forEach(function( listenerID ) {
