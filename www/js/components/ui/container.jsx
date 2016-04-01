@@ -10,9 +10,13 @@ function(React, Row, UI_Store) {
 			this.props.isUI = "CONTAINER";
 			return {
 				flow: this.props.flow ? this.props.flow.toUpperCase() : "VIRTICAL", //HORIZONTAL
+				minWidth: this.props.minWidth || 480,
 				reverse: this.props.reverse || false,
 				content: this.props.content || [],
 			};
+		},
+		getClientWidth: function() {
+			return React.findDOMNode(this).clientWidth;
 		},
 		refs: [],
 		flowContent: function() {
@@ -69,11 +73,11 @@ function(React, Row, UI_Store) {
 				return returnVal;
 			});
 		},
-		handleResizeEvent: function() {
-			if ( UI_Store.isResizing === "FALSE" ) {
-				var panelQueue = [];
+		updateChildPanelsWidths: function() {
+			var panelQueue = [];
 
-				this.refs.forEach(function(ref) {
+			this.refs.forEach(function(ref) {
+				if ( ref !== null ) {
 					if ( ref.props.isUI === "PANEL" ) {
 						panelQueue.push({
 							panelRef: ref,
@@ -85,17 +89,57 @@ function(React, Row, UI_Store) {
 						console.log("		  The following should be inside a panel...");
 						console.log(ref);
 					}
-				});
+				}
+			});
 
-				panelQueue.forEach(function(panel) {
-					panel.panelRef.setState(function(state) {
-						return { width: panel.newWidth };
-					});
+			panelQueue.forEach(function(panel) {
+				panel.panelRef.setState(function(state) {
+					return { width: panel.newWidth };
 				});
+			});
+		},
+		checkFlow: function() {
+			var initialFlow = this.getInitialState().flow;
+			var minWidth = this.state.minWidth;
+
+			if ( initialFlow === "HORIZONTAL" && minWidth > 0 ) {
+				if ( this.getClientWidth() < minWidth ) {
+					if ( this.state.flow !== "VIRTICAL" ) {
+						this.setState(function(state) {
+							this.refs = [];
+							return { flow: "VIRTICAL" };
+						});
+					}
+				} else {
+					if ( this.state.flow !== "HORIZONTAL" ) {
+						this.setState(function(state) {
+							return { flow: "HORIZONTAL" };
+						});
+					}
+				}
+			}
+		},
+		handleResizeEvent: function() {
+			var checkFlow = this.checkFlow;
+			if ( UI_Store.isResizing === "TRUE" ) { 
+				var watchFlowWhileResizing = function() {
+					checkFlow();
+					// console.log('checking');
+					if ( UI_Store.isResizing === "TRUE" ) {
+						setTimeout(watchFlowWhileResizing, 100);
+					}
+				};
+				watchFlowWhileResizing();
+			}
+
+			if ( UI_Store.isResizing === "FALSE" ) { //done resizing
+				this.checkFlow();
+				this.updateChildPanelsWidths();
 			}
 		},
 		listenerIDs: [],
 		componentDidMount: function() {
+			this.updateChildPanelsWidths();
 			this.listenerIDs.push(UI_Store.addListener(this.handleResizeEvent));
 		},
 		componentWillUnmount: function() {

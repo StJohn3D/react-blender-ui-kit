@@ -11,7 +11,7 @@ function(React ,  Container          ,  Panel        ) {
 													<Container content={[
 														<Panel height='100px' />,
 														<Panel content={
-															<Container flow="Horizontal" reverse={false} content={[
+															<Container flow="Horizontal" minWidth="480" reverse={false} content={[
 																<Panel width='250px' />, <Panel />, <Panel width='250px' />, <Panel />,
 															]} />
 														} />,
