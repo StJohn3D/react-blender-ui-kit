@@ -73,31 +73,44 @@ function(React, Row, UI_Store) {
 				return returnVal;
 			});
 		},
-		updateChildPanelsWidths: function() {
-			var panelQueue = [];
-
-			this.refs.forEach(function(ref) {
-				if ( ref !== null ) {
-					if ( ref.props.isUI === "PANEL" ) {
-						panelQueue.push({
-							panelRef: ref,
-							newWidth: ref.getClientWidth()
-						});
-					} else {
-						console.log("WARNING: It is strongly recommended to ONLY put panels inside container's content attribute.");
-						console.log("		  Not doing so can result in strange behavior.");
-						console.log("		  The following should be inside a panel...");
-						console.log(ref);
-					}
+		collectChildPanelsWidths: function() {
+			var collection = [];
+			var refs = this.purgeNulls( this.refs );
+			refs.forEach(function(ref, _index) {
+				if ( ref.props.isUI === "PANEL" ) {
+					collection.push({
+						index: _index,
+						newWidth: ref.getClientWidth()
+					});
+				} else {
+					console.log("WARNING: It is strongly recommended to ONLY put panels inside container's content attribute.");
+					console.log("		  Not doing so can result in strange behavior.");
+					console.log("		  The following should be inside a panel...");
+					console.log(ref);
 				}
 			});
 
+			return collection;
+		},
+		purgeNulls: function(array) {
+			return array.filter(function(item) {
+				if (item) {
+					return item;
+				}
+			});
+		},
+		updateChildPanelsWidths: function(collection) {
+			var panelQueue = collection || this.collectChildPanelsWidths();
+			var refs = this.purgeNulls( this.refs );
 			panelQueue.forEach(function(panel) {
-				panel.panelRef.setState(function(state) {
-					return { width: panel.newWidth };
+				var index = panel.index;
+				var newWidth = panel.newWidth;
+				refs[index].setState(function(state) {
+					return { width: newWidth };
 				});
 			});
 		},
+		lastWidthsCollection: null,
 		checkFlow: function() {
 			var initialFlow = this.getInitialState().flow;
 			var minWidth = this.state.minWidth;
@@ -106,7 +119,6 @@ function(React, Row, UI_Store) {
 				if ( this.getClientWidth() < minWidth ) {
 					if ( this.state.flow !== "VIRTICAL" ) {
 						this.setState(function(state) {
-							this.refs = [];
 							return { flow: "VIRTICAL" };
 						});
 					}
@@ -115,6 +127,7 @@ function(React, Row, UI_Store) {
 						this.setState(function(state) {
 							return { flow: "HORIZONTAL" };
 						});
+						this.updateChildPanelsWidths(this.lastWidthsCollection);
 					}
 				}
 			}
@@ -124,7 +137,6 @@ function(React, Row, UI_Store) {
 			if ( UI_Store.isResizing === "TRUE" ) { 
 				var watchFlowWhileResizing = function() {
 					checkFlow();
-					// console.log('checking');
 					if ( UI_Store.isResizing === "TRUE" ) {
 						setTimeout(watchFlowWhileResizing, 100);
 					}
@@ -133,14 +145,20 @@ function(React, Row, UI_Store) {
 			}
 
 			if ( UI_Store.isResizing === "FALSE" ) { //done resizing
-				this.checkFlow();
+				checkFlow();
 				this.updateChildPanelsWidths();
+				if ( this.state.flow === "HORIZONTAL" ) {
+					this.lastWidthsCollection = this.collectChildPanelsWidths();
+				}
 			}
 		},
 		listenerIDs: [],
-		componentDidMount: function() {
+		componentDidMount: function() {//Called once after initial render
 			this.updateChildPanelsWidths();
 			this.listenerIDs.push(UI_Store.addListener(this.handleResizeEvent));
+		},
+		componentDidUpdate: function() {//Called after each update render (The dom has changed)
+			this.updateChildPanelsWidths();
 		},
 		componentWillUnmount: function() {
 			this.listenerIDs.forEach(function( listenerID ) {

@@ -25,12 +25,19 @@ define(["react",
 				return { width: 'auto' };
 			});
 		},
+		purgeNulls: function(array) {
+			return array.filter(function(item) {
+				if (item) {
+					return item;
+				}
+			});
+		},
 		handleResizeH: function(event, value) {
 			var listenerID;
 			var startX = MouseStore.mouseX;
 			var startWidth = this.getDOMNode().clientWidth;
-
-			this.props.refs[this.props.containerIndex + 1].setWidthToAuto();
+			var refs = this.purgeNulls( this.props.refs );
+			refs[this.props.containerIndex + 1].setWidthToAuto();
 
 			var updateSize = function() {
 				if ( MouseStore.leftButtonState === "UP" ) {
