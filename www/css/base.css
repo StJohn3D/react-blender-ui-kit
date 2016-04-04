@@ -31,7 +31,6 @@ body {
 .cell {
 	display: table-cell;
 	empty-cells: show;
-	min-width: 200px;
 }
 
 /*CONTAINER*/
@@ -46,7 +45,6 @@ body {
 /*ROW*/
 .row {
 	display: table-row;
-	min-width: 200px;
 }
 
 @media (max-width: 420px) {

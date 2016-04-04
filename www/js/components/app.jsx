@@ -8,7 +8,6 @@ define(["react",
 		"flux/actions/mouse-actions",
 		"flux/actions/ui-actions"
 ], function(React, Container, Panel, Home, Debug, MouseActions, UI_Actions) {
-
 	var App = React.createClass({
 		getInitialState: function() {
 			return {
@@ -35,6 +34,7 @@ define(["react",
 				>
 					<Container content={[
 						<Panel content={<Home />} />,
+						<Panel height='100px' content={<Debug />} />,
 						<Panel height='100px' content={<Debug />} />
 					]}/>
 				</div>
