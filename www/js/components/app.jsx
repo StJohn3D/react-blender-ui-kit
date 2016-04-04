@@ -33,7 +33,7 @@ define(["react",
 					 onMouseUp={MouseActions.up}
 					 onMouseDown={MouseActions.down}
 				>
-					<Container content={[
+					<Container master='true' content={[
 						<Panel content={<Home />} />,
 						<Panel height='100px' content={<Debug />} />
 					]}/>

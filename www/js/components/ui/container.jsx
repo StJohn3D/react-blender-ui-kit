@@ -106,8 +106,8 @@ function(React, Row, UI_Store) {
 			var flow = this.state.flow;
 			panelQueue.forEach(function(panel) {
 				var index = panel.index;
-				var newWidth = panel.width;
-				var newHeight = panel.height;
+				var newWidth = panel.width + 'px';
+				var newHeight = panel.height + 'px';
 				if ( flow === "HORIZONTAL" ) {
 					refs[index].setWidth(newWidth);
 				} else {
@@ -171,8 +171,12 @@ function(React, Row, UI_Store) {
 			});
 		},
 		render: function() {
+			var classes = "container";
+			if ( this.props.master ) {
+				classes += " master"
+			};
 			return (
-				<section className="container">
+				<section className={classes}>
 					{this.flowContent()}
 				</section>
 			);
