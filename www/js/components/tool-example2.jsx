@@ -1,13 +1,50 @@
 'use strict';
 
-define(["react"],
-function(React) {
+define(["react",
+		"flux/stores/example-store",
+		"flux/actions/example-actions",
+], function(React, ExampleStore, ExampleActions) {
 
 	var ToolExample2 = React.createClass({
 		getInitialState: function() {
 			return {
-				name: "Example 2"
+				selectedIndex: ExampleStore.selectedIndex,
+				things: ExampleStore.things
 			}
+		},
+		handleClick: function(index) {
+			ExampleActions.selectionMade(index);
+		},
+		buildDisplay: function() {
+			var current = this.state.selectedIndex;
+			var things = this.state.things;
+			var output = [];
+			var index = 0;
+
+			while ( index < things.length ) {
+				var classes = index === current ? "item selected" : "item";
+				output.push(<li onClick={this.handleClick.bind(this, index)} className={classes}><span>{things[index]}</span></li>);
+				index++;
+			};
+
+			return output;
+		},
+		handleExampleChange: function() {
+			this.setState(function(state) {
+				return {
+					selectedIndex: ExampleStore.selectedIndex,
+					things: ExampleStore.things
+				}
+			});
+		},
+		listenerIDs: [],
+		componentDidMount: function() {
+			this.listenerIDs.push(ExampleStore.addListener(this.handleExampleChange));
+		},
+		componentWillUnmount: function() {
+			this.listenerIDs.forEach(function( listenerID ) {
+				listenerID.remove();
+			});
 		},
 		render: function() {
 			return (
@@ -15,12 +52,7 @@ function(React) {
 					{this.props.toolSelector}
 					<h2>Tool example 2</h2>
 					<ul>
-						<li>Thing 1</li>
-						<li>Thing 2</li>
-						<li>Thing 3</li>
-						<li>Thing 4</li>
-						<li>Thing 5</li>
-						<li>Thing 6</li>
+						{this.buildDisplay()}
 					</ul>
 				</div>
 			);

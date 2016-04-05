@@ -117,6 +117,15 @@ body {
 	padding: 10px;
 }
 
+.item {
+	padding: 5px;
+}
+
+.item:hover {
+	cursor: pointer;
+	background-color: #8C8C8C;
+}
+
 .block {
 	display: inline-table;
 	text-align: center;
@@ -129,3 +138,13 @@ body {
 	display: table-cell;
 	vertical-align: middle;
 }
+
+.block:hover {
+	cursor: pointer;
+	box-shadow: 0px 0px 5px #fff;
+}
+
+.selected {
+	background-color: green;
+}
+
