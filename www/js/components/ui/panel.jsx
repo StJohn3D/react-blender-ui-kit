@@ -22,11 +22,7 @@ define(["react",
 			return React.findDOMNode(this).clientWidth;
 		},
 		getClientHeight: function() {
-			var returnVal = null;
-			if ( this.props.parentRow ) {
-				returnVal = this.props.getClientHeight();
-			}
-			return returnVal;
+			return React.findDOMNode(this).clientHeight;
 		},
 		setWidth: function(newWidth) {
 			this.setState(function(state) {
@@ -37,9 +33,6 @@ define(["react",
 			this.setState(function(state) {
 				return { height: newHeight };
 			});
-			if ( this.props.parentRow ) {
-				this.props.setHeight(newHeight);
-			}
 		},
 		isActive: false,
 		purgeNulls: function(array) {
@@ -49,12 +42,8 @@ define(["react",
 				}
 			});
 		},
-		handleResizeH: function(event, value) {
+		handleResizing: function(updateFunc) {
 			var listenerID;
-			var startX = MouseStore.mouseX;
-			var startWidth = this.getClientWidth();
-			var refs = this.purgeNulls( this.props.refs );
-			refs[this.props.containerIndex + 1].setWidth('auto');
 
 			var updateSize = function() {
 				if ( MouseStore.leftButtonState === "UP" ) {
@@ -62,8 +51,7 @@ define(["react",
 					UI_Actions.doneResizing();
 					listenerID.remove();
 				} else {
-					var newWidth = Number(startWidth) + (MouseStore.mouseX - startX);
-					this.setWidth( newWidth + 'px' );
+					updateFunc()
 				}
 			}.bind(this);
 
@@ -71,31 +59,36 @@ define(["react",
 			UI_Actions.resizing();
 			listenerID = MouseStore.addListener(updateSize);
 		},
+		handleResizeH: function(event, value) {
+			var refs = this.purgeNulls( this.props.refs );
+			refs[this.props.containerIndex + 1].setWidth('auto');
+
+			var startX = MouseStore.mouseX;
+			var startWidth = this.getClientWidth();
+			var updateWidth = function() {
+				var newWidth = Number(startWidth) + (MouseStore.mouseX - startX);
+				this.setWidth( newWidth + 'px' );
+			}.bind(this);
+
+			this.handleResizing(updateWidth);
+		},
 		handleResizeV: function(event, value) {
-			var listenerID;
-			var startY = MouseStore.mouseY;
-			var startHeight = this.getClientHeight();
 			var refs = this.purgeNulls( this.props.refs );
 			refs[this.props.containerIndex + 1].setHeight('auto');
 
-			var updateSize = function() {
-				if ( MouseStore.leftButtonState === "UP" ) {
-					this.active = false;
-					UI_Actions.doneResizing();
-					listenerID.remove();
-				} else {
-					var newHeight = Number(startHeight) + (MouseStore.mouseY - startY);
-					this.setHeight( newHeight + 'px' );
-				}
+			var startY = MouseStore.mouseY;
+			var startHeight = this.getClientHeight();
+			var updateHeight = function() {
+				var newHeight = Number(startHeight) + (MouseStore.mouseY - startY);
+				this.setHeight( newHeight + 'px' );
 			}.bind(this);
 
-			this.active = true;
-			UI_Actions.resizing();
-			listenerID = MouseStore.addListener(updateSize);
+			this.handleResizing(updateHeight);
 		},
 		render: function() {
 			var style = {
 				width: this.state.width,
+				height: this.state.height
 			};
 			var resizeH = false;
 			var resizeV = false;

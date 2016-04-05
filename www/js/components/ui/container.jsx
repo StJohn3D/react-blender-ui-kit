@@ -162,6 +162,12 @@ function(React, Row, UI_Store) {
 				}
 			}
 		},
+		watchFlowWhileResizing: function() {
+			this.checkFlow();
+			if ( UI_Store.isResizing === "TRUE" ) {
+				setTimeout(this.watchFlowWhileResizing, 100);
+			}
+		},
 		handleResizeEventEnd: function() {
 			this.checkFlow();
 			this.updateChildPanelSizes();
@@ -170,19 +176,10 @@ function(React, Row, UI_Store) {
 			}
 		},
 		handleResizeEvent: function() {
-			var checkFlow = this.checkFlow;
 			if ( UI_Store.isResizing === "TRUE" ) {
 				this.handleResizeEventStart();
-				var watchFlowWhileResizing = function() {
-					checkFlow();
-					if ( UI_Store.isResizing === "TRUE" ) {
-						setTimeout(watchFlowWhileResizing, 100);
-					}
-				};
-				watchFlowWhileResizing();
-			}
-
-			if ( UI_Store.isResizing === "FALSE" ) { //done resizing
+				this.watchFlowWhileResizing();
+			} else { //done resizing
 				this.handleResizeEventEnd();
 			}
 		},
@@ -200,12 +197,8 @@ function(React, Row, UI_Store) {
 			});
 		},
 		render: function() {
-			var classes = "container";
-			if ( this.props.master ) {
-				classes += " master"
-			};
 			return (
-				<section className={classes}>
+				<section className="container">
 					{this.flowContent()}
 				</section>
 			);
