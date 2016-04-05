@@ -13,13 +13,14 @@ function(React) {
 			return (
 				<div className="tool-example">
 					{this.props.toolSelector}
-					<h2>Tool example 2</h2>
+					<h2>Tool example 1</h2>
 					<div>
-						<div className="block">Thing 1</div>
-						<div className="block">Thing 2</div>
-						<div className="block">Thing 3</div>
-						<div className="block">Thing 4</div>
-						<div className="block">Thing 5</div>
+						<div className="block"><span>Thing 1</span></div>
+						<div className="block"><span>Thing 2</span></div>
+						<div className="block"><span>Thing 3</span></div>
+						<div className="block"><span>Thing 4</span></div>
+						<div className="block"><span>Thing 5</span></div>
+						<div className="block"><span>Thing 6</span></div>
 					</div>
 				</div>
 			);

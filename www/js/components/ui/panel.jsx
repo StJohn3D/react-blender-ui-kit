@@ -81,7 +81,7 @@ define(["react",
 
 			this.handleResizing(updateWidth);
 		},
-		handleResizeV: function(event, value) {
+		handleResizeV: function() {
 			event.preventDefault();
 			var refs = this.purgeNulls( this.props.refs );
 			refs[this.props.containerIndex + 1].setHeight('auto');
@@ -95,11 +95,22 @@ define(["react",
 
 			this.handleResizing(updateHeight);
 		},
+		handleToolSelected: function() {
+			var domNode = React.findDOMNode(this);
+			var toolSelector = domNode.getElementsByTagName("SELECT")[0];
+			var selectedIndex = toolSelector.selectedIndex;
+			this.setState(function(state) {
+				return {
+					content: state.tools[selectedIndex],
+					currentToolIndex: selectedIndex
+				}
+			});
+		},
 		buildToolSelector: function() {
 			var tools = this.state.tools;
 			var currentToolIndex = this.state.currentToolIndex;
 			if ( tools.length > 0 ) {
-				return <select>
+				return <select onChange={this.handleToolSelected}>
 					{tools.map(function(tool, index) {
 						var isSelected = false;
 						if ( index === currentToolIndex ) {

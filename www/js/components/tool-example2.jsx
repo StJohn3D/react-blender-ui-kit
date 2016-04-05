@@ -20,6 +20,7 @@ function(React) {
 						<li>Thing 3</li>
 						<li>Thing 4</li>
 						<li>Thing 5</li>
+						<li>Thing 6</li>
 					</ul>
 				</div>
 			);

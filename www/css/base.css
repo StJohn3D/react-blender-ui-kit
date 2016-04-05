@@ -72,7 +72,7 @@ body {
   width: 10px;
   height: 100%;
   z-index: 99999;
-  background-color: blue;
+  background-color: transparent;
 } .resize-h:hover {
   cursor: ew-resize;
 }
@@ -84,7 +84,7 @@ body {
   width: 100%;
   height: 10px;
   z-index: 99999;
-  background-color: red;
+  background-color: transparent;
 } .resize-v:hover {
   cursor: ns-resize;
 }
@@ -115,4 +115,17 @@ body {
 /*COMPONENTS*/
 .tool-example {
 	padding: 10px;
+}
+
+.block {
+	display: inline-table;
+	text-align: center;
+	height: 100px;
+	width: 100px;
+	background-color: #2B96FF;
+	margin: 10px;
+}
+.block > span {
+	display: table-cell;
+	vertical-align: middle;
 }

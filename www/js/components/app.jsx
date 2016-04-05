@@ -35,7 +35,6 @@ define(["react",
 					<Container content={[
 						<Panel content={<Home />} />,
 						<Panel height='100px' content={<Debug />} />,
-						<Panel height='100px' content={<Debug />} />
 					]}/>
 				</div>
 			);
