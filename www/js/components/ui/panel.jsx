@@ -1,21 +1,29 @@
 'use strict';
 
 define(["react",
-		"jsx!_/panel-empty",
 		"flux/actions/mouse-actions",
 		"flux/actions/ui-actions",
 		"flux/stores/mouse-store"
-], function( React, EmptyPanel, MouseActions, UI_Actions, MouseStore) {
+], function( React, MouseActions, UI_Actions, MouseStore) {
 
 	var Panel = React.createClass({
 		getInitialState: function() {
 			this.props.isUI = "PANEL";
+
+			var _tools = this.props.tools;
+			var _currentToolIndex = this.props.toolIndex || 0;
+			var _content = null;
+			if ( _tools.length > 0 ) {
+				_content = _tools[_currentToolIndex];
+			}
 			return {
 				width: this.props.width || 'auto',
 				height: this.props.height || 'auto',
-				content: this.props.content || null,
+				content: this.props.content || _content,
 				type: this.props.type,
-				active: false
+				active: false,
+				tools: this.props.tools || [],
+				currentToolIndex: this.props.toolIndex || 0
 			};
 		},
 		getClientWidth: function() {
@@ -59,7 +67,8 @@ define(["react",
 			UI_Actions.resizing();
 			listenerID = MouseStore.addListener(updateSize);
 		},
-		handleResizeH: function(event, value) {
+		handleResizeH: function() {
+			event.preventDefault();
 			var refs = this.purgeNulls( this.props.refs );
 			refs[this.props.containerIndex + 1].setWidth('auto');
 
@@ -73,6 +82,7 @@ define(["react",
 			this.handleResizing(updateWidth);
 		},
 		handleResizeV: function(event, value) {
+			event.preventDefault();
 			var refs = this.purgeNulls( this.props.refs );
 			refs[this.props.containerIndex + 1].setHeight('auto');
 
@@ -85,29 +95,55 @@ define(["react",
 
 			this.handleResizing(updateHeight);
 		},
+		buildToolSelector: function() {
+			var tools = this.state.tools;
+			var currentToolIndex = this.state.currentToolIndex;
+			if ( tools.length > 0 ) {
+				return <select>
+					{tools.map(function(tool, index) {
+						var isSelected = false;
+						if ( index === currentToolIndex ) {
+							isSelected = true;
+						}
+						return <option value={index} selected={isSelected}>{tool.type.niceName}</option>
+					})}
+				</select>;
+			} else {
+				return false;
+			}
+		},
+		buildContent: function() {
+			var content = this.state.content;
+			if ( content === null ) {
+				content = <div>
+					{this.buildToolSelector()}
+					<span>Width: {this.state.width}, Height: {this.state.height}</span>
+				</div>;
+			} else {
+				content.props.toolSelector = this.buildToolSelector();
+				content.props.tools = this.state.tools;
+			}
+			return content;
+		},
+		buildResizer: function() {
+			var resizer = false;
+			if ( this.state.type === 'LEFT' || this.state.type === 'INNER_H' ) {
+				resizer = <div className="resize-h" onMouseDown={this.handleResizeH}></div>;
+			} else if ( this.state.type === 'TOP' || this.state.type === 'INNER_V' ) {
+				resizer = <div className="resize-v" onMouseDown={this.handleResizeV}></div>;
+			}
+			return resizer;
+		},
 		render: function() {
 			var style = {
 				width: this.state.width,
 				height: this.state.height
 			};
-			var resizeH = false;
-			var resizeV = false;
-			if ( this.state.type === 'LEFT' || this.state.type === 'INNER_H' ) {
-				resizeH = <div className="resize-h" onMouseDown={this.handleResizeH}></div>;
-			} else if ( this.state.type === 'TOP' || this.state.type === 'INNER_V' ) {
-				resizeV = <div className="resize-v" onMouseDown={this.handleResizeV}></div>;
-			}
-
-			var content = this.state.content;
-			if ( content === null ) {
-				content = <span>Width: {this.state.width}, Height: {this.state.height}</span>;
-			}
-
+			
 			return (
 				<section className="panel" style={style}>
-					{content}
-					{resizeH}
-					{resizeV}
+					{this.buildContent()}
+					{this.buildResizer()}
 				</section>
 			);
 		}

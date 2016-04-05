@@ -13,6 +13,7 @@ function(React, Row, UI_Store) {
 				minWidth: this.props.minWidth || 480,
 				reverse: this.props.reverse || false,
 				content: this.props.content || [],
+				tools: this.props.tools || [],
 			};
 		},
 		getClientWidth: function() {
@@ -22,6 +23,7 @@ function(React, Row, UI_Store) {
 		flowContent: function() {
 			var flowDirection = this.state.flow;
 			var content = this.state.content;
+			var tools = this.state.tools;
 			if ( this.state.reverse ) {
 				content.reverse();
 			};
@@ -31,6 +33,7 @@ function(React, Row, UI_Store) {
 			var refs = this.refs = [];
 			return content.map(function(i) {
 				i.props.type = "ONLY";
+				i.props.tools = tools;
 				i.props.containerIndex = contentIndex;
 				i.props.refs = refs;
 				var returnVal = i;

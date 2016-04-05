@@ -5,7 +5,6 @@ define(["flux/action"], function(Action) {
 	var MouseActions = new Action("MOUSE");
 	
 	MouseActions.move = function() {
-		event.preventDefault();
 		MouseActions.sendAction({
 			type  : "MOVE",
 			event : event,
@@ -15,7 +14,6 @@ define(["flux/action"], function(Action) {
 	};
 
 	MouseActions.up = function() {
-		event.preventDefault();
 		MouseActions.sendAction({
 			type  : "UP",
 			event : event,
@@ -24,7 +22,6 @@ define(["flux/action"], function(Action) {
 	};
 
 	MouseActions.down = function() {
-		event.preventDefault();
 		MouseActions.sendAction({
 			type  : "DOWN",
 			event : event,
