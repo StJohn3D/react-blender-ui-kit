@@ -29,5 +29,7 @@ define(["flux/action"], function(Action) {
 		});
 	};
 
+	console.log('New MouseActions created ' + new Date().toDateString());
+
 	return MouseActions;
 });

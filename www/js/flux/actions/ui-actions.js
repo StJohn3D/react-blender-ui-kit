@@ -23,5 +23,7 @@ define(["flux/action"], function(Action) {
 		});
 	};
 
+	console.log('New UI_Actions created ' + new Date().toDateString());
+
 	return UI_Actions;
 });

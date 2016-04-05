@@ -11,5 +11,7 @@ define(["flux/action"], function(Action) {
 		});
 	};
 
+	console.log('New ExampleActions created ' + new Date().toDateString());
+
 	return ExampleActions;
 });
