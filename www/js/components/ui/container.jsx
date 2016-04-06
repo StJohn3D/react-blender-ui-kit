@@ -23,11 +23,11 @@ function(React, Row, UI_Store) {
 		flowContent: function() {
 			var flowDirection = this.state.flow;
 			var content = this.state.content;
-			var tools = this.state.tools;
 			if ( this.state.reverse ) {
 				content.reverse();
 			};
-
+			var tools = this.state.tools;
+			var oldPanelsInfo = this.lastPanelsInfoCollection;
 			var contentIndex = 0;
 			var lastIndex = content.length - 1;
 			var refs = this.refs = [];
@@ -36,11 +36,15 @@ function(React, Row, UI_Store) {
 				i.props.tools = tools;
 				i.props.containerIndex = contentIndex;
 				i.props.refs = refs;
-				var returnVal = i;
 				i.ref = function( component ) {
 					refs.push(component);
 				};
 
+				if ( oldPanelsInfo !== null ) {
+					i.props.toolIndex = oldPanelsInfo[contentIndex].currentToolIndex;
+				};
+
+				var returnVal = i;
 				switch ( flowDirection ) {
 					case 'HORIZONTAL':
 						if ( content.length > 1 ) {
