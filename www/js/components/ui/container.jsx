@@ -83,7 +83,10 @@ function(React, Row, UI_Store) {
 				}
 			});
 		},
-		lastWidthsCollection: null,
+		lastPanelsInfoCollection: null,
+		updateLastPanelsInfoCollection: function() {
+			this.lastPanelsInfoCollection = this.collectChildPanelsInfo();
+		},
 		checkFlow: function() {
 			var initialFlow = this.getInitialState().flow;
 			var minWidth = this.state.minWidth;
@@ -100,7 +103,7 @@ function(React, Row, UI_Store) {
 						this.setState(function(state) {
 							return { flow: "HORIZONTAL" };
 						});
-						this.updateChildPanelSizes(this.lastWidthsCollection);
+						this.updateChildPanelSizes(this.lastPanelsInfoCollection);
 					}
 				}
 			}
@@ -176,7 +179,7 @@ function(React, Row, UI_Store) {
 			this.checkFlow();
 			this.updateChildPanelSizes();
 			if ( this.state.flow === "HORIZONTAL" ) {
-				this.lastWidthsCollection = this.collectChildPanelsInfo();
+				this.updateLastPanelsInfoCollection();
 			}
 		},
 		handleUI_Change: function() {
