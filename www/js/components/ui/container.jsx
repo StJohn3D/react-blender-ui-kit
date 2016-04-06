@@ -85,7 +85,18 @@ function(React, Row, UI_Store) {
 		},
 		lastPanelsInfoCollection: null,
 		updateLastPanelsInfoCollection: function() {
-			this.lastPanelsInfoCollection = this.collectChildPanelsInfo();
+			var oldInfo = this.lastPanelsInfoCollection;
+			var newInfo = this.purgeNulls( this.collectChildPanelsInfo() );
+
+			if ( oldInfo !== null ) {
+				if ( this.state.flow === 'VERTICAL' ) {
+					newInfo.forEach(function( panelInfo, index ) {
+						panelInfo.width = oldInfo[index].width;
+					});
+				}
+			}
+
+			this.lastPanelsInfoCollection = newInfo;
 		},
 		checkFlow: function() {
 			var initialFlow = this.getInitialState().flow;
@@ -175,19 +186,14 @@ function(React, Row, UI_Store) {
 				setTimeout(this.watchFlowWhileResizing, 100);
 			}
 		},
-		handleResizeEventEnd: function() {
-			this.checkFlow();
-			this.updateChildPanelSizes();
-			if ( this.state.flow === "HORIZONTAL" ) {
-				this.updateLastPanelsInfoCollection();
-			}
-		},
 		handleUI_Change: function() {
 			if ( UI_Store.isResizing === "TRUE" ) {
 				this.handleResizeEventStart();
 				this.watchFlowWhileResizing();
 			} else { //done resizing
-				this.handleResizeEventEnd();
+				this.checkFlow();
+				this.updateChildPanelSizes();
+				this.updateLastPanelsInfoCollection();
 			}
 		},
 		listenerIDs: [],
