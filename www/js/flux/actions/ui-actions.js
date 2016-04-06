@@ -23,6 +23,12 @@ define(["flux/action"], function(Action) {
 		});
 	};
 
+	UI_Actions.toolSelected = function() {
+		UI_Actions.sendAction({
+			type: "TOOL_SELECTED"
+		});
+	};
+
 	console.log('New UI_Actions created ' + new Date().toDateString());
 
 	return UI_Actions;

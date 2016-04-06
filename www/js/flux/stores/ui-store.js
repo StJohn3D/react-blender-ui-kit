@@ -40,6 +40,9 @@ function(Store      ,  newChildOf) {
 				case "DONE_RESIZING":
 					setFalse();
 					break;
+				case "TOOL_SELECTED":
+					UI_Store.emitChange();
+					break;
 				default:
 					console.log("UI_Store: I don't know what to do with this ↓");
 					console.log( payload );
