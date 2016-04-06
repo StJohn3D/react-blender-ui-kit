@@ -33,16 +33,11 @@ define(["react",
 			return React.findDOMNode(this).clientHeight;
 		},
 		setWidth: function(newWidth) {
-			this.setState(function(state) {
-				return { width: newWidth };
-			});
+			this.setState({ width: newWidth });
 		},
 		setHeight: function(newHeight) {
-			this.setState(function(state) {
-				return { height: newHeight };
-			});
+			this.setState({ height: newHeight });
 		},
-		isActive: false,
 		purgeNulls: function(array) {
 			return array.filter(function(item) {
 				if (item) {
@@ -104,6 +99,9 @@ define(["react",
 					content: state.tools[selectedIndex],
 					currentToolIndex: selectedIndex
 				}
+			}, function() {
+				//To happen after setState is done
+				UI_Actions.toolSelected();
 			});
 		},
 		buildToolSelector: function() {
