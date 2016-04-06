@@ -178,7 +178,7 @@ function(React, Row, UI_Store) {
 				this.lastWidthsCollection = this.collectChildPanelsInfo();
 			}
 		},
-		handleResizeEvent: function() {
+		handleUI_Change: function() {
 			if ( UI_Store.isResizing === "TRUE" ) {
 				this.handleResizeEventStart();
 				this.watchFlowWhileResizing();
@@ -189,7 +189,7 @@ function(React, Row, UI_Store) {
 		listenerIDs: [],
 		componentDidMount: function() {//Called once after initial render
 			this.updateChildPanelSizes();
-			this.listenerIDs.push(UI_Store.addListener(this.handleResizeEvent));
+			this.listenerIDs.push(UI_Store.addListener(this.handleUI_Change));
 		},
 		componentDidUpdate: function() {//Called after each update render (The state has changed)
 			this.updateChildPanelSizes();
