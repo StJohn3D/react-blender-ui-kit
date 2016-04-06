@@ -12,6 +12,7 @@ define(["react",
 				mouseY: 0,
 				left  : "UP",
 				isResizing: 'false',
+				storeListenerIDs: []
 			};
 		},
 		handleMouseChange: function() {
@@ -30,13 +31,17 @@ define(["react",
 	            };
           });
 		},
-		listenerIDs: [],
 		componentDidMount: function() {
-			this.listenerIDs.push(MouseStore.addListener(this.handleMouseChange));
-			this.listenerIDs.push(UI_Store.addListener(this.handleResize));
+			var mouseStoreListenerID = MouseStore.addListener(this.handleMouseChange);
+			var uiStoreListenerID = UI_Store.addListener(this.handleResize);
+			var listenerIDs = [ mouseStoreListenerID, uiStoreListenerID ];
+			this.setState({
+				storeListenerIDs: listenerIDs
+			});
 		},
 		componentWillUnmount: function() {
-			this.listenerIDs.forEach(function( listenerID ) {
+			var listenerIDs = this.state.storeListenerIDs
+			listenerIDs.forEach(function( listenerID ) {
 				listenerID.remove();
 			});
 		},

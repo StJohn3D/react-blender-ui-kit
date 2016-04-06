@@ -9,7 +9,8 @@ define(["react",
 		getInitialState: function() {
 			return {
 				selectedIndex: ExampleStore.selectedIndex,
-				things: ExampleStore.things
+				things: ExampleStore.things,
+				storeListenerIDs: []
 			}
 		},
 		handleClick: function(index) {
@@ -37,12 +38,16 @@ define(["react",
 				}
 			});
 		},
-		listenerIDs: [],
 		componentDidMount: function() {
-			this.listenerIDs.push(ExampleStore.addListener(this.handleExampleChange));
+			var exampleStoreListenerID = ExampleStore.addListener(this.handleExampleChange);
+			var listenerIDs = [ exampleStoreListenerID ];
+			this.setState({
+				storeListenerIDs: listenerIDs
+			});
 		},
 		componentWillUnmount: function() {
-			this.listenerIDs.forEach(function( listenerID ) {
+			var listenerIDs = this.state.storeListenerIDs
+			listenerIDs.forEach(function( listenerID ) {
 				listenerID.remove();
 			});
 		},
