@@ -126,11 +126,12 @@ function(React, Row, UI_Store) {
 
 				if ( ref.props.isUI === "PANEL" ) {
 					collection.push({
-						index : _index,
-						width : ref.getClientWidth(),
-						height: ref.getClientHeight(),
-						type  : ref.props.type,
-						active: ref.state.active
+						index 			: _index,
+						width 			: ref.getClientWidth(),
+						height 			: ref.getClientHeight(),
+						type 			: ref.props.type,
+						active 			: ref.state.active,
+						currentToolIndex: ref.state.currentToolIndex
 					});
 				} else {
 					console.log("WARNING: It is strongly recommended to ONLY put panels inside container's content attribute.");
