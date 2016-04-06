@@ -9,7 +9,7 @@ function(React, Row, UI_Store) {
 		getInitialState: function() {
 			this.props.isUI = "CONTAINER";
 			return {
-				flow: this.props.flow ? this.props.flow.toUpperCase() : "VIRTICAL", //HORIZONTAL
+				flow: this.props.flow ? this.props.flow.toUpperCase() : "VERTICAL", //HORIZONTAL
 				minWidth: this.props.minWidth || 480,
 				reverse: this.props.reverse || false,
 				content: this.props.content || [],
@@ -53,7 +53,7 @@ function(React, Row, UI_Store) {
 							}
 						}
 						break;
-					case 'VIRTICAL':
+					case 'VERTICAL':
 						returnVal = <Row content={i} />;
 
 						if ( content.length > 1 ) {
@@ -67,7 +67,7 @@ function(React, Row, UI_Store) {
 						}
 						break;
 					default:
-						console.log("ERROR! A container's flowDirection must be either 'HORIZONTAL' or 'VIRTICAL'");
+						console.log("ERROR! A container's flowDirection must be either 'HORIZONTAL' or 'VERTICAL'");
 						console.log("Failed with " + flowDirection);
 						break;
 				}
@@ -90,9 +90,9 @@ function(React, Row, UI_Store) {
 
 			if ( initialFlow === "HORIZONTAL" && minWidth > 0 ) {
 				if ( this.getClientWidth() < minWidth ) {
-					if ( this.state.flow !== "VIRTICAL" ) {
+					if ( this.state.flow !== "VERTICAL" ) {
 						this.setState(function(state) {
-							return { flow: "VIRTICAL" };
+							return { flow: "VERTICAL" };
 						});
 					}
 				} else {
@@ -158,7 +158,7 @@ function(React, Row, UI_Store) {
 			});
 		},
 		handleResizeEventStart: function() {
-			if ( this.state.flow === 'VIRTICAL' ) {
+			if ( this.state.flow === 'VERTICAL' ) {
 				var childPanelsCollection = this.collectChildPanelsInfo();
 				if ( !childPanelsCollection.hasActivePanel ) {
 					childPanelsCollection.bottom.setHeight('auto');
