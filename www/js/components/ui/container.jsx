@@ -120,7 +120,7 @@ function(React, Row, UI_Store) {
 						break;
 				};
 
-				if ( ref.active ) {
+				if ( ref.state.active ) {
 					collection.hasActivePanel = true;
 				}
 

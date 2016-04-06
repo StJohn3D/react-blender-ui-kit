@@ -50,17 +50,19 @@ define(["react",
 
 			var updateSize = function() {
 				if ( MouseStore.leftButtonState === "UP" ) {
-					this.active = false;
-					UI_Actions.doneResizing();
-					listenerID.remove();
+					this.setState({ active: false }, function() {
+						UI_Actions.doneResizing();
+						listenerID.remove();
+					});
 				} else {
 					updateFunc()
 				}
 			}.bind(this);
 
-			this.active = true;
-			UI_Actions.resizing();
-			listenerID = MouseStore.addListener(updateSize);
+			this.setState({ active: true }, function() {
+				UI_Actions.resizing();
+				listenerID = MouseStore.addListener(updateSize);
+			});
 		},
 		handleResizeH: function() {
 			event.preventDefault();
