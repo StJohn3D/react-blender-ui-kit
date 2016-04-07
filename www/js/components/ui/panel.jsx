@@ -1,11 +1,12 @@
 'use strict';
 
 define(["react",
+		"com/generateID",
 		"flux/actions/mouse-actions",
 		"flux/actions/ui-actions",
 		"flux/stores/ui-store",
 		"flux/stores/mouse-store"
-], function( React, MouseActions, UI_Actions, UI_Store, MouseStore) {
+], function( React, generateID, MouseActions, UI_Actions, UI_Store, MouseStore) {
 
 	var Panel = React.createClass({
 		getInitialState: function() {
@@ -18,7 +19,7 @@ define(["react",
 				_content = _tools[_currentToolIndex];
 			}
 			return {
-				instanceID: String(Math.random()).substr(2, 8),
+				instanceID: generateID(),
 				width: this.props.width || 'auto',
 				height: this.props.height || 'auto',
 				content: this.props.content || _content,

@@ -2,15 +2,17 @@
 
 define(["react",
 		"jsx!_/ui/row",
+		"com/generateID",
 		"flux/stores/ui-store",
 		"flux/actions/ui-actions"
-], function(React, Row, UI_Store, UI_Actions) {
+], function(React, Row, generateID, UI_Store, UI_Actions) {
 
 	var Container = React.createClass({
 		getInitialState: function() {
 			this.props.isUI = "CONTAINER";
+			var idName = this.props.name || '';
 			return {
-				instanceID: this.props.name || String(Math.random()).substr(2, 8),
+				instanceID: generateID(idName),
 				flow: this.props.flow ? this.props.flow.toUpperCase() : "VERTICAL", //HORIZONTAL
 				minWidth: this.props.minWidth || 480,
 				reverse: this.props.reverse || false,
@@ -107,8 +109,6 @@ define(["react",
 
 
 			this.lastPanelsInfoCollection = mergedInfo;
-			console.log(this.state.instanceID + ' has the following panel info');
-			console.log(newInfo);
 		},
 		checkFlow: function() {
 			// console.log(this.state.instanceID + ': Checking Flow');
@@ -193,7 +193,6 @@ define(["react",
 			console.log(this.state.instanceID + ': Handling resize event START');
 			if ( this.state.flow === 'VERTICAL' ) {
 				var refs = this.collectChildPanelsInfo();
-				console.log(refs);
 				if ( !refs.hasActivePanel && refs.length ) {
 					refs.bottom.setHeight('auto');
 				}
@@ -206,7 +205,6 @@ define(["react",
 			}
 		},
 		handleUI_Change: function(type) {
-			console.log(type);
 			switch (type) {
 				case "RESIZING":
 					if ( UI_Store.isResizing === "TRUE" ) {

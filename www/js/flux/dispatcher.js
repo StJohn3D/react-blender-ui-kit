@@ -7,8 +7,8 @@
 	//			isDispatching > .isDispatching
 */
 
-define(["com/sj-promise"],
-function(        Promise) {
+define(["com/sj-promise", "com/generateID"],
+function(       Promise ,  generateID) {
 	
 	var Dispatcher = function() {
 		/// ************************************************************************
@@ -38,7 +38,7 @@ function(        Promise) {
 	    /// Privileged Methods
 	    /// ************************************************************************
 	 	this.register = function(callback) {
-	 		var handlerID = Date.now();
+	 		var handlerID = generateID();
 	 		_callbacks[handlerID] = callback;
 	 		return handlerID;
 	 	};

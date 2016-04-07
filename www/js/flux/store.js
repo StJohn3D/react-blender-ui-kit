@@ -9,7 +9,7 @@
 	//			hasChanged > .hasChanged
 */
 
-define(["flux/dispatcher"], function(Dispatcher) {
+define(["flux/dispatcher", "com/generateID"], function(Dispatcher, generateID) {
 	
 	var Store = function() {
 
@@ -80,7 +80,7 @@ define(["flux/dispatcher"], function(Dispatcher) {
 	    /// Privileged Methods
 	    /// ************************************************************************
 	    this.addListener = function(callback) {
-	    	var handlerID = String(Math.random()).substr(2, 8);
+	    	var handlerID = generateID();
 	    	var store = this;
 	    	this.callbacks[handlerID] = callback;
 	    	return {
