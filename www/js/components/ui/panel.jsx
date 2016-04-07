@@ -26,7 +26,8 @@ define(["react",
 				type: this.props.type,
 				active: false,
 				tools: this.props.tools || [],
-				currentToolIndex: this.props.toolIndex || 0
+				currentToolIndex: this.props.toolIndex || 0,
+				storeListenerIDs: []
 			};
 		},
 		getClientWidth: function() {
@@ -89,24 +90,30 @@ define(["react",
 			this.handleResizing(updateHeight);
 		},
 		handleToolSelected: function() {
-			var domNode = React.findDOMNode(this);
-			var toolSelector = domNode.getElementsByTagName("SELECT")[0];
-			var selectedIndex = toolSelector.selectedIndex;
-			this.setState(function(state) {
-				return {
-					content: state.tools[selectedIndex],
-					currentToolIndex: selectedIndex
+			if ( this.state.tools.length ) {
+				var domNode = React.findDOMNode(this);
+				var toolSelector = domNode.getElementsByTagName("SELECT")[0];
+				if ( event.target === toolSelector
+				&& this.state.content.type.displayName !== 'Container' ) {
+					var selectedIndex = toolSelector.selectedIndex;
+					this.setState(function(state) {
+						return {
+							content: state.tools[selectedIndex],
+							currentToolIndex: selectedIndex
+						}
+					}, function() { //Called after setState completes
+						UI_Actions.toolUpdated();
+					});
 				}
-			}, function() {
-				//To happen after setState is done
-				UI_Actions.toolSelected();
-			});
+			}
 		},
 		buildToolSelector: function() {
+			var id = this.state.instanceID;
 			var tools = this.state.tools;
 			var currentToolIndex = this.state.currentToolIndex;
+
 			if ( tools.length > 0 ) {
-				return <select onChange={this.handleToolSelected}>
+				return <select onChange={UI_Actions.toolSelected}>
 					{tools.map(function(tool, index) {
 						var isSelected = false;
 						if ( index === currentToolIndex ) {
@@ -141,15 +148,37 @@ define(["react",
 			}
 			return resizer;
 		},
+		handleUI_Change: function(type) {
+			switch (type) {
+				case "RESIZING":
+					break;
+				case "DONE_RESIZING":
+					break;
+				case "TOOL_SELECTED":
+					this.handleToolSelected();
+					break;
+				default:
+					break;
+			}
+		},
 		componentDidMount: function() {//Called once after initial render
 			UI_Actions.panelCreated(
 				this.props.parentContainerID,
 				this.props.containerIndex,
 				this
 			);
+			var uiStoreListenerID = UI_Store.addListener(this.handleUI_Change);
+			var listenerIDs = [ uiStoreListenerID ];
+			this.setState({
+				storeListenerIDs: listenerIDs
+			});
 		},
 		componentWillUnmount: function() {
 			UI_Actions.panelDistroyed( this.props.parentContainerID, this.props.containerIndex );
+			var listenerIDs = this.state.storeListenerIDs
+			listenerIDs.forEach(function( listenerID ) {
+				listenerID.remove();
+			});
 		},
 		render: function() {
 			var style = {

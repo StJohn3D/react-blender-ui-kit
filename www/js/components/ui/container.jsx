@@ -219,7 +219,7 @@ define(["react",
 					this.updateChildPanelSizes();
 					this.updateLastPanelsInfoCollection();
 					break;
-				case "TOOL_SELECTED":
+				case "TOOL_UPDATED":
 					this.updateLastPanelsInfoCollection();
 					break;
 				default:

@@ -65,6 +65,10 @@ function(Store      ,  newChildOf) {
 					UI_Store.emitChange("TOOL_SELECTED");
 					break;
 
+				case "TOOL_UPDATED":
+					UI_Store.emitChange("TOOL_UPDATED");
+					break;
+
 				case "CONTAINER_CREATED":
 					ensureContainerIsRegistered( payload.id );
 					UI_Store.emitChange("CONTAINER_CREATED");
@@ -72,7 +76,7 @@ function(Store      ,  newChildOf) {
 
 				case "CONTAINER_DISTROYED":
 					delete _containers[ payload.id ];
-					console.log('Container with id: ' + id + ' - DESTROYED');
+					console.log('Container with id: ' + payload.id + ' - DESTROYED');
 					UI_Store.emitChange("CONTAINER_DISTROYED");
 					break;
 
@@ -85,7 +89,9 @@ function(Store      ,  newChildOf) {
 					break;
 
 				case "PANEL_DISTROYED":
-					_containers[ payload.parentContainerID ][ payload.index ];
+					if ( _containers[ payload.parentContainerID ] ) {
+						delete _containers[ payload.parentContainerID ][ payload.index ];
+					};
 					console.log(' - DESTROYED panel in ' + payload.parentContainerID + ' at index ' + payload.index );
 					UI_Store.emitChange("PANEL_DISTROYED");
 					break;

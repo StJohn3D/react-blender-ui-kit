@@ -29,6 +29,12 @@ define(["flux/action"], function(Action) {
 		});
 	};
 
+	UI_Actions.toolUpdated = function() {
+		UI_Actions.sendAction({
+			type: "TOOL_UPDATED"
+		});
+	};
+
 	UI_Actions.containerCreated = function( instanceID ) {
 		UI_Actions.sendAction({
 			type: "CONTAINER_CREATED",
