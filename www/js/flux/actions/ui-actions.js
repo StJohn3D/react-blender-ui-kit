@@ -29,6 +29,37 @@ define(["flux/action"], function(Action) {
 		});
 	};
 
+	UI_Actions.containerCreated = function( instanceID ) {
+		UI_Actions.sendAction({
+			type: "CONTAINER_CREATED",
+			id  : instanceID
+		});
+	};
+
+	UI_Actions.containerDistroyed = function( instanceID ) {
+		UI_Actions.sendAction({
+			type: "CONTAINER_DISTROYED",
+			id  : instanceID
+		});
+	};
+
+	UI_Actions.panelCreated = function( parentContainerID, containerIndex, component ) {
+		UI_Actions.sendAction({
+			type 				: "PANEL_CREATED",
+			parentContainerID 	: parentContainerID,
+			index  				: containerIndex,
+			component 			: component
+		});
+	};
+
+	UI_Actions.panelDistroyed = function( parentContainerID, containerIndex ) {
+		UI_Actions.sendAction({
+			type 				: "PANEL_DISTROYED",
+			parentContainerID 	: parentContainerID,
+			index  				: containerIndex,
+		});
+	}
+
 	console.log('New UI_Actions created ' + new Date().toDateString());
 
 	return UI_Actions;

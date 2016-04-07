@@ -9,7 +9,7 @@
 	//			hasChanged > .hasChanged
 */
 
-define(["microevent", "flux/dispatcher"], function(Microevent, Dispatcher) {
+define(["flux/dispatcher"], function(Dispatcher) {
 	
 	var Store = function() {
 
@@ -74,25 +74,31 @@ define(["microevent", "flux/dispatcher"], function(Microevent, Dispatcher) {
 		      }
 		});
 
+	    this.callbacks = {};
+
 	    /// ************************************************************************
 	    /// Privileged Methods
 	    /// ************************************************************************
 	    this.addListener = function(callback) {
+	    	var handlerID = String(Math.random()).substr(2, 8);
 	    	var store = this;
-	    	store.bind( 'change', callback );
+	    	this.callbacks[handlerID] = callback;
 	    	return {
 	    		remove: function() {
-	    			store.unbind( 'change', callback );
+	    			delete store.callbacks[ handlerID ];
 	    		}
 	    	};
 	    };
 
-	    this.emitChange = function() {
-	    	this.trigger( 'change' );
+	    this.emitChange = function(event) {
+	    	var handlerIDs = Object.keys( this.callbacks );
+	    	var store = this;
+	 		handlerIDs.forEach(function(id) {
+	 			store.callbacks[ id ]( event || 'change' );
+	 		});
 	    };
 
 	};
-	Microevent.mixin( Store );
 
 	return Store;
 });

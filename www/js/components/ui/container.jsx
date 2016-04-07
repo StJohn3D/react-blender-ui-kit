@@ -2,13 +2,15 @@
 
 define(["react",
 		"jsx!_/ui/row",
-		"flux/stores/ui-store"],
-function(React, Row, UI_Store) {
+		"flux/stores/ui-store",
+		"flux/actions/ui-actions"
+], function(React, Row, UI_Store, UI_Actions) {
 
 	var Container = React.createClass({
 		getInitialState: function() {
 			this.props.isUI = "CONTAINER";
 			return {
+				instanceID: this.props.name || String(Math.random()).substr(2, 8),
 				flow: this.props.flow ? this.props.flow.toUpperCase() : "VERTICAL", //HORIZONTAL
 				minWidth: this.props.minWidth || 480,
 				reverse: this.props.reverse || false,
@@ -19,8 +21,8 @@ function(React, Row, UI_Store) {
 		getClientWidth: function() {
 			return React.findDOMNode(this).clientWidth;
 		},
-		refs: [],
 		flowContent: function() {
+			var instanceID = this.state.instanceID;
 			var flowDirection = this.state.flow;
 			var content = this.state.content;
 			if ( this.state.reverse ) {
@@ -30,15 +32,11 @@ function(React, Row, UI_Store) {
 			var oldPanelsInfo = this.lastPanelsInfoCollection;
 			var contentIndex = 0;
 			var lastIndex = content.length - 1;
-			var refs = this.refs = [];
 			return content.map(function(i) {
 				i.props.type = "ONLY";
 				i.props.tools = tools;
+				i.props.parentContainerID = instanceID;
 				i.props.containerIndex = contentIndex;
-				i.props.refs = refs;
-				i.ref = function( component ) {
-					refs.push(component);
-				};
 
 				if ( oldPanelsInfo !== null ) {
 					i.props.toolIndex = oldPanelsInfo[contentIndex].currentToolIndex;
@@ -80,29 +78,40 @@ function(React, Row, UI_Store) {
 				return returnVal;
 			});
 		},
-		purgeNulls: function(array) {
-			return array.filter(function(item) {
-				if (item) {
-					return item;
-				}
-			});
-		},
 		lastPanelsInfoCollection: null,
 		updateLastPanelsInfoCollection: function() {
+			var currentFlow = this.state.flow;
+			var originalFlow = this.getInitialState().flow;
 			var oldInfo = this.lastPanelsInfoCollection;
-			var newInfo = this.purgeNulls( this.collectChildPanelsInfo() );
+			var newInfo = this.collectChildPanelsInfo();
+			var mergedInfo = [];
 
 			if ( oldInfo !== null ) {
-				if ( this.state.flow === 'VERTICAL' ) {
-					newInfo.forEach(function( panelInfo, index ) {
+				mergedInfo = oldInfo;
+
+				newInfo.forEach(function( panelInfo ) {
+					var index = panelInfo.index;
+
+					if ( currentFlow === 'VERTICAL' && originalFlow === 'HORIZONTAL' ) {
 						panelInfo.width = oldInfo[index].width;
-					});
-				}
+					}
+
+					mergedInfo[index] = panelInfo;
+				});
+
+				mergedInfo.hasActivePanel = newInfo.hasActivePanel;
+				mergedInfo.bottom = newInfo.bottom || undefined;
+			} else {
+				mergedInfo = newInfo;
 			}
 
-			this.lastPanelsInfoCollection = newInfo;
+
+			this.lastPanelsInfoCollection = mergedInfo;
+			console.log(this.state.instanceID + ' has the following panel info');
+			console.log(newInfo);
 		},
 		checkFlow: function() {
+			// console.log(this.state.instanceID + ': Checking Flow');
 			var initialFlow = this.getInitialState().flow;
 			var minWidth = this.state.minWidth;
 
@@ -127,9 +136,9 @@ function(React, Row, UI_Store) {
 			var collection = [];
 			collection.hasActivePanel = false;
 
-			var refs = this.purgeNulls( this.refs );
+			var refs = UI_Store.getChildPanels( this.state.instanceID );
 
-			refs.forEach(function(ref, _index) {
+			refs.forEach(function(ref) {
 				switch ( ref.props.type ) {
 					case "BOTTOM":
 						collection.bottom = ref;
@@ -144,9 +153,9 @@ function(React, Row, UI_Store) {
 
 				if ( ref.props.isUI === "PANEL" ) {
 					collection.push({
-						index 			: _index,
 						width 			: ref.getClientWidth(),
 						height 			: ref.getClientHeight(),
+						index 			: ref.props.containerIndex,
 						type 			: ref.props.type,
 						active 			: ref.state.active,
 						currentToolIndex: ref.state.currentToolIndex
@@ -162,8 +171,12 @@ function(React, Row, UI_Store) {
 			return collection;
 		},
 		updateChildPanelSizes: function(collection) {
+			console.log(this.state.instanceID + ': Updating Child Panel Sizes');
 			var panelQueue = collection || this.collectChildPanelsInfo();
-			var refs = this.purgeNulls( this.refs );
+			var refs = UI_Store.getChildPanels( this.state.instanceID );
+			if ( panelQueue.length !== refs.length ) {
+				throw("Something is wrong here");
+			};
 			var flow = this.state.flow;
 			panelQueue.forEach(function(panel) {
 				var index = panel.index;
@@ -177,10 +190,12 @@ function(React, Row, UI_Store) {
 			});
 		},
 		handleResizeEventStart: function() {
+			console.log(this.state.instanceID + ': Handling resize event START');
 			if ( this.state.flow === 'VERTICAL' ) {
-				var childPanelsCollection = this.collectChildPanelsInfo();
-				if ( !childPanelsCollection.hasActivePanel ) {
-					childPanelsCollection.bottom.setHeight('auto');
+				var refs = this.collectChildPanelsInfo();
+				console.log(refs);
+				if ( !refs.hasActivePanel && refs.length ) {
+					refs.bottom.setHeight('auto');
 				}
 			}
 		},
@@ -190,18 +205,32 @@ function(React, Row, UI_Store) {
 				setTimeout(this.watchFlowWhileResizing, 100);
 			}
 		},
-		handleUI_Change: function() {
-			if ( UI_Store.isResizing === "TRUE" ) {
-				this.handleResizeEventStart();
-				this.watchFlowWhileResizing();
-			} else { //done resizing
-				this.checkFlow();
-				this.updateChildPanelSizes();
-				this.updateLastPanelsInfoCollection();
+		handleUI_Change: function(type) {
+			console.log(type);
+			switch (type) {
+				case "RESIZING":
+					if ( UI_Store.isResizing === "TRUE" ) {
+						this.handleResizeEventStart();
+						this.watchFlowWhileResizing();
+					} else {
+						console.log('False resizing event');
+					}
+					break;
+				case "DONE_RESIZING":
+					this.checkFlow();
+					this.updateChildPanelSizes();
+					this.updateLastPanelsInfoCollection();
+					break;
+				case "TOOL_SELECTED":
+					this.updateLastPanelsInfoCollection();
+					break;
+				default:
+					break;
 			}
 		},
 		listenerIDs: [],
 		componentDidMount: function() {//Called once after initial render
+			UI_Actions.containerCreated( this.state.instanceID );
 			this.updateChildPanelSizes();
 			this.listenerIDs.push(UI_Store.addListener(this.handleUI_Change));
 		},
@@ -209,6 +238,7 @@ function(React, Row, UI_Store) {
 			this.updateChildPanelSizes();
 		},
 		componentWillUnmount: function() {
+			UI_Actions.containerDistroyed( this.state.instanceID );
 			this.listenerIDs.forEach(function( listenerID ) {
 				listenerID.remove();
 			});

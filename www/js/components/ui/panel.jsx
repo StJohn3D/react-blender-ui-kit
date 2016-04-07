@@ -3,8 +3,9 @@
 define(["react",
 		"flux/actions/mouse-actions",
 		"flux/actions/ui-actions",
+		"flux/stores/ui-store",
 		"flux/stores/mouse-store"
-], function( React, MouseActions, UI_Actions, MouseStore) {
+], function( React, MouseActions, UI_Actions, UI_Store, MouseStore) {
 
 	var Panel = React.createClass({
 		getInitialState: function() {
@@ -17,6 +18,7 @@ define(["react",
 				_content = _tools[_currentToolIndex];
 			}
 			return {
+				instanceID: String(Math.random()).substr(2, 8),
 				width: this.props.width || 'auto',
 				height: this.props.height || 'auto',
 				content: this.props.content || _content,
@@ -37,13 +39,6 @@ define(["react",
 		},
 		setHeight: function(newHeight) {
 			this.setState({ height: newHeight });
-		},
-		purgeNulls: function(array) {
-			return array.filter(function(item) {
-				if (item) {
-					return item;
-				}
-			});
 		},
 		handleResizing: function(updateFunc) {
 			var listenerID;
@@ -66,7 +61,7 @@ define(["react",
 		},
 		handleResizeH: function() {
 			event.preventDefault();
-			var refs = this.purgeNulls( this.props.refs );
+			var refs = UI_Store.getChildPanels( this.props.parentContainerID );
 			refs[this.props.containerIndex + 1].setWidth('auto');
 
 			var startX = MouseStore.mouseX;
@@ -80,7 +75,7 @@ define(["react",
 		},
 		handleResizeV: function() {
 			event.preventDefault();
-			var refs = this.purgeNulls( this.props.refs );
+			var refs = UI_Store.getChildPanels( this.props.parentContainerID );
 			refs[this.props.containerIndex + 1].setHeight('auto');
 
 			var startY = MouseStore.mouseY;
@@ -144,6 +139,16 @@ define(["react",
 				resizer = <div className="resize-v" onMouseDown={this.handleResizeV}></div>;
 			}
 			return resizer;
+		},
+		componentDidMount: function() {//Called once after initial render
+			UI_Actions.panelCreated(
+				this.props.parentContainerID,
+				this.props.containerIndex,
+				this
+			);
+		},
+		componentWillUnmount: function() {
+			UI_Actions.panelDistroyed( this.props.parentContainerID, this.props.containerIndex );
 		},
 		render: function() {
 			var style = {
