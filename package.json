@@ -1,0 +1,35 @@
+{
+  "name": "timber-ui",
+  "version": "0.0.1",
+  "description": "A ui framework inspired by Blender.org",
+  "main": "timber.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StJohn3D/timber-ui.git"
+  },
+  "keywords": [
+    "resize",
+    "split",
+    "merge",
+    "panels",
+    "timber",
+    "ui",
+    "blender",
+    "react"
+  ],
+  "author": "StJohn3D",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StJohn3D/timber-ui/issues"
+  },
+  "homepage": "https://github.com/StJohn3D/timber-ui#readme",
+  "dependencies": {
+    "js-stylesheet": "^0.0.1",
+    "keymirror": "^0.1.1",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1"
+  }
+}
