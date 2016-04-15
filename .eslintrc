@@ -1,0 +1,53 @@
+{
+	"ecmaFeatures": {
+		"jsx": true
+	},
+	"env": {
+		"browser": true,
+		"node": true,
+		"jquery": true
+	},
+	"plugins": [
+		"react"
+	],
+	"settings": {
+    	"react": {
+			"pragma": "React",  // Pragma to use, default to "React"
+	  		"version": "15.0.1" // React version, default to the latest React stable release
+    	}
+	},
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"extends": ["eslint:recommended", "plugin:react/recommended"],
+	"rules": {
+		"no-eval": 1,
+		"no-spaced-func": 2,
+		"no-unused-expressions": [1],
+		"no-unused-vars": [2, {"vars": "all", "args": "after-used"}],
+		"no-shadow": [0],
+		"no-console": [0],
+		"no-underscore-dangle": [0],
+		"brace-style": [2, "1tbs", { "allowSingleLine": true }],
+		"camelcase": 2,
+		"object-curly-spacing": [2, "always"],
+		"array-bracket-spacing": [2, "always"],
+		"computed-property-spacing": [2, "always"],
+		"space-infix-ops": [2, {"int32Hint": false}],
+		"keyword-spacing": [2],
+		"new-parens": [2],
+		"curly": [0, "multi"],
+		"quotes" : [2, "single", "avoid-escape"],
+		"key-spacing": [2, {
+			"align": "colon",
+			"beforeColon": false,
+			"afterColon": true
+		}]
+	},
+	"globals": {
+		"jQuery": true,
+		"$": true
+	}
+}

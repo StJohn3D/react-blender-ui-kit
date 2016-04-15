@@ -1,0 +1,228 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@3.6.0
+3 info using node@v5.7.1
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly install normalizeTree
+8 silly loadCurrentTree Finishing
+9 silly loadIdealTree Starting
+10 silly install loadIdealTree
+11 silly cloneCurrentTree Starting
+12 silly install cloneCurrentTreeToIdealTree
+13 silly cloneCurrentTree Finishing
+14 silly loadShrinkwrap Starting
+15 silly install loadShrinkwrap
+16 silly loadShrinkwrap Finishing
+17 silly loadAllDepsIntoIdealTree Starting
+18 silly install loadAllDepsIntoIdealTree
+19 silly fetchNamedPackageData react
+20 silly mapToRegistry name react
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/react
+24 silly fetchNamedPackageData react-dom
+25 silly mapToRegistry name react-dom
+26 silly mapToRegistry using default registry
+27 silly mapToRegistry registry https://registry.npmjs.org/
+28 silly mapToRegistry uri https://registry.npmjs.org/react-dom
+29 verbose request uri https://registry.npmjs.org/react-dom
+30 verbose request no auth needed
+31 info attempt registry request try #1 at 6:47:00 PM
+32 verbose request id cbfe4d1be27cc588
+33 verbose etag "3WODL33ZAHIYW8WRPTGI5YCQB"
+34 http request GET https://registry.npmjs.org/react-dom
+35 verbose request uri https://registry.npmjs.org/react
+36 verbose request no auth needed
+37 info attempt registry request try #1 at 6:47:00 PM
+38 verbose etag "7FP6HAWCRN2XHVOVIUFLXIBK4"
+39 http request GET https://registry.npmjs.org/react
+40 http 304 https://registry.npmjs.org/react
+41 verbose headers { date: 'Wed, 13 Apr 2016 22:47:00 GMT',
+41 verbose headers   via: '1.1 varnish',
+41 verbose headers   'cache-control': 'max-age=300',
+41 verbose headers   etag: '"7FP6HAWCRN2XHVOVIUFLXIBK4"',
+41 verbose headers   age: '167',
+41 verbose headers   connection: 'keep-alive',
+41 verbose headers   'x-served-by': 'cache-jfk1026-JFK',
+41 verbose headers   'x-cache': 'HIT',
+41 verbose headers   'x-cache-hits': '119',
+41 verbose headers   'x-timer': 'S1460587620.671121,VS0,VE0',
+41 verbose headers   vary: 'Accept-Encoding' }
+42 silly get cb [ 304,
+42 silly get   { date: 'Wed, 13 Apr 2016 22:47:00 GMT',
+42 silly get     via: '1.1 varnish',
+42 silly get     'cache-control': 'max-age=300',
+42 silly get     etag: '"7FP6HAWCRN2XHVOVIUFLXIBK4"',
+42 silly get     age: '167',
+42 silly get     connection: 'keep-alive',
+42 silly get     'x-served-by': 'cache-jfk1026-JFK',
+42 silly get     'x-cache': 'HIT',
+42 silly get     'x-cache-hits': '119',
+42 silly get     'x-timer': 'S1460587620.671121,VS0,VE0',
+42 silly get     vary: 'Accept-Encoding' } ]
+43 verbose etag https://registry.npmjs.org/react from cache
+44 verbose get saving react to /Users/sjpeaster/.npm/registry.npmjs.org/react/.cache.json
+45 verbose correctMkdir /Users/sjpeaster/.npm correctMkdir not in flight; initializing
+46 http 304 https://registry.npmjs.org/react-dom
+47 verbose headers { date: 'Wed, 13 Apr 2016 22:47:00 GMT',
+47 verbose headers   via: '1.1 varnish',
+47 verbose headers   'cache-control': 'max-age=300',
+47 verbose headers   etag: '"3WODL33ZAHIYW8WRPTGI5YCQB"',
+47 verbose headers   age: '83',
+47 verbose headers   connection: 'keep-alive',
+47 verbose headers   'x-served-by': 'cache-jfk1035-JFK',
+47 verbose headers   'x-cache': 'HIT',
+47 verbose headers   'x-cache-hits': '2',
+47 verbose headers   'x-timer': 'S1460587620.674863,VS0,VE0',
+47 verbose headers   vary: 'Accept-Encoding' }
+48 silly get cb [ 304,
+48 silly get   { date: 'Wed, 13 Apr 2016 22:47:00 GMT',
+48 silly get     via: '1.1 varnish',
+48 silly get     'cache-control': 'max-age=300',
+48 silly get     etag: '"3WODL33ZAHIYW8WRPTGI5YCQB"',
+48 silly get     age: '83',
+48 silly get     connection: 'keep-alive',
+48 silly get     'x-served-by': 'cache-jfk1035-JFK',
+48 silly get     'x-cache': 'HIT',
+48 silly get     'x-cache-hits': '2',
+48 silly get     'x-timer': 'S1460587620.674863,VS0,VE0',
+48 silly get     vary: 'Accept-Encoding' } ]
+49 verbose etag https://registry.npmjs.org/react-dom from cache
+50 verbose get saving react-dom to /Users/sjpeaster/.npm/registry.npmjs.org/react-dom/.cache.json
+51 verbose correctMkdir /Users/sjpeaster/.npm correctMkdir already in flight; waiting
+52 silly fetchPackageMetaData Error: No compatible version found: react-dom@0.13.x
+52 silly fetchPackageMetaData Valid install targets:
+52 silly fetchPackageMetaData 15.0.1, 15.0.0, 15.0.0-rc.2, 15.0.0-rc.1, 0.15.0-alpha.1, 0.14.8, 0.14.7, 0.14.6, 0.14.5, 0.14.4, 0.14.3, 0.14.2, 0.14.1, 0.14.0, 0.14.0-rc1, 0.14.0-beta3, 0.14.0-beta2, 0.14.0-beta1, 0.1.0
+52 silly fetchPackageMetaData
+52 silly fetchPackageMetaData     at pickVersionFromRegistryDocument (/usr/local/lib/node_modules/npm/lib/fetch-package-metadata.js:156:16)
+52 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/node_modules/iferr/index.js:13:50
+52 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/lib/utils/pulse-till-done.js:19:8
+52 silly fetchPackageMetaData     at saved (/usr/local/lib/node_modules/npm/lib/cache/caching-client.js:168:7)
+52 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/polyfills.js:210:7
+52 silly fetchPackageMetaData     at FSReqWrap.oncomplete (fs.js:82:15)
+52 silly fetchPackageMetaData  error for react-dom@0.13.x [Error: No compatible version found: react-dom@0.13.x
+52 silly fetchPackageMetaData Valid install targets:
+52 silly fetchPackageMetaData 15.0.1, 15.0.0, 15.0.0-rc.2, 15.0.0-rc.1, 0.15.0-alpha.1, 0.14.8, 0.14.7, 0.14.6, 0.14.5, 0.14.4, 0.14.3, 0.14.2, 0.14.1, 0.14.0, 0.14.0-rc1, 0.14.0-beta3, 0.14.0-beta2, 0.14.0-beta1, 0.1.0
+52 silly fetchPackageMetaData ]
+53 silly resolveWithNewModule react@0.13.3 checking installable status
+54 silly cache add args [ 'react@0.13.x', null ]
+55 verbose cache add spec react@0.13.x
+56 silly cache add parsed spec Result {
+56 silly cache add   raw: 'react@0.13.x',
+56 silly cache add   scope: null,
+56 silly cache add   name: 'react',
+56 silly cache add   rawSpec: '0.13.x',
+56 silly cache add   spec: '>=0.13.0 <0.14.0',
+56 silly cache add   type: 'range' }
+57 silly addNamed react@>=0.13.0 <0.14.0
+58 verbose addNamed ">=0.13.0 <0.14.0" is a valid semver range for react
+59 silly addNameRange { name: 'react', range: '>=0.13.0 <0.14.0', hasData: false }
+60 silly mapToRegistry name react
+61 silly mapToRegistry using default registry
+62 silly mapToRegistry registry https://registry.npmjs.org/
+63 silly mapToRegistry uri https://registry.npmjs.org/react
+64 verbose addNameRange registry:https://registry.npmjs.org/react not in flight; fetching
+65 verbose get https://registry.npmjs.org/react not expired, no request
+66 silly addNameRange number 2 { name: 'react', range: '>=0.13.0 <0.14.0', hasData: true }
+67 silly addNameRange versions [ 'react',
+67 silly addNameRange   [ '0.0.1',
+67 silly addNameRange     '0.0.2',
+67 silly addNameRange     '0.0.3',
+67 silly addNameRange     '0.1.2',
+67 silly addNameRange     '0.2.0',
+67 silly addNameRange     '0.2.1',
+67 silly addNameRange     '0.2.2',
+67 silly addNameRange     '0.2.3',
+67 silly addNameRange     '0.2.4',
+67 silly addNameRange     '0.2.5',
+67 silly addNameRange     '0.2.6',
+67 silly addNameRange     '0.3.0',
+67 silly addNameRange     '0.3.4',
+67 silly addNameRange     '0.3.5',
+67 silly addNameRange     '0.5.0',
+67 silly addNameRange     '0.5.1',
+67 silly addNameRange     '0.5.2',
+67 silly addNameRange     '0.6.0',
+67 silly addNameRange     '0.6.1',
+67 silly addNameRange     '0.6.2',
+67 silly addNameRange     '0.6.3',
+67 silly addNameRange     '0.7.0',
+67 silly addNameRange     '0.7.1',
+67 silly addNameRange     '0.8.0',
+67 silly addNameRange     '0.9.0-rc1',
+67 silly addNameRange     '0.9.0',
+67 silly addNameRange     '0.10.0-rc1',
+67 silly addNameRange     '0.10.0',
+67 silly addNameRange     '0.11.0-rc1',
+67 silly addNameRange     '0.11.0',
+67 silly addNameRange     '0.11.1',
+67 silly addNameRange     '0.11.2',
+67 silly addNameRange     '0.12.0-rc1',
+67 silly addNameRange     '0.12.0',
+67 silly addNameRange     '0.12.1',
+67 silly addNameRange     '0.12.2',
+67 silly addNameRange     '0.13.0-alpha.1',
+67 silly addNameRange     '0.13.0-alpha.2',
+67 silly addNameRange     '0.13.0-beta.1',
+67 silly addNameRange     '0.13.0-beta.2',
+67 silly addNameRange     '0.13.0-rc1',
+67 silly addNameRange     '0.13.0-rc2',
+67 silly addNameRange     '0.13.0',
+67 silly addNameRange     '0.13.1',
+67 silly addNameRange     '0.13.2',
+67 silly addNameRange     '0.13.3',
+67 silly addNameRange     '0.14.0-alpha1',
+67 silly addNameRange     '0.14.0-alpha2',
+67 silly addNameRange     '0.14.0-alpha3',
+67 silly addNameRange     '0.14.0-beta1',
+67 silly addNameRange     '0.14.0-beta2',
+67 silly addNameRange     '0.14.0-beta3',
+67 silly addNameRange     '0.14.0-rc1',
+67 silly addNameRange     '0.14.0',
+67 silly addNameRange     '0.14.1',
+67 silly addNameRange     '0.14.2',
+67 silly addNameRange     '0.14.3',
+67 silly addNameRange     '0.14.4',
+67 silly addNameRange     '0.14.5',
+67 silly addNameRange     '0.14.6',
+67 silly addNameRange     '0.15.0-alpha.1',
+67 silly addNameRange     '0.14.7',
+67 silly addNameRange     '15.0.0-rc.1',
+67 silly addNameRange     '15.0.0-rc.2',
+67 silly addNameRange     '0.14.8',
+67 silly addNameRange     '15.0.0',
+67 silly addNameRange     '15.0.1' ] ]
+68 silly addNamed react@0.13.3
+69 verbose addNamed "0.13.3" is a plain semver version for react
+70 silly cache afterAdd react@0.13.3
+71 verbose afterAdd /Users/sjpeaster/.npm/react/0.13.3/package/package.json not in flight; writing
+72 verbose correctMkdir /Users/sjpeaster/.npm correctMkdir not in flight; initializing
+73 verbose afterAdd /Users/sjpeaster/.npm/react/0.13.3/package/package.json written
+74 silly rollbackFailedOptional Starting
+75 silly rollbackFailedOptional Finishing
+76 silly runTopLevelLifecycles Starting
+77 silly runTopLevelLifecycles Finishing
+78 silly install printInstalled
+79 verbose stack Error: No compatible version found: react-dom@0.13.x
+79 verbose stack Valid install targets:
+79 verbose stack 15.0.1, 15.0.0, 15.0.0-rc.2, 15.0.0-rc.1, 0.15.0-alpha.1, 0.14.8, 0.14.7, 0.14.6, 0.14.5, 0.14.4, 0.14.3, 0.14.2, 0.14.1, 0.14.0, 0.14.0-rc1, 0.14.0-beta3, 0.14.0-beta2, 0.14.0-beta1, 0.1.0
+79 verbose stack
+79 verbose stack     at pickVersionFromRegistryDocument (/usr/local/lib/node_modules/npm/lib/fetch-package-metadata.js:156:16)
+79 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/iferr/index.js:13:50
+79 verbose stack     at /usr/local/lib/node_modules/npm/lib/utils/pulse-till-done.js:19:8
+79 verbose stack     at saved (/usr/local/lib/node_modules/npm/lib/cache/caching-client.js:168:7)
+79 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/polyfills.js:210:7
+79 verbose stack     at FSReqWrap.oncomplete (fs.js:82:15)
+80 verbose cwd /Users/sjpeaster/Projects/timber-ui/timber-ui
+81 error Darwin 15.4.0
+82 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install"
+83 error node v5.7.1
+84 error npm  v3.6.0
+85 error No compatible version found: react-dom@0.13.x
+85 error Valid install targets:
+85 error 15.0.1, 15.0.0, 15.0.0-rc.2, 15.0.0-rc.1, 0.15.0-alpha.1, 0.14.8, 0.14.7, 0.14.6, 0.14.5, 0.14.4, 0.14.3, 0.14.2, 0.14.1, 0.14.0, 0.14.0-rc1, 0.14.0-beta3, 0.14.0-beta2, 0.14.0-beta1, 0.1.0
+86 error If you need help, you may report this error at:
+86 error     <https://github.com/npm/npm/issues>
+87 verbose exit [ 1, true ]

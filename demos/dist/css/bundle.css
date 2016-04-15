@@ -1,0 +1,137 @@
+.debug {
+	padding: 10px;
+	background-color: black;
+	color: white;
+	height: 100%;
+}
+
+.table {
+	display: table;
+	width: 100%;
+	/*height: 100%;*/
+}
+
+.cell {
+	display: table-cell;
+	empty-cells: show;
+}
+body {
+	height: 100vh;
+	width: 100vw;
+	margin: 0px;
+}
+
+.App {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.timber-ui {
+	width: 100%;
+	height: 100%;
+}
+.tool-example-1 {
+	padding: 10px;
+}
+
+.tool-example-1-block {
+	display: inline-table;
+	text-align: center;
+	height: 100px;
+	width: 100px;
+	background-color: #2B96FF;
+	margin: 10px;
+}
+.tool-example-1-block > span {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.tool-example-1-block:hover {
+	cursor: pointer;
+	box-shadow: 0px 0px 5px #fff;
+}
+
+.tool-example-1-selected {
+	background-color: green;
+}
+.tool-example-2 {
+	padding: 10px;
+}
+
+.tool-example-2-item {
+	padding: 5px;
+}
+
+.tool-example-2-item:hover {
+	cursor: pointer;
+	background-color: #8C8C8C;
+}
+
+.tool-example-2-selected {
+	background-color: green;
+}
+.timber-container {
+	width: 100%;
+	height: 100%;
+	min-height: 200px;
+	display: table;
+	background-color: blue;
+}
+
+.timber-row {
+	display: table-row;
+}
+
+.timber-panel {
+	display: table-cell;
+	background-color: grey;
+	border: 0.5px solid black;
+	position:relative;
+}
+
+@media (max-width: 420px) {
+	.timber-panel, .timber-row, .timber-container {
+		display: block;
+		width: 100%;
+		height: auto;
+		min-height: auto;
+	}
+}
+
+.timber-resize-h {
+  position:absolute;
+  top: 0;
+  right: -5px;
+  width: 10px;
+  height: 100%;
+  z-index: 99999;
+  background-color: transparent;
+} .timber-resize-h:hover {
+  cursor: ew-resize;
+}
+
+.timber-resize-v {
+  position:absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  z-index: 99999;
+  background-color: transparent;
+} .timber-resize-v:hover {
+  cursor: ns-resize;
+}
+
+.split-topright {
+	width: 0;
+	height: 0;
+	border-top: 20px solid red;
+	border-left: 20px solid transparent;
+	float: right;
+}
+
+.split-topright:hover {
+	border-top: 20px solid white;
+}

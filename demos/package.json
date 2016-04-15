@@ -1,0 +1,30 @@
+{
+  "name": "timber-demos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "browserify": "^11.0.1",
+    "flux": "^2.0.3",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-eslint": "^0.15.0",
+    "gulp-open": "^1.0.0",
+    "lodash": "^4.8.2",
+    "react": "15.0.1",
+    "react-dom": "15.0.1",
+    "reactify": "^1.1.1",
+    "toastr": "^2.1.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.7.0",
+    "eslint-plugin-react": "^4.3.0"
+  }
+}

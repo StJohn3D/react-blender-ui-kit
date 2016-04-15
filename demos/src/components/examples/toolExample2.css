@@ -1,0 +1,16 @@
+.tool-example-2 {
+	padding: 10px;
+}
+
+.tool-example-2-item {
+	padding: 5px;
+}
+
+.tool-example-2-item:hover {
+	cursor: pointer;
+	background-color: #8C8C8C;
+}
+
+.tool-example-2-selected {
+	background-color: green;
+}
