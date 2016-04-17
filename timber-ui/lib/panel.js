@@ -165,7 +165,10 @@ var Panel = React.createClass({
 			props.toolSelector = this.buildToolSelector();
 			returnVal = <child { ...props } />;
 		} else {
-			throw('Panels can only hold one child element');
+			throw {
+				error : 'Panels can only hold one child element',
+				reason: this
+			};
 		}
 	},
 	buildResizer: function() {

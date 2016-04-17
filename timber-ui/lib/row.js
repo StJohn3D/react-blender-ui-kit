@@ -4,13 +4,13 @@ var React = require('react');
 
 var Row = React.createClass({
 	propTypes: {
-		isUI   : React.PropTypes.string,
-		content: React.PropTypes.element.isRequired
+		children: React.PropTypes.element
 	},
 	render: function() {
+		var child = React.Children.only(this.props.children);
 		return (
 			<section className='timber-row'>
-				{this.props.content}
+				{child}
 			</section>
 		);
 	}

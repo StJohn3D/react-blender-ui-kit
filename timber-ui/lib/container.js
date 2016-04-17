@@ -37,73 +37,86 @@ var Container = React.createClass({
 		// SJ: 	Disabled react/no-depricated eslinting because ReactDom latest is saying that
 		// 		ReactDom.findDOMNode is not a function. Even though the official api says it is. ¯\_(ツ)_/¯
 	},
-	flowContent: function() {
-		var instanceID = this.state.instanceID;
-		var flowDirection = this.state.flow;
-		var content = [];
-		var returnVal = [];
-		var index = 0;
+	getChildPanels: function() {
+		var panels = [];
 		React.Children.forEach(this.props.children, function(child) {
 			if ( child.type === Panel ) {
-				var props = Object.assign({}, child.props);
-				props.type = 'ONLY';
-				props.instanceID = generateID();
-				props.parentContainerID = instanceID;
-				props.containerIndex = index;
-
-				returnVal.push(<Panel key={ index } { ...props }/>);
-				index++;
+				panels.push(child);
+			} else {
+				throw {
+					error : 'Containers should only contain panels',
+					reason: child
+				}
 			}
 		});
-		return returnVal;
-		// var content = this.state.content;
 		if ( this.state.reverse ) {
-			content.reverse();
+			panels.reverse();
 		}
+		return panels;
+	},
+	flowContent: function() {
+		var containerID = this.state.instanceID;
+		var flowDirection = this.state.flow;
 		var tools = this.state.tools;
 		var oldPanelsInfo = this.lastPanelsInfoCollection;
+
+		var childPanels = this.getChildPanels();
+		var lastIndex = childPanels.length - 1;
 		var contentIndex = 0;
-		var lastIndex = content.length - 1;
-		return content.map(function(i) {
-			console.log(i);
-			i.setTools(tools);
+		return childPanels.map(function(child) {
+			var props = Object.assign({}, child.props);
+			props.type = 'ONLY';
+			props.instanceID = generateID();
+			props.parentContainerID = containerID;
+			props.containerIndex = contentIndex;
+			props.tools = tools;
 
 			if ( oldPanelsInfo !== null ) {
-				i.props.toolIndex = oldPanelsInfo[contentIndex].currentToolIndex;
+				props.toolIndex = oldPanelsInfo[contentIndex].currentToolIndex;
 			}
 
-			var returnVal = i;
 			switch ( flowDirection ) {
 				case 'HORIZONTAL':
-					if ( content.length > 1 ) {
+					if ( childPanels.length > 1 ) {
 						if ( contentIndex === 0 ) {
-							i.setType('LEFT');
+							props.type = 'LEFT';
 						} else if ( contentIndex < lastIndex ) {
-							i.setType('INNER_H');
+							props.type = 'INNER_H';
 						} else {
-							i.setType('RIGHT');
+							props.type = 'RIGHT';
 						}
 					}
 					break;
 				case 'VERTICAL':
-					returnVal = <Row content={i} />;
-
-					if ( content.length > 1 ) {
+					if ( childPanels.length > 1 ) {
 						if ( contentIndex === 0 ) {
-							i.setType('TOP');
+							props.type = 'TOP';
 						} else if ( contentIndex < lastIndex ) {
-							i.setType('INNER_V');
+							props.type = 'INNER_V';
 						} else {
-							i.setType('BOTTOM');
+							props.type = 'BOTTOM';
 						}
 					}
 					break;
 				default:
-					console.log("ERROR! A container's flowDirection must be either 'HORIZONTAL' or 'VERTICAL'");
-					console.log('Failed with ' + flowDirection);
-					break;
+					throw {
+						error : "ERROR! A container's flowDirection must be either 'HORIZONTAL' or 'VERTICAL'",
+						reason: 'Failed with ' + flowDirection
+					}
 			}
 
+			var returnVal;
+			if ( flowDirection === 'HORIZONTAL' ) {
+				returnVal = (
+					<Panel key={ contentIndex } { ...props }/>
+				);
+			} else {
+				returnVal = (
+					<Row key={ contentIndex } >
+						<Panel { ...props }/>
+					</Row>
+				);
+			}
 			contentIndex++;
 			return returnVal;
 		});
