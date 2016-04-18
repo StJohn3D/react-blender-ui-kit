@@ -64,6 +64,7 @@ var Container = React.createClass({
 		return childPanels.map(function(child) {
 			var props = Object.assign({}, child.props);
 			props.type = 'ONLY';
+			props.isUI = 'PANEL';
 			props.instanceID = generateID();
 			props.parentContainerID = containerID;
 			props.containerIndex = contentIndex;
@@ -106,12 +107,12 @@ var Container = React.createClass({
 			var returnVal;
 			if ( flowDirection === 'HORIZONTAL' ) {
 				returnVal = (
-					<Panel key={ contentIndex } { ...props }/>
+					React.createElement(Panel, Object.assign({ key: contentIndex }, props))
 				);
 			} else {
 				returnVal = (
-					<Row key={ contentIndex } >
-						<Panel { ...props }/>
+					<Row key={ contentIndex } isUI='ROW' >
+						React.createElement(Panel, props)
 					</Row>
 				);
 			}
@@ -185,21 +186,14 @@ var Container = React.createClass({
 				collection.hasActivePanel = true;
 			}
 
-			if ( ref.props.isUI === 'PANEL' ) {
-				collection.push({
-					width           : ref.getClientWidth(),
-					height          : ref.getClientHeight(),
-					index           : ref.props.containerIndex,
-					type            : ref.props.type,
-					active          : ref.state.active,
-					currentToolIndex: ref.state.currentToolIndex
-				});
-			} else {
-				console.log("WARNING: It is strongly recommended to ONLY put panels inside container's content attribute.");
-				console.log('		  Not doing so can result in strange behavior.');
-				console.log('		  The following should be inside a panel...');
-				console.log(ref);
-			}
+			collection.push({
+				width           : ref.getClientWidth(),
+				height          : ref.getClientHeight(),
+				index           : ref.props.containerIndex,
+				type            : ref.props.type,
+				active          : ref.state.active,
+				currentToolIndex: ref.state.currentToolIndex
+			});
 		});
 
 		return collection;

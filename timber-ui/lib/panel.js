@@ -21,7 +21,6 @@ var Panel = React.createClass({
 		children         : React.PropTypes.element
 	},
 	getInitialState: function() {
-		// this.props.isUI = 'PANEL';
 		return {
 			type            : this.props.type || 'ONLY',
 			tools           : [],
@@ -183,7 +182,6 @@ var Panel = React.createClass({
 		}
 	},
 	componentWillMount: function() {
-		console.log(this.handleUiChange);
 		var uiStoreListenerID = uiStore.addListener(this.handleUiChange);
 		var listenerIDs = [ uiStoreListenerID ];
 		this.setState({
