@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var ReactDom = require('react-dom/server');
+var ReactDom = require('react-dom');
 var generateID = require('../common/generate-id');
 var uiActions = require('./actions/ui-actions');
 var uiStore = require('./stores/ui-store');
@@ -23,13 +23,12 @@ var Panel = React.createClass({
 	getInitialState: function() {
 		return {
 			type            : this.props.type || 'ONLY',
-			tools           : [],
 			instanceID      : generateID(),
 			width           : this.props.width || 'auto',
 			height          : this.props.height || 'auto',
 			content         : this.props.content || null,
 			active          : false,
-			currentToolIndex: 0,
+			currentToolIndex: this.props.toolIndex || 0,
 			storeListenerIDs: []
 		};
 	},
@@ -107,15 +106,14 @@ var Panel = React.createClass({
 		this.handleResizing(updateHeight);
 	},
 	handleToolSelected: function() {
-		if ( this.state.tools.length ) {
+		if ( this.props.tools.length && !React.Children.toArray(this.props.children).length ) {
 			var domNode = ReactDom.findDOMNode(this);
 			var toolSelector = domNode.getElementsByTagName('SELECT')[ 0 ];
-			if ( event.target === toolSelector
-			&& this.state.content.type.displayName !== 'Container' ) {
+			if ( toolSelector.id === this.state.instanceID ) {
+					console.log('here');
 				var selectedIndex = toolSelector.selectedIndex;
-				this.setState(function(state) {
+				this.setState(function() {
 					return {
-						content         : state.tools[ selectedIndex ],
 						currentToolIndex: selectedIndex
 					};
 				}, function() { //Called after setState completes
@@ -125,11 +123,11 @@ var Panel = React.createClass({
 		}
 	},
 	buildToolSelector: function() {
-		var tools = this.state.tools;
+		var tools = this.props.tools;
 		var currentToolIndex = this.state.currentToolIndex;
 		var returnVal = null;
 		if ( tools.length > 0 ) {
-			returnVal = <select onChange={uiActions.toolSelected}>
+			returnVal = <select id={this.state.instanceID} onChange={uiActions.toolSelected}>
 				{tools.map(function(tool, index) {
 					var isSelected = index === currentToolIndex;
 					return <option value={index} selected={isSelected}>{tool.type.niceName}</option>;
@@ -141,16 +139,18 @@ var Panel = React.createClass({
 	buildContent: function() {
 		var returnVal = null;
 		var count = React.Children.count(this.props.children);
-		if ( count === 0 ) {
+		if ( count === 0 && !this.props.tools.length ) {
 			returnVal = <div>
-				{this.buildToolSelector()}
 				<span>Width: {this.state.width}, Height: {this.state.height}</span>
 			</div>;
 		} else if ( count === 1 ) {
 			var child = React.Children.only(this.props.children);
 			var props = Object.assign({}, child.props);
-			props.toolSelector = this.buildToolSelector();
-			returnVal = <child { ...props } />;
+			props.tools = this.props.tools;
+			returnVal = <child.type { ...props } />;
+		} else if ( this.props.tools.length ) {
+			var toolComponent = this.props.tools[ this.state.currentToolIndex ];
+			returnVal = <toolComponent.type toolSelector={ this.buildToolSelector() } />
 		} else {
 			throw {
 				error : 'Panels can only hold one child element',

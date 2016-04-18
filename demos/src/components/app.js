@@ -3,23 +3,31 @@
 
 var React = require('react');
 var Header = require('./common/header');
+var Footer = require('./common/footer');
 var ExamplePage = require('./examples/examplePage');
 var timber = require('timber-ui');
+timber.injectCSS();
+var TimberApp = timber.timberApp;
 var Container = timber.container;
 var Panel = timber.panel;
 
 var App = React.createClass({
 
 	render: function() {
-
 		return (
-			<div>
+			<TimberApp>
 				<Container name='App'>
-					<Panel height='250px'>
+					<Panel>
 						<Header/>
 					</Panel>
+					<Panel>
+						<ExamplePage/>
+					</Panel>
+					<Panel>
+						<Footer/>
+					</Panel>
 				</Container>
-			</div>
+			</TimberApp>
 		);
 	}
 

@@ -12,32 +12,26 @@ var Debug = require('./debug');
 var Home = React.createClass({
 	render: function() {
 		return (
-			<div className='timber-ui'
-				onMouseMove={MouseActions.move}
-				onMouseUp={MouseActions.up}
-				onMouseDown={MouseActions.down}
-			>
-				<Container
-				name="Home"
-				flow="Horizontal"
-				tools={[
-					<ToolExample1 />,
-					<ToolExample2 />,
-					<Debug />
-				]} content={[
-					<Panel toolIndex={1} width='50%' />,	<Panel content={
-													<Container name="Right" content={[
-														<Panel toolIndex={0} height='100px' />,
-														<Panel content={
-															<Container name="Middle" flow="Horizontal" minWidth="600" reverse={false} content={[
-																<Panel toolIndex={1} width='250px' />, <Panel toolIndex={0}/>, <Panel toolIndex={0}/>
-															]} />
-														} />,
-														<Panel toolIndex={0} height='100px' />
-													]}/>
-												} />
-				]}/>
-			</div>
+			<Container name="Home" flow="Horizontal" tools={[
+				<ToolExample1 />,
+				<ToolExample2 />,
+				<Debug />
+			]}>
+				<Panel toolIndex={1} width='50%' />
+				<Panel>
+					<Container name="Right">
+						<Panel toolIndex={0} height='100px' />
+						<Panel>
+							<Container name="Middle" flow="Horizontal" minWidth={600} reverse={false}>
+								<Panel toolIndex={1} width='250px' />
+								<Panel toolIndex={0}/>
+								<Panel toolIndex={0}/>
+							</Container>
+						</Panel>
+						<Panel toolIndex={0} height='100px' />
+					</Container>
+				</Panel>
+			</Container>
 		);
 	}
 });

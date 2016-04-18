@@ -1,14 +1,25 @@
 'use strict';
-
 var jss = require('js-stylesheet');
+var TimberApp = require('./lib/timber-app');
 var Container = require('./lib/container');
 var Panel = require('./lib/panel');
 
 module.exports = {
+	timberApp: TimberApp,
 	container: Container,
 	panel    : Panel,
 	injectCSS: function() {
 		jss({
+			'body': {
+				'width'  : '100vw',
+				'height' : '100vh',
+				'padding': '0px',
+				'margin' : '0px'
+			},
+			'.timber-ui': {
+				'width' : '100%',
+				'height': '100%'
+			},
 			'.timber-container': {
 				'width'     : '100%',
 				'height'    : '100%',
@@ -41,10 +52,10 @@ module.exports = {
 				'z-index'         : '99999',
 				'background-color': 'transparent'
 			},
-			'timber-resize-h:hover': {
+			'.timber-resize-h:hover': {
 				'cursor': 'ew-resize'
 			},
-			'timber-resize-v': {
+			'.timber-resize-v': {
 				'position'        : 'absolute',
 				'bottom'          : '-5px',
 				'left'            : '0px',
@@ -53,17 +64,17 @@ module.exports = {
 				'z-index'         : '99999',
 				'background-color': 'transparent'
 			},
-			'timber-resize-v:hover': {
+			'.timber-resize-v:hover': {
 				'cursor': 'ns-resize'
 			},
-			'timber-corner': {
+			'.timber-corner': {
 				'width'      : '0',
 				'height'     : '0',
 				'border-top' : '20px solid red',
 				'border-left': '20px solid transparent',
 				'float'      : 'right'
 			},
-			'timber-corner:hover': {
+			'.timber-corner:hover': {
 				'border-top': '20px solid white'
 			}
 		})

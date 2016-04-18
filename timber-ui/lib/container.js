@@ -17,7 +17,10 @@ var Container = React.createClass({
 		reverse : React.PropTypes.bool,
 		content : React.PropTypes.array,
 		tools   : React.PropTypes.array,
-		children: React.PropTypes.element
+		children: React.PropTypes.oneOfType([
+			React.PropTypes.element,
+			React.PropTypes.arrayOf(React.PropTypes.element)
+		])
 	},
 	getInitialState: function() {
 		// this.props.isUI = 'CONTAINER';
@@ -106,13 +109,13 @@ var Container = React.createClass({
 
 			var returnVal;
 			if ( flowDirection === 'HORIZONTAL' ) {
-				returnVal = (
-					React.createElement(Panel, Object.assign({ key: contentIndex }, props))
-				);
+				// returnVal = React.createElement(Panel, Object.assign({}, props, { key: contentIndex }));
+				returnVal = (<Panel key={ contentIndex } { ...props } />);
 			} else {
+				// React.createElement(Panel, Object.assign({}, props));
 				returnVal = (
-					<Row key={ contentIndex } isUI='ROW' >
-						React.createElement(Panel, props)
+					<Row key={ contentIndex } isUI='ROW'>
+						<Panel { ...props } />
 					</Row>
 				);
 			}

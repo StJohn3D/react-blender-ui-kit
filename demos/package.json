@@ -16,6 +16,7 @@
     "gulp-connect": "^2.2.0",
     "gulp-eslint": "^0.15.0",
     "gulp-open": "^1.0.0",
+    "keymirror": "^0.1.1",
     "lodash": "^4.8.2",
     "react": "15.0.1",
     "react-dom": "15.0.1",
