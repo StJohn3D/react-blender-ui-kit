@@ -5,7 +5,8 @@
 	"env": {
 		"browser": true,
 		"node": true,
-		"jquery": true
+		"jquery": true,
+		"es6": true
 	},
 	"plugins": [
 		"react"
@@ -18,7 +19,8 @@
 	},
 	"parserOptions": {
 		"ecmaFeatures": {
-			"jsx": true
+			"jsx": true,
+			"experimentalObjectRestSpread": true
 		}
 	},
 	"extends": ["eslint:recommended", "plugin:react/recommended"],

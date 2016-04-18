@@ -1,9 +1,8 @@
-'use strict'; /* eslint-disable no-unused-vars */
+'use strict';
 
 var React = require('react');
 var ReactDom = require('react-dom/server');
 var generateID = require('../common/generate-id');
-var MouseActions = require('./actions/mouse-actions');
 var uiActions = require('./actions/ui-actions');
 var uiStore = require('./stores/ui-store');
 var MouseStore = require('./stores/mouse-store');
@@ -42,7 +41,7 @@ var Panel = React.createClass({
 		var _currentToolIndex = this.state.currentToolIndex;
 		var _content = this.state.content;
 		if ( _tools.length > 0 ) {
-			_content = _tools[_currentToolIndex];
+			_content = _tools[ _currentToolIndex ];
 		}
 		this.setState({
 			tools  : _tools,
@@ -50,14 +49,10 @@ var Panel = React.createClass({
 		});
 	},
 	getClientWidth: function() {
-		return React.findDOMNode(this).clientWidth; //eslint-disable-line
-		// SJ: 	Disabled react/no-depricated eslinting because ReactDom latest is saying that
-		// 		ReactDom.findDOMNode is not a function. Even though the official api says it is. ¯\_(ツ)_/¯
+		return ReactDom.findDOMNode(this).clientWidth;
 	},
 	getClientHeight: function() {
-		return React.findDOMNode(this).clientHeight; //eslint-disable-line
-		// SJ: 	Disabled react/no-depricated eslinting because ReactDom latest is saying that
-		// 		ReactDom.findDOMNode is not a function. Even though the official api says it is. ¯\_(ツ)_/¯
+		return ReactDom.findDOMNode(this).clientHeight;
 	},
 	setWidth: function(newWidth) {
 		this.setState({ width: newWidth });
@@ -87,7 +82,7 @@ var Panel = React.createClass({
 	handleResizeH: function() {
 		event.preventDefault();
 		var refs = uiStore.getChildPanels( this.props.parentContainerID );
-		refs[this.props.containerIndex + 1].setWidth('auto');
+		refs[ this.props.containerIndex + 1 ].setWidth('auto');
 
 		var startX = MouseStore.mouseX;
 		var startWidth = this.getClientWidth();
@@ -101,7 +96,7 @@ var Panel = React.createClass({
 	handleResizeV: function() {
 		event.preventDefault();
 		var refs = uiStore.getChildPanels( this.props.parentContainerID );
-		refs[this.props.containerIndex + 1].setHeight('auto');
+		refs[ this.props.containerIndex + 1 ].setHeight('auto');
 
 		var startY = MouseStore.mouseY;
 		var startHeight = this.getClientHeight();
@@ -114,16 +109,14 @@ var Panel = React.createClass({
 	},
 	handleToolSelected: function() {
 		if ( this.state.tools.length ) {
-			var domNode = React.findDOMNode(this); //eslint-disable-line
-			// SJ: 	Disabled react/no-depricated eslinting because ReactDom latest is saying that
-			// 		ReactDom.findDOMNode is not a function. Even though the official api says it is. ¯\_(ツ)_/¯
-			var toolSelector = domNode.getElementsByTagName('SELECT')[0];
+			var domNode = ReactDom.findDOMNode(this);
+			var toolSelector = domNode.getElementsByTagName('SELECT')[ 0 ];
 			if ( event.target === toolSelector
 			&& this.state.content.type.displayName !== 'Container' ) {
 				var selectedIndex = toolSelector.selectedIndex;
 				this.setState(function(state) {
 					return {
-						content         : state.tools[selectedIndex],
+						content         : state.tools[ selectedIndex ],
 						currentToolIndex: selectedIndex
 					};
 				}, function() { //Called after setState completes
@@ -133,23 +126,18 @@ var Panel = React.createClass({
 		}
 	},
 	buildToolSelector: function() {
-		var id = this.state.instanceID;
 		var tools = this.state.tools;
 		var currentToolIndex = this.state.currentToolIndex;
-
+		var returnVal = null;
 		if ( tools.length > 0 ) {
-			return <select onChange={uiActions.toolSelected}>
+			returnVal = <select onChange={uiActions.toolSelected}>
 				{tools.map(function(tool, index) {
-					var isSelected = false;
-					if ( index === currentToolIndex ) {
-						isSelected = true;
-					}
+					var isSelected = index === currentToolIndex;
 					return <option value={index} selected={isSelected}>{tool.type.niceName}</option>;
 				})}
 			</select>;
-		} else {
-			return false;
 		}
+		return returnVal;
 	},
 	buildContent: function() {
 		var returnVal = null;
@@ -167,9 +155,10 @@ var Panel = React.createClass({
 		} else {
 			throw {
 				error : 'Panels can only hold one child element',
-				reason: this
+				reason: React.Children.toArray(this.props.children)
 			};
 		}
+		return returnVal;
 	},
 	buildResizer: function() {
 		var resizer = null;

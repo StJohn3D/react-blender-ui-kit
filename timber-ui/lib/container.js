@@ -1,4 +1,4 @@
-'use strict'; /* eslint-disable no-unused-vars */
+'use strict';
 
 var React = require('react');
 var ReactDom = require('react-dom');
@@ -33,9 +33,7 @@ var Container = React.createClass({
 		};
 	},
 	getClientWidth: function() {
-		return React.findDOMNode(this).clientWidth; //eslint-disable-line
-		// SJ: 	Disabled react/no-depricated eslinting because ReactDom latest is saying that
-		// 		ReactDom.findDOMNode is not a function. Even though the official api says it is. ¯\_(ツ)_/¯
+		return ReactDom.findDOMNode(this).clientWidth;
 	},
 	getChildPanels: function() {
 		var panels = [];
@@ -72,7 +70,7 @@ var Container = React.createClass({
 			props.tools = tools;
 
 			if ( oldPanelsInfo !== null ) {
-				props.toolIndex = oldPanelsInfo[contentIndex].currentToolIndex;
+				props.toolIndex = oldPanelsInfo[ contentIndex ].currentToolIndex;
 			}
 
 			switch ( flowDirection ) {
@@ -136,10 +134,10 @@ var Container = React.createClass({
 				var index = panelInfo.index;
 
 				if ( currentFlow === 'VERTICAL' && originalFlow === 'HORIZONTAL' ) {
-					panelInfo.width = oldInfo[index].width;
+					panelInfo.width = oldInfo[ index ].width;
 				}
 
-				mergedInfo[index] = panelInfo;
+				mergedInfo[ index ] = panelInfo;
 			});
 
 			mergedInfo.hasActivePanel = newInfo.hasActivePanel;
@@ -152,22 +150,17 @@ var Container = React.createClass({
 		this.lastPanelsInfoCollection = mergedInfo;
 	},
 	checkFlow: function() {
-		// console.log(this.state.instanceID + ': Checking Flow');
 		var initialFlow = this.getInitialState().flow;
 		var minWidth = this.state.minWidth;
 
 		if ( initialFlow === 'HORIZONTAL' && minWidth > 0 ) {
 			if ( this.getClientWidth() < minWidth ) {
 				if ( this.state.flow !== 'VERTICAL' ) {
-					this.setState(function(state) {
-						return { flow: 'VERTICAL' };
-					});
+					this.setState({ flow: 'VERTICAL' });
 				}
 			} else {
 				if ( this.state.flow !== 'HORIZONTAL' ) {
-					this.setState(function(state) {
-						return { flow: 'HORIZONTAL' };
-					});
+					this.setState({ flow: 'HORIZONTAL' });
 					this.updateChildPanelSizes(this.lastPanelsInfoCollection);
 				}
 			}
@@ -224,9 +217,9 @@ var Container = React.createClass({
 			var newWidth = panel.width + 'px';
 			var newHeight = panel.height + 'px';
 			if ( flow === 'HORIZONTAL' ) {
-				refs[index].setWidth(newWidth);
+				refs[ index ].setWidth(newWidth);
 			} else {
-				refs[index].setHeight(newHeight);
+				refs[ index ].setHeight(newHeight);
 			}
 		});
 	},
