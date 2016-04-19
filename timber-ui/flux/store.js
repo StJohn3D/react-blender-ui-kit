@@ -97,7 +97,9 @@ var Store = function() {
 		var handlerIDs = Object.keys( this.callbacks );
 		var store = this;
 		handlerIDs.forEach(function(id) {
-			store.callbacks[ id ]( event || 'change' );
+			if (typeof(store.callbacks[ id ]) === 'function') {
+				store.callbacks[ id ]( event || 'change' );
+			}
 		});
 	};
 

@@ -1,5 +1,10 @@
 'use strict';
 
+var _logger = require('../logger');
+var Logger = new _logger('MOUSE STORE');
+// var log = Logger.log;
+// var error = Logger.error;
+var debug = Logger.debug;
 var ActionTypes = require('../constants/mouse-types');
 var Store = require('../../flux/store');
 var newChildOf = require('../../common/new-child-of');
@@ -32,12 +37,14 @@ MouseStore.onDispatch = function(payload) {
 				break;
 			case ActionTypes.UP:
 				if (payload.button === 'LEFT') {
+					debug('Mouse Up');
 					_leftButtonState = 'UP';
 				}
 				MouseStore.emitChange();
 				break;
 			case ActionTypes.DOWN:
 				if (payload.button === 'LEFT') {
+					debug('Mouse Down');
 					_leftButtonState = 'DOWN';
 				}
 				MouseStore.emitChange();

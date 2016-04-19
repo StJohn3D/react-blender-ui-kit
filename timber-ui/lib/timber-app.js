@@ -2,6 +2,7 @@
 
 var React = require('react');
 var MouseActions = require('./actions/mouse-actions');
+var UIActions = require('./actions/ui-actions');
 
 var TimberApp = React.createClass({
 	propTypes: {
@@ -9,6 +10,9 @@ var TimberApp = React.createClass({
 			React.PropTypes.element,
 			React.PropTypes.arrayOf(React.PropTypes.element)
 		])
+	},
+	componentWillMount: function() {
+		window.addEventListener('resize', UIActions.windowResize);
 	},
 	render: function() {
 		return (

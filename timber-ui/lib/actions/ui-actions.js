@@ -24,9 +24,12 @@ uiActions.doneResizing = function() {
 	});
 };
 
-uiActions.toolSelected = function() {
+uiActions.toolSelected = function(_containerID, _panelID, _selectedIndex) {
 	uiActions.sendAction({
-		type: ActionTypes.TOOL_SELECTED
+		type         : ActionTypes.TOOL_SELECTED,
+		containerID  : _containerID,
+		panelID      : _panelID,
+		selectedIndex: _selectedIndex
 	});
 };
 

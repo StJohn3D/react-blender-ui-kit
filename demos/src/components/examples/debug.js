@@ -1,8 +1,8 @@
 'use strict'; /* eslint-disable no-unused-vars */
 
 var React = require('react');
-var uiStore = require('../../stores/uiStore');
-var MouseStore = require('../../stores/mouseStore');
+var uiStore = require('timber-ui').uiStore;
+var MouseStore = require('timber-ui').mouseStore;
 
 var Debug = React.createClass({
 	propTypes: {

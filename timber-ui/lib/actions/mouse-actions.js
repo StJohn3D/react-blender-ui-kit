@@ -5,7 +5,7 @@ var Action = require('../../flux/action');
 
 var MouseActions = new Action('MOUSE');
 
-MouseActions.move = function() {
+MouseActions.move = function(event) {
 	MouseActions.sendAction({
 		type  : ActionTypes.MOVE,
 		event : event,
@@ -14,7 +14,7 @@ MouseActions.move = function() {
 	});
 };
 
-MouseActions.up = function() {
+MouseActions.up = function(event) {
 	MouseActions.sendAction({
 		type  : ActionTypes.UP,
 		event : event,
@@ -22,7 +22,7 @@ MouseActions.up = function() {
 	});
 };
 
-MouseActions.down = function() {
+MouseActions.down = function(event) {
 	MouseActions.sendAction({
 		type  : ActionTypes.DOWN,
 		event : event,

@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
+var Logger = require('./logger');
 var ReactDom = require('react-dom');
-var generateID = require('../common/generate-id');
 var uiActions = require('./actions/ui-actions');
 var uiStore = require('./stores/ui-store');
 var MouseStore = require('./stores/mouse-store');
@@ -18,12 +18,15 @@ var Panel = React.createClass({
 		isUI             : React.PropTypes.string,
 		tools            : React.PropTypes.array,
 		toolIndex        : React.PropTypes.number,
-		children         : React.PropTypes.element
+		children         : React.PropTypes.element,
+		instanceID       : React.PropTypes.string
 	},
 	getInitialState: function() {
+		var logger = new Logger('PANEL[ ' + this.props.instanceID + ' ]');
+		this.log = logger.log;
+		this.error = logger.error;
 		return {
 			type            : this.props.type || 'ONLY',
-			instanceID      : generateID(),
 			width           : this.props.width || 'auto',
 			height          : this.props.height || 'auto',
 			content         : this.props.content || null,
@@ -109,8 +112,7 @@ var Panel = React.createClass({
 		if ( this.props.tools.length && !React.Children.toArray(this.props.children).length ) {
 			var domNode = ReactDom.findDOMNode(this);
 			var toolSelector = domNode.getElementsByTagName('SELECT')[ 0 ];
-			if ( toolSelector.id === this.state.instanceID ) {
-					console.log('here');
+			if ( toolSelector.id === this.props.instanceID ) {
 				var selectedIndex = toolSelector.selectedIndex;
 				this.setState(function() {
 					return {
@@ -127,12 +129,22 @@ var Panel = React.createClass({
 		var currentToolIndex = this.state.currentToolIndex;
 		var returnVal = null;
 		if ( tools.length > 0 ) {
-			returnVal = <select id={this.state.instanceID} onChange={uiActions.toolSelected}>
-				{tools.map(function(tool, index) {
-					var isSelected = index === currentToolIndex;
-					return <option value={index} selected={isSelected}>{tool.type.niceName}</option>;
-				})}
-			</select>;
+			var selectedVal = null;
+			var options = tools.map(function(tool, index) {
+				var mapVal = <option key={index} value={index}>{tool.type.niceName}</option>;
+				var isSelected = index === currentToolIndex;
+				if ( isSelected ) {
+					selectedVal = mapVal;
+				}
+				return mapVal;
+			})
+			returnVal = (
+				<select id={this.props.instanceID} value={selectedVal} onChange={uiActions.toolSelected.bind(
+					this, this.props.parentContainerID, this.props.instanceID, 'TBD'
+				)}>
+					{options}
+				</select>
+			);
 		}
 		return returnVal;
 	},

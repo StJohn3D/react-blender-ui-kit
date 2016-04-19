@@ -3,12 +3,16 @@ var jss = require('js-stylesheet');
 var TimberApp = require('./lib/timber-app');
 var Container = require('./lib/container');
 var Panel = require('./lib/panel');
+var MouseStore = require('./lib/stores/mouse-store');
+var UIStore = require('./lib/stores/ui-store');
 
 module.exports = {
-	timberApp: TimberApp,
-	container: Container,
-	panel    : Panel,
-	injectCSS: function() {
+	timberApp : TimberApp,
+	container : Container,
+	panel     : Panel,
+	mouseStore: MouseStore,
+	uiStore   : UIStore,
+	injectCSS : function() {
 		jss({
 			'body': {
 				'width'  : '100vw',

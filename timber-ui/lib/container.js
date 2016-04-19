@@ -1,5 +1,6 @@
 'use strict';
 
+var Logger = require('./logger');
 var React = require('react');
 var ReactDom = require('react-dom');
 var Row = require('./row');
@@ -23,10 +24,13 @@ var Container = React.createClass({
 		])
 	},
 	getInitialState: function() {
-		// this.props.isUI = 'CONTAINER';
 		var idName = this.props.name || '';
+		var instanceID = generateID(idName)
+		var logger = new Logger('CONTAINER [ ' + instanceID + ' ]');
+		logger.verbose = false;
+		this.log = logger;
 		return {
-			instanceID      : generateID(idName),
+			instanceID      : instanceID,
 			flow            : this.props.flow ? this.props.flow.toUpperCase() : 'VERTICAL', //HORIZONTAL
 			minWidth        : this.props.minWidth || 480,
 			reverse         : this.props.reverse || false,
@@ -202,7 +206,7 @@ var Container = React.createClass({
 		return collection;
 	},
 	updateChildPanelSizes: function(collection) {
-		console.log(this.state.instanceID + ': Updating Child Panel Sizes');
+		this.log.debug('Updating Child Panel Sizes');
 		var panelQueue = collection || this.collectChildPanelsInfo();
 		var refs = uiStore.getChildPanels( this.state.instanceID );
 		if ( panelQueue.length !== refs.length ) {
@@ -221,7 +225,7 @@ var Container = React.createClass({
 		});
 	},
 	handleResizeEventStart: function() {
-		console.log(this.state.instanceID + ': Handling resize event START');
+		this.log.debug('Handling resize event START');
 		if ( this.state.flow === 'VERTICAL' ) {
 			var refs = this.collectChildPanelsInfo();
 			if ( !refs.hasActivePanel && refs.length ) {
@@ -242,7 +246,7 @@ var Container = React.createClass({
 					this.handleResizeEventStart();
 					this.watchFlowWhileResizing();
 				} else {
-					console.log('False resizing event');
+					this.log.error('False resizing event');
 				}
 				break;
 			case 'DONE_RESIZING':
