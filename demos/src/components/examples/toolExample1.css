@@ -1,12 +1,13 @@
 .tool-example-1 {
 	padding: 10px;
+	font-size: 12px;
 }
 
 .tool-example-1-block {
 	display: inline-table;
 	text-align: center;
-	height: 100px;
-	width: 100px;
+	height: 75px;
+	width: 75px;
 	background-color: #2B96FF;
 	margin: 10px;
 }

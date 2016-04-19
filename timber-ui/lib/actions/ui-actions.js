@@ -1,5 +1,7 @@
 'use strict';
 
+var _logger = require('../logger');
+var log = new _logger('UI ACTIONS', true);
 var ActionTypes = require('../constants/ui-types');
 var Action = require('../../flux/action');
 
@@ -24,12 +26,13 @@ uiActions.doneResizing = function() {
 	});
 };
 
-uiActions.toolSelected = function(_containerID, _panelID, _selectedIndex) {
+uiActions.toolSelected = function(parentContainerID, panelID, panelIndex) {
+	var selectedIndex = document.getElementById( panelID ).selectedIndex;
 	uiActions.sendAction({
-		type         : ActionTypes.TOOL_SELECTED,
-		containerID  : _containerID,
-		panelID      : _panelID,
-		selectedIndex: _selectedIndex
+		type             : ActionTypes.TOOL_SELECTED,
+		parentContainerID: parentContainerID,
+		panelIndex       : panelIndex,
+		selectedIndex    : selectedIndex
 	});
 };
 

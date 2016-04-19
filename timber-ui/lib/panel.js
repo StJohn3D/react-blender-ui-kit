@@ -23,8 +23,8 @@ var Panel = React.createClass({
 	},
 	getInitialState: function() {
 		var logger = new Logger('PANEL[ ' + this.props.instanceID + ' ]');
-		this.log = logger.log;
-		this.error = logger.error;
+		logger.verbose = false;
+		this.log = logger;
 		return {
 			type            : this.props.type || 'ONLY',
 			width           : this.props.width || 'auto',
@@ -140,7 +140,7 @@ var Panel = React.createClass({
 			})
 			returnVal = (
 				<select id={this.props.instanceID} value={selectedVal} onChange={uiActions.toolSelected.bind(
-					this, this.props.parentContainerID, this.props.instanceID, 'TBD'
+					this, this.props.parentContainerID, this.props.instanceID, this.props.containerIndex
 				)}>
 					{options}
 				</select>

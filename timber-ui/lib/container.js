@@ -24,19 +24,18 @@ var Container = React.createClass({
 		])
 	},
 	getInitialState: function() {
-		var idName = this.props.name || '';
-		var instanceID = generateID(idName)
+		var idName = this.props.name ? '_' + this.props.name : '';
+		var instanceID = generateID('CONTAINER' + idName)
 		var logger = new Logger('CONTAINER [ ' + instanceID + ' ]');
 		logger.verbose = false;
 		this.log = logger;
 		return {
-			instanceID      : instanceID,
-			flow            : this.props.flow ? this.props.flow.toUpperCase() : 'VERTICAL', //HORIZONTAL
-			minWidth        : this.props.minWidth || 480,
-			reverse         : this.props.reverse || false,
-			content         : this.props.content || [],
-			tools           : this.props.tools || [],
-			storeListenerIDs: []
+			instanceID: instanceID,
+			flow      : this.props.flow ? this.props.flow.toUpperCase() : 'VERTICAL', //HORIZONTAL
+			minWidth  : this.props.minWidth || 480,
+			reverse   : this.props.reverse || false,
+			content   : this.props.content || [],
+			tools     : this.props.tools || []
 		};
 	},
 	getClientWidth: function() {
@@ -72,7 +71,7 @@ var Container = React.createClass({
 			var props = Object.assign({}, child.props);
 			props.type = 'ONLY';
 			props.isUI = 'PANEL';
-			props.instanceID = generateID();
+			props.instanceID = generateID('PANEL');
 			props.parentContainerID = containerID;
 			props.containerIndex = contentIndex;
 			props.tools = tools;
@@ -264,9 +263,7 @@ var Container = React.createClass({
 	componentWillMount: function() {
 		var uiStoreListenerID = uiStore.addListener(this.handleUiChange);
 		var listenerIDs = [ uiStoreListenerID ];
-		this.setState({
-			storeListenerIDs: listenerIDs
-		});
+		this.storeListenerIDs = listenerIDs;
 	},
 	componentDidMount: function() {//Called once after initial render
 		uiActions.containerCreated( this.state.instanceID );
@@ -277,7 +274,7 @@ var Container = React.createClass({
 	},
 	componentWillUnmount: function() {
 		uiActions.containerDistroyed( this.state.instanceID );
-		var listenerIDs = this.state.storeListenerIDs;
+		var listenerIDs = this.storeListenerIDs;
 		listenerIDs.forEach(function( listenerID ) {
 			listenerID.remove();
 		});

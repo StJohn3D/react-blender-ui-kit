@@ -5,7 +5,7 @@ var Store = require('../common/store');
 var newChildOf = require('../common/newChildOf');
 
 var _selectedIndex = 0;
-var _things = ['Thing 1', 'Thing 2', 'Thing 3', 'Thing 4', 'Thing 5', 'Thing 6'];
+var _things = ['Thing 1', 'Thing 2'];
 
 var ExampleStore = newChildOf(Store);
 
