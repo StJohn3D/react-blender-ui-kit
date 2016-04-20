@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux';
 import friendList from './friendList';
-import { MOUSE, REGISTER } from '../constants/action-types'
+import { MOUSE, REGISTER, RESIZE } from '../constants/action-types'
 
 const initialState = {
+  resize: {
+    isResizing: false,
+    componentID: undefined,
+    containerID: 'TODO'
+  },
   mouse: {
     position: {
       x: 0,
@@ -20,10 +25,21 @@ const rootReducer = combineReducers({
     switch (action.type) {
 
       case MOUSE.LEFT_BUTTON_PRESSED:
-      case MOUSE.LEFT_BUTTON_RELEASED:
         return Object.assign({}, state, {
           mouse: {
-            isLeftDown: action.payload.isLeftDown
+            isLeftDown: true
+          }
+        })
+
+      case MOUSE.LEFT_BUTTON_RELEASED:
+        return Object.assign({}, state, {
+          resize: {
+            ...state.resize,
+            isResizing : false,
+            componentID: undefined
+          },
+          mouse: {
+            isLeftDown: false
           }
         })
 
@@ -44,6 +60,15 @@ const rootReducer = combineReducers({
         }
         stateOverride.panels[action.payload.id] = action.payload
         return Object.assign({}, state, stateOverride)
+
+        case RESIZE.BEGIN:
+          return Object.assign({}, state, {
+            resize: {
+              ...state.resize,
+              isResizing: true,
+              componentID: action.payload.panelID
+            }
+          })
 
       default:
         return initialState

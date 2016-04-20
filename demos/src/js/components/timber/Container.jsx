@@ -36,6 +36,7 @@ class Container extends Component {
             parentContainerID={id}
             containerIndex={i}
             type={type}
+            flow={flow}
             {...child.props} />
           switch (flow) {
             case CONTAINER_FLOW.VERTICAL:

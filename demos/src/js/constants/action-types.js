@@ -7,3 +7,7 @@ export const REGISTER = {
   CONTAINER: 'CONTAINER_REGISTERED',
   PANEL: 'PANEL_REGISTERED'
 }
+
+export const RESIZE = {
+  BEGIN: 'RESIZE_BEGIN'
+}

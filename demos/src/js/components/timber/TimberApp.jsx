@@ -21,11 +21,11 @@ const mapStateToProps = state => ({})
 const mapDispatchToProps = dispatch => {
   return {
     onMouseDown: (e) => {
-      console.log('left mouse button pressed')
+      //console.log('left mouse button pressed')
       dispatch(mouseActionCreators.pressLeftMouseButton(e))
     },
     onMouseUp: (e) => {
-      console.log('left mouse button released')
+      //console.log('left mouse button released')
       dispatch(mouseActionCreators.releaseLeftMouseButton(e))
     },
   }

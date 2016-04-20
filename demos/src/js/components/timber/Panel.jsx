@@ -3,19 +3,21 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { registerPanel } from '../../actions/registry-actions'
 import PANEL_TYPE from '../../constants/panel-types'
+import ResizeHandle from './ResizeHandle'
 
 class Panel extends Component {
 
   buildResizer() {
-    const { type } = this.props
+    const { id, type, parentContainerID, containerIndex, flow } = this.props
+    const handleProps = {
+      id, type, parentContainerID, containerIndex, flow
+    }
     switch (type) {
       case PANEL_TYPE.LEFT:
       case PANEL_TYPE.CENTER:
-        return <div className="timber-resize-h"></div>
-
       case PANEL_TYPE.TOP:
       case PANEL_TYPE.MIDDLE:
-        return <div className="timber-resize-v"></div>
+        return <ResizeHandle {...handleProps} />
 
       default:
         return undefined
