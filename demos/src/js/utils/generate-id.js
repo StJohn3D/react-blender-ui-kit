@@ -1,4 +1,4 @@
-export const generateID = (name = '', length = 8, caps = true,
+export default (name = '', length = 8, caps = true,
   lowercase = true, digits = true, special = false, time = false) => {
 
     name = name ? name + '_' : '';

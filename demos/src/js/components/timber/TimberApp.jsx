@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as mouseActionCreators from '../../actions/mouse-actions'
-import { generateID } from '../../actions/init-actions'
+import generateID from '../../utils/generate-id'
 
 class TimberApp extends Component {
 
