@@ -21,12 +21,12 @@ ReactDOM.render(
   <Provider store={store}>
     <TimberApp>
       <Container flow="VERTICAL">
-        <Panel height="300px">
+        <Panel height="100px">
           <h1>
             Hi
           </h1>
         </Panel>
-        <Panel>
+        <Panel width="100px">
           <h1>
             Bye
           </h1>
