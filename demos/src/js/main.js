@@ -8,6 +8,7 @@ import { compose, createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers'
 import TimberApp from './components/timber/TimberApp'
 import Container from './components/timber/Container'
+import Panel from './components/timber/Panel'
 
 const createFinalStoreWithMiddleware = compose(
   applyMiddleware(),
@@ -19,10 +20,17 @@ const store = createFinalStoreWithMiddleware(rootReducer);
 ReactDOM.render(
   <Provider store={store}>
     <TimberApp>
-      <Container flow="HORIZONTAL">
-        <h1>
-          Hi
-        </h1>
+      <Container flow="VERTICAL">
+        <Panel height="300px">
+          <h1>
+            Hi
+          </h1>
+        </Panel>
+        <Panel>
+          <h1>
+            Bye
+          </h1>
+        </Panel>
       </Container>
     </TimberApp>
   </Provider>,

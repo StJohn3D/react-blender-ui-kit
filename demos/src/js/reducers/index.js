@@ -16,6 +16,7 @@ const initialState = {
 
 const rootReducer = combineReducers({
   timberUI: function(state = initialState, action) {
+    let stateOverride
     switch (action.type) {
 
       case MOUSE.LEFT_BUTTON_PRESSED:
@@ -27,12 +28,21 @@ const rootReducer = combineReducers({
         })
 
       case REGISTER.CONTAINER:
-        let stateOverride = {
+        stateOverride = {
           containers: {
             ...state.containers
           }
         }
         stateOverride.containers[action.payload.id] = action.payload
+        return Object.assign({}, state, stateOverride)
+
+      case REGISTER.PANEL:
+        stateOverride = {
+          panels: {
+            ...state.panels
+          }
+        }
+        stateOverride.panels[action.payload.id] = action.payload
         return Object.assign({}, state, stateOverride)
 
       default:
