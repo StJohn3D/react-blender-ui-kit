@@ -1,11 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Timber UI Demos</title>
-    <link rel="stylesheet" href="css/bundle.css" />
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="scripts/bundle.js"></script>
-  </body>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timber UI Demos</title>
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <style>
+    body {
+      width: 100vw;
+      height: 100vh;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    #app {
+      height: 100%;
+      width: 100%;
+    }
+
+    .timber-ui {
+      width: 100%;
+      height: 100%;
+    }
+
+    .timber-container {
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      display: table;
+    }
+
+    .timber-row {
+      display: table-row;
+    }
+
+    .timber-panel {
+      display: table-cell;
+      background-color: grey;
+      border: 0.5px solid black;
+      position: relative;
+    }
+
+    @media (max-width: 420px) {
+      .timber-container, .timber-row, .timber-panel: [object Object];
+    }
+
+    .timber-resize-h {
+      position: absolute;
+      top: 0px;
+      right: -5px;
+      width: 10px;
+      height: 100%;
+      z-index: 99999;
+      background-color: transparent;
+    }
+
+    .timber-resize-h:hover {
+      cursor: ew-resize;
+    }
+
+    .timber-resize-v {
+      position: absolute;
+      bottom: -5px;
+      left: 0px;
+      width: 100%;
+      height: 10px;
+      z-index: 99999;
+      background-color: transparent;
+    }
+
+    .timber-resize-v:hover {
+      cursor: ns-resize;
+    }
+
+    .timber-corner {
+      width: 0;
+      height: 0;
+      border-top: 20px solid red;
+      border-left: 20px solid transparent;
+      float: right;
+    }
+
+    .timber-corner:hover {
+      border-top: 20px solid white;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script src="/js/vendor.bundle.js"></script>
+<script src="/js/app.js"></script>
+</body>
 </html>
