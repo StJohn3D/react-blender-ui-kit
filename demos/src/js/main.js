@@ -1,12 +1,13 @@
-import '../styles/bootstrap.min.css';
-import '../styles/styles.scss';
+import '../styles/bootstrap.min.css'
+import '../styles/styles.scss'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import { compose, createStore, applyMiddleware } from 'redux'
-import rootReducer from './reducers';
-import App from './components/App';
+import rootReducer from './reducers'
+import TimberApp from './components/timber/TimberApp'
+import Container from './components/timber/Container'
 
 const createFinalStoreWithMiddleware = compose(
   applyMiddleware(),
@@ -17,11 +18,13 @@ const store = createFinalStoreWithMiddleware(rootReducer);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App>
-      <h1>
-        Hi
-      </h1>
-    </App>
+    <TimberApp>
+      <Container flow="HORIZONTAL">
+        <h1>
+          Hi
+        </h1>
+      </Container>
+    </TimberApp>
   </Provider>,
   document.getElementById('app')
 );

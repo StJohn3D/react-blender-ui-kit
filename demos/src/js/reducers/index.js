@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import friendList from './friendList';
+import { MOUSE } from '../constants/action-types'
 
 const initialState = {
   mouse: {
@@ -17,8 +18,8 @@ const rootReducer = combineReducers({
   timberUI: function(state = initialState, action) {
     switch (action.type) {
 
-      case 'MOUSE_LEFT_DOWN':
-      case 'MOUSE_LEFT_UP':
+      case MOUSE.LEFT_BUTTON_PRESSED:
+      case MOUSE.LEFT_BUTTON_RELEASED:
         return Object.assign({}, state, {
           ...state,
           mouse: {

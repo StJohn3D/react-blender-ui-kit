@@ -1,3 +1,4 @@
+// todo delete this file
 import * as types from '../constants/ActionTypes';
 
 export function addFriend(name) {

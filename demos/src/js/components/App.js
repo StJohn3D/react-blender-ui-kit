@@ -1,43 +1,28 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import TimberApp from './timber/TimberApp'
 
 class App extends Component {
 
   render() {
-    const { children, onMouseDown, onMouseUp } = this.props
     return (
-      <div className="timber-ui" onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
+      <TimberApp>
         {children}
-      </div>
-    );
+      </TimberApp>
+    )
   }
 }
 
 const mapStateToProps = state => ({})
 
-const createLeftMouseDown = e => ({
-  type: 'MOUSE_LEFT_DOWN',
-  payload: {
-    isLeftDown: true
-  }
-})
-
-const createLeftMouseUp = e => ({
-  type: 'MOUSE_LEFT_UP',
-  payload: {
-    isLeftDown: false
-  }
-})
-
 const mapDispatchToProps = dispatch => {
   return {
     onMouseDown: (e) => {
       console.log('left mouse button pressed')
-      dispatch(createLeftMouseDown(e))
+      dispatch(mouseActionCreators.pressLeftMouseButton(e))
     },
     onMouseUp: (e) => {
       console.log('left mouse button released')
-      dispatch(createLeftMouseUp(e))
+      dispatch(mouseActionCreators.releaseLeftMouseButton(e))
     },
   }
 }
