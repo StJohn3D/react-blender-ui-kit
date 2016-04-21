@@ -9,7 +9,7 @@ class TimberApp extends Component {
     const { children, onMouseMove } = this.props
     const container = React.Children.only(children)
     return (
-      <div className="timber-ui" onMouseMove={onMouseMove} onMouseUp={this.onMouseUp.bind(this)}>
+      <div className="timber-ui" onMouseMove={onMouseMove} onMouseUp={this.onMouseUp}>
         <container.type id={generateID('CONTAINER')} {...container.props} />
       </div>
     );
@@ -20,7 +20,7 @@ class TimberApp extends Component {
       window.addEventListener('resize', onWindowResize);
   }
 
-  onMouseUp(e) {
+  onMouseUp = (e) => {
     const { isResizing, dispatch } = this.props
     if ( isResizing ) dispatch(doneResizing(e))
   }
