@@ -24,7 +24,23 @@ class FriendListApp extends Component {
 
 function mapStateToProps(state) {
   return {
-    friendList: state.friendList
+    //friendList: state.friendList
+    friendList: {
+      friendsById: [
+          {
+            id: 0,
+            name: '2Pac'
+          },
+          {
+            id: 1,
+            name: 'Dr.Dre'
+          },
+          {
+            id: 2,
+            name: 'Big Pun'
+          }
+        ]
+    }
   };
 }
 
