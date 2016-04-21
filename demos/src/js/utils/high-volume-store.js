@@ -1,4 +1,5 @@
 import generateID from './generate-id'
+import { beginResizing, doneResizing } from '../actions/resize-actions'
 
 export default class HighVolumeStore {
 
@@ -12,18 +13,18 @@ export default class HighVolumeStore {
 		HighVolumeStore._mouseY = e.clientY
 		HighVolumeStore._emitChange('MOUSE_MOVED');
 	}
-	static _windowOnResize() {
+	static _windowOnResize(e, dispatch) {
 		HighVolumeStore._lastResizedTimeStamp = Date.now();
 		if (HighVolumeStore._isWindowResizing) {
 			setTimeout(function() {
 				if (HighVolumeStore._lastResizedTimeStamp + 1000 < Date.now()) {
 					HighVolumeStore._isWindowResizing = false
-					HighVolumeStore._emitChange('WINDOW_RESIZED');
+					dispatch(doneResizing());
 				}
 			}, 1000)
 		} else {
 			HighVolumeStore._isWindowResizing = true
-			HighVolumeStore._emitChange('WINDOW_RESIZING');
+			dispatch(beginResizing());
 		}
 	}
 	static _subscribers = {}

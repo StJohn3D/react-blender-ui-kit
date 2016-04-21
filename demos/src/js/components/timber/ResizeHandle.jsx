@@ -19,7 +19,6 @@ const mapStateToProps = state => ({})
 const mapDispatchToProps = (dispatch, props) => {
   return {
     beginResize: () => {
-      console.log('left mouse button pressed TO DO RESIZING!!!')
       dispatch(beginResizing(props.id))
     }
   }

@@ -8,3 +8,10 @@ export const beginResizing = panelID => {
     }
   }
 }
+
+export const doneResizing = () => {
+  return {
+    type: RESIZE.DONE,
+    payload: {}
+  }
+}

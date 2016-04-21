@@ -16,7 +16,7 @@ const initialState = {
     isLeftDown: false
   },
   containers: {},
-  panels: []
+  panels: {}
 }
 
 const rootReducer = combineReducers({
@@ -36,7 +36,8 @@ const rootReducer = combineReducers({
           resize: {
             ...state.resize,
             isResizing : false,
-            componentID: undefined
+            componentID: undefined,
+            containerID: undefined
           },
           mouse: {
             isLeftDown: false
@@ -67,6 +68,16 @@ const rootReducer = combineReducers({
               ...state.resize,
               isResizing: true,
               componentID: action.payload.panelID
+            }
+          })
+
+        case RESIZE.DONE:
+          return Object.assign({}, state, {
+            resize: {
+              ...state.resize,
+              isResizing: false,
+              componentID: undefined,
+              containerID: undefined
             }
           })
 

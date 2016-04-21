@@ -1,35 +1,44 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as mouseActionCreators from '../../actions/mouse-actions'
+import { doneResizing } from '../../actions/resize-actions'
 import generateID from '../../utils/generate-id'
 import HighVolumeStore from '../../utils/high-volume-store'
 
-window.addEventListener('resize', HighVolumeStore._windowOnResize);
-
 class TimberApp extends Component {
   render() {
-    const { children, onMouseDown, onMouseUp } = this.props
+    const { children, onMouseMove } = this.props
     const container = React.Children.only(children)
     return (
-      <div className="timber-ui" onMouseMove={HighVolumeStore._mouseMoved} onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
+      <div className="timber-ui" onMouseMove={onMouseMove} onMouseUp={this.onMouseUp.bind(this)}>
         <container.type id={generateID('CONTAINER')} {...container.props} />
       </div>
     );
   }
+
+  componentWillMount() {
+      const { onWindowResize } = this.props
+      window.addEventListener('resize', onWindowResize);
+  }
+
+  onMouseUp(e) {
+    const { isResizing, dispatch } = this.props
+    if ( isResizing ) dispatch(doneResizing(e))
+  }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  isResizing: state.timberUI.resize.isResizing
+})
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, props) => {
   return {
-    onMouseDown: (e) => {
-      //console.log('left mouse button pressed')
-      dispatch(mouseActionCreators.pressLeftMouseButton(e))
+    onMouseMove: (e) => {
+      HighVolumeStore._mouseMoved(e)
     },
-    onMouseUp: (e) => {
-      //console.log('left mouse button released')
-      dispatch(mouseActionCreators.releaseLeftMouseButton(e))
+    onWindowResize: (e) => {
+      HighVolumeStore._windowOnResize(e, dispatch)
     },
+    dispatch
   }
 }
 
