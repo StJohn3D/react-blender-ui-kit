@@ -5,8 +5,7 @@ export default class HighVolumeStore {
 
 	static _mouseX = 0
 	static _mouseY = 0
-	static _isWindowResizing = false
-	static _lastResizedTimeStamp = null
+	static _resizeMoments = []
 
 	static _mouseMoved(e) {
 		HighVolumeStore._mouseX = e.clientX
@@ -14,18 +13,17 @@ export default class HighVolumeStore {
 		HighVolumeStore._emitChange('MOUSE_MOVED');
 	}
 	static _windowOnResize(e, dispatch) {
-		HighVolumeStore._lastResizedTimeStamp = Date.now();
-		if (HighVolumeStore._isWindowResizing) {
-			setTimeout(function() {
-				if (HighVolumeStore._lastResizedTimeStamp + 1000 < Date.now()) {
-					HighVolumeStore._isWindowResizing = false
-					dispatch(doneResizing());
-				}
-			}, 1000)
-		} else {
-			HighVolumeStore._isWindowResizing = true
-			dispatch(beginResizing());
-		}
+		const thisMoment = Date.now()
+		HighVolumeStore._resizeMoments.push(thisMoment)
+		if (HighVolumeStore._resizeMoments.length === 1) dispatch(beginResizing())
+
+		setTimeout(() => {
+			const lastMoment = HighVolumeStore._resizeMoments[HighVolumeStore._resizeMoments.length -1]
+			if (lastMoment === thisMoment) {
+				HighVolumeStore._resizeMoments = []
+				dispatch(doneResizing())
+			}
+		}, 300)
 	}
 	static _subscribers = {}
 	static _emitChange(event) {
