@@ -32,8 +32,8 @@ class Panel extends Component {
     }
   }
 
-  getContainerInfo() {
-    const { resize, panels, parentContainerID, containerIndex } = this.props
+  getContainerInfo(props) {
+    const { resize, panels, parentContainerID, containerIndex } = props
     let amIBeingResized = false
     let doIComeAfterThePanelBeingResized = false
     for (let panelKey in panels) {
@@ -59,28 +59,27 @@ class Panel extends Component {
     }
   }
 
-  render() {
-    const { children, width, height, resize, panels, parentContainerID, flow, type } = this.props
-    let style = {
-      width: width || 'auto',
-      height: height || 'auto'
-    }
-    const resizer = this.buildResizer()
+  componentWillUpdate(nextProps) {
+    delete this.resizedHeight
+    delete this.resizedWidth
+
+    const { resize, panels, parentContainerID, flow, type } = nextProps
     if (resize.isResizing) {
       if (resize.parentContainerID !== parentContainerID) {
           if (flow === CONTAINER_FLOW.VERTICAL && type === PANEL_TYPE.BOTTOM) {
-            style.height = 'auto'
+            this.resizedHeight = 'auto'
           }
       }
       else {
-        const containerInfo = this.getContainerInfo()
+        const containerInfo = this.getContainerInfo(nextProps)
         if (containerInfo.doIComeAfterThePanelBeingResized) {
           switch (flow) {
             case CONTAINER_FLOW.VERTICAL:
-              style.height = 'auto'
+              console.log('after')
+              this.resizedHeight = 'auto'
               break
             case CONTAINER_FLOW.HORIZONTAL:
-              style.width = 'auto'
+              this.resizedWidth = 'auto'
               break
           }
         }
@@ -89,16 +88,25 @@ class Panel extends Component {
           switch (flow) {
             case CONTAINER_FLOW.VERTICAL:
               this.handleResizeV()
-              style.height = this.resizedHeight
               break
             case CONTAINER_FLOW.HORIZONTAL:
               this.handleResizeH()
-              style.width = this.resizedWidth
               break
           }
         }
       }
     }
+  }
+
+  render() {
+    const { children, width, height, resize, panels, parentContainerID, flow, type } = this.props
+    let style = {
+      width: this.resizedWidth || width || 'auto',
+      height: this.resizedHeight || height || 'auto'
+    }
+
+    const resizer = this.buildResizer()
+    
     return (
       <section className="timber-panel" style={style}>
         {children}

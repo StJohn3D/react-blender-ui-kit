@@ -18,7 +18,8 @@ const mapStateToProps = state => ({})
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    beginResize: () => {
+    beginResize: (e) => {
+      e.preventDefault()
       dispatch(beginResizing(props.id, props.parentContainerID, props.containerIndex))
     }
   }
