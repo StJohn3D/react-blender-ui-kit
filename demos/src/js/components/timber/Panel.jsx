@@ -12,7 +12,7 @@ class Panel extends Component {
   constructor() {
     super()
     this.id = generateID('PANEL')
-    console.log('PANEL CONSTRUCTOR')
+    this.state = {}
   }
 
   buildResizer() {
@@ -75,7 +75,6 @@ class Panel extends Component {
         if (containerInfo.doIComeAfterThePanelBeingResized) {
           switch (flow) {
             case CONTAINER_FLOW.VERTICAL:
-              console.log('after')
               this.resizedHeight = 'auto'
               break
             case CONTAINER_FLOW.HORIZONTAL:
@@ -84,7 +83,6 @@ class Panel extends Component {
           }
         }
         else if (containerInfo.amIBeingResized) {
-          console.log('ME')
           switch (flow) {
             case CONTAINER_FLOW.VERTICAL:
               this.handleResizeV()
@@ -101,8 +99,8 @@ class Panel extends Component {
   render() {
     const { children, width, height, resize, panels, parentContainerID, flow, type } = this.props
     let style = {
-      width: this.resizedWidth || width || 'auto',
-      height: this.resizedHeight || height || 'auto'
+      width: this.state.width || width || 'auto',
+      height: this.state.height || height || 'auto'
     }
 
     const resizer = this.buildResizer()
@@ -128,26 +126,25 @@ class Panel extends Component {
   
 	handleResizeH() {
     console.log('H')
-		var startX = HighVolumeStore.mouseX;
-		var startWidth = this.getClientWidth();
-		var updateWidth = function() {
-			var newWidth = Number(startWidth) + (HighVolumeStore.mouseX - startX);
-			this.resizedWidth = newWidth + 'px'
-		}.bind(this);
+		const startX = HighVolumeStore.mouseX;
+		const startWidth = this.getClientWidth();
+		const updateWidth = () => {
+			const newWidth = Number(startWidth) + (HighVolumeStore.mouseX - startX);
+			this.setState({width: newWidth + 'px'})
+		}
   
-		this.handleResizing(updateWidth);
+		this.handleResizing(updateWidth)
 	}
   
 	handleResizeV() {
-    console.log('V')
-		var startY = HighVolumeStore.mouseY;
-		var startHeight = this.getClientHeight();
-		var updateHeight = function() {
-			var newHeight = Number(startHeight) + (HighVolumeStore.mouseY - startY);
-			this.resizedHeight = newHeight + 'px'
-		}.bind(this);
+		const startY = HighVolumeStore.mouseY;
+		const startHeight = this.getClientHeight();
+		const updateHeight = () => {
+			const newHeight = Number(startHeight) + (HighVolumeStore.mouseY - startY);
+			this.setState({height: newHeight + 'px'})
+		}
   
-		this.handleResizing(updateHeight);
+		this.handleResizing(updateHeight)
 	}
 
   // after panel renders, register it in the store
