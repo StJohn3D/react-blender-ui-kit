@@ -60,11 +60,12 @@ class Panel extends Component {
     }
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     const { resize, panels, parentContainerID, flow, type } = nextProps
+    const node = ReactDOM.findDOMNode(this)
+    let computedWidth = node.clientWidth
+    let computedHeight = node.clientHeight
     if (resize.isResizing) {
-      let computedWidth = this.state.width
-      let computedHeight = this.state.height
       if (resize.parentContainerID !== parentContainerID) {
           if (flow === CONTAINER_FLOW.VERTICAL && type === PANEL_TYPE.BOTTOM) {
             computedHeight = 'auto'
@@ -104,7 +105,13 @@ class Panel extends Component {
       if (typeof this.unsubscribe === 'function') {
         this.unsubscribe()
         delete this.unsubscribe
-        this.setState({isResizing: false})
+      }
+      if (this.props.resize.isResizing !== resize.isResizing) {
+        this.setState({
+          width: computedWidth,
+          height: computedHeight,
+          isResizing: false
+        })
       }
     }
   }
