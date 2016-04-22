@@ -5,8 +5,8 @@ import { MOUSE, REGISTER, RESIZE } from '../constants/action-types'
 const initialState = {
   resize: {
     isResizing: false,
-    componentID: undefined,
-    containerID: 'TODO'
+    panelID: undefined,
+    parentContainerID: undefined
   },
   mouse: {
     position: {
@@ -36,8 +36,8 @@ const rootReducer = combineReducers({
           resize: {
             ...state.resize,
             isResizing : false,
-            componentID: undefined,
-            containerID: undefined
+            panelID: undefined,
+            parentContainerID: undefined
           },
           mouse: {
             isLeftDown: false
@@ -67,7 +67,9 @@ const rootReducer = combineReducers({
             resize: {
               ...state.resize,
               isResizing: true,
-              componentID: action.payload.panelID
+              panelID: action.payload.panelID,
+              parentContainerID: action.payload.parentContainerID,
+              containerIndex: action.payload.containerIndex
             }
           })
 
@@ -76,8 +78,8 @@ const rootReducer = combineReducers({
             resize: {
               ...state.resize,
               isResizing: false,
-              componentID: undefined,
-              containerID: undefined
+              panelID: undefined,
+              parentContainerID: undefined
             }
           })
 

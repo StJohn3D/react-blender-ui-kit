@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { registerPanel } from '../../actions/registry-actions'
 import PANEL_TYPE from '../../constants/panel-types'
+import CONTAINER_FLOW from '../../constants/container-flows'
 import ResizeHandle from './ResizeHandle'
+import HighVolumeStore from '../../utils/high-volume-store'
 
 class Panel extends Component {
 
@@ -24,13 +26,65 @@ class Panel extends Component {
     }
   }
 
+  getContainerInfo() {
+    const { resize, panels, parentContainerID, containerIndex } = this.props
+    let amIBeingResized = false
+    let doIComeAfterThePanelBeingResized = false
+    for (let panelKey in panels) {
+      let panel = panels[panelKey]
+      if (panel.parentContainerID === parentContainerID) {
+        if (panel.id === resize.panelID) {
+          amIBeingResized = true
+        }
+        else if (resize.containerIndex + 1 === containerIndex) {
+          doIComeAfterThePanelBeingResized = true
+        }
+      }
+    }
+    return {
+      amIBeingResized,
+      doIComeAfterThePanelBeingResized
+    }
+  }
+
+  componentWillUnmount() {
+    if (typeof this.unsubscribe === 'function') {
+      this.unsubscribe()
+    }
+  }
+
   render() {
-    const { children, width, height } = this.props
-    const style = {
+    const { children, width, height, resize, panels, parentContainerID, flow, type } = this.props
+    let style = {
       width: width || 'auto',
       height: height || 'auto'
     }
     const resizer = this.buildResizer()
+    if (resize.isResizing) {
+      if (resize.parentContainerID !== parentContainerID) {
+          if (flow === CONTAINER_FLOW.VERTICAL && type === PANEL_TYPE.BOTTOM) {
+            style.height = 'auto'
+          }
+      }
+      else {
+        const containerInfo = this.getContainerInfo()
+        if (containerInfo.doIComeAfterThePanelBeingResized) {
+          switch (flow) {
+            case CONTAINER_FLOW.VERTICAL:
+              style.height = 'auto'
+              break
+            case CONTAINER_FLOW.HORIZONTAL:
+              style.width = 'auto'
+              break
+          }
+        }
+        else if (containerInfo.amIBeingResized) {
+          this.unsubscribe = HighVolumeStore.subscribe(() => {
+
+          })
+        }
+      }
+    }
     return (
       <section className="timber-panel" style={style}>
         {children}
@@ -38,6 +92,56 @@ class Panel extends Component {
       </section>
     )
   }
+
+  // handleResizing(updateFunc) {
+	// 	var listenerID;
+  //
+	// 	var updateSize = () => {
+	// 		if ( MouseStore.leftButtonState === 'UP' ) {
+	// 			this.setState({ active: false }, function() {
+	// 				uiActions.doneResizing();
+	// 				listenerID.remove();
+	// 			});
+	// 		} else {
+	// 			updateFunc();
+	// 		}
+	// 	}.bind(this);
+  //
+	// 	this.setState({ active: true }, function() {
+	// 		uiActions.resizing();
+	// 		listenerID = MouseStore.addListener(updateSize);
+	// 	});
+	// }
+  //
+	// handleResizeH() {
+	// 	event.preventDefault();
+	// 	var refs = uiStore.getChildPanels( this.props.parentContainerID );
+	// 	refs[ this.props.containerIndex + 1 ].setWidth('auto');
+  //
+	// 	var startX = MouseStore.mouseX;
+	// 	var startWidth = this.getClientWidth();
+	// 	var updateWidth = function() {
+	// 		var newWidth = Number(startWidth) + (MouseStore.mouseX - startX);
+	// 		this.setWidth( newWidth + 'px' );
+	// 	}.bind(this);
+  //
+	// 	this.handleResizing(updateWidth);
+	// }
+  //
+	// handleResizeV() {
+	// 	event.preventDefault();
+	// 	var refs = uiStore.getChildPanels( this.props.parentContainerID );
+	// 	refs[ this.props.containerIndex + 1 ].setHeight('auto');
+  //
+	// 	var startY = MouseStore.mouseY;
+	// 	var startHeight = this.getClientHeight();
+	// 	var updateHeight = function() {
+	// 		var newHeight = Number(startHeight) + (MouseStore.mouseY - startY);
+	// 		this.setHeight( newHeight + 'px' );
+	// 	}.bind(this);
+  //
+	// 	this.handleResizing(updateHeight);
+	// }
 
   // after panel renders, register it in the store
   componentDidMount() {
@@ -54,6 +158,9 @@ class Panel extends Component {
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  resize: state.timberUI.resize,
+  panels: state.timberUI.panels
+})
 
 export default connect(mapStateToProps)(Panel)

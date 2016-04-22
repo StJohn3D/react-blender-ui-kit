@@ -1,10 +1,12 @@
 import { RESIZE } from '../constants/action-types'
 
-export const beginResizing = panelID => {
+export const beginResizing = (panelID, parentContainerID, containerIndex) => {
   return {
     type: RESIZE.BEGIN,
     payload: {
-      panelID
+      panelID,
+      parentContainerID,
+      containerIndex
     }
   }
 }
