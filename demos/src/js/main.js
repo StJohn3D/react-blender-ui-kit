@@ -20,7 +20,7 @@ const store = createFinalStoreWithMiddleware(rootReducer);
 ReactDOM.render(
   <Provider store={store}>
     <TimberApp>
-      <Container flow="VERTICAL">
+      <Container flow="HORIZONTAL">
         <Panel height="100px">
           <h1>
             Hi
@@ -31,7 +31,7 @@ ReactDOM.render(
             Bye
           </h1>
         </Panel>
-        <Panel height="100px">
+        <Panel width='50px'>
           <h1>
             Bye
           </h1>

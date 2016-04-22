@@ -61,10 +61,10 @@ class Panel extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { resize, panels, parentContainerID, flow, type } = nextProps
+    const { resize, parentContainerID, flow, type } = nextProps
     const node = ReactDOM.findDOMNode(this)
-    let computedWidth = node.clientWidth
-    let computedHeight = node.clientHeight
+    let computedWidth = this.getClientWidth()
+    let computedHeight = this.getClientHeight()
     if (resize.isResizing) {
       if (resize.parentContainerID !== parentContainerID) {
           if (flow === CONTAINER_FLOW.VERTICAL && type === PANEL_TYPE.BOTTOM) {
@@ -96,8 +96,8 @@ class Panel extends Component {
       }
       if (!this.state.isResizing) {
         this.setState({
-          width: computedWidth,
-          height: computedHeight,
+          width: computedWidth === 'auto' ? computedWidth : computedWidth + 'px',
+          height: computedHeight === 'auto' ? computedHeight : computedHeight + 'px',
           isResizing: true
         })
       }
@@ -107,9 +107,10 @@ class Panel extends Component {
         delete this.unsubscribe
       }
       if (this.props.resize.isResizing !== resize.isResizing) {
+        // SJ: A resize event just ended so we need to update our width and height
         this.setState({
-          width: computedWidth,
-          height: computedHeight,
+          width: computedWidth + 'px',
+          height: computedHeight + 'px',
           isResizing: false
         })
       }
@@ -121,6 +122,14 @@ class Panel extends Component {
     let style = {
       width: this.state.width || width || 'auto',
       height: this.state.height || height || 'auto'
+    }
+    switch(flow) {
+      case CONTAINER_FLOW.VERTICAL:
+        style.width = 'auto'
+        break
+      case CONTAINER_FLOW.HORIZONTAL:
+        style.height = 'auto'
+        break
     }
 
     const resizer = this.buildResizer()
@@ -134,10 +143,12 @@ class Panel extends Component {
   }
 
   getClientWidth() {
-    return ReactDOM.findDOMNode(this).clientWidth
+    const node = ReactDOM.findDOMNode(this)
+    return node.clientWidth + node.style.borderWidth
   }
   getClientHeight() {
-    return ReactDOM.findDOMNode(this).clientHeight
+    const node = ReactDOM.findDOMNode(this)
+    return node.clientHeight + node.style.borderWidth
   }
 
   handleResizing(updateFunc) {
