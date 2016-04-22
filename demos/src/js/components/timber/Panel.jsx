@@ -61,14 +61,13 @@ class Panel extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    delete this.resizedHeight
-    delete this.resizedWidth
-
     const { resize, panels, parentContainerID, flow, type } = nextProps
     if (resize.isResizing) {
+      let computedWidth = this.state.width
+      let computedHeight = this.state.height
       if (resize.parentContainerID !== parentContainerID) {
           if (flow === CONTAINER_FLOW.VERTICAL && type === PANEL_TYPE.BOTTOM) {
-            this.resizedHeight = 'auto'
+            computedHeight = 'auto'
           }
       }
       else {
@@ -76,10 +75,10 @@ class Panel extends Component {
         if (containerInfo.doIComeAfterThePanelBeingResized) {
           switch (flow) {
             case CONTAINER_FLOW.VERTICAL:
-              this.resizedHeight = 'auto'
+              computedHeight = 'auto'
               break
             case CONTAINER_FLOW.HORIZONTAL:
-              this.resizedWidth = 'auto'
+              computedWidth = 'auto'
               break
           }
         }
@@ -94,10 +93,18 @@ class Panel extends Component {
           }
         }
       }
+      if (!this.state.isResizing) {
+        this.setState({
+          width: computedWidth,
+          height: computedHeight,
+          isResizing: true
+        })
+      }
     } else {
       if (typeof this.unsubscribe === 'function') {
         this.unsubscribe()
         delete this.unsubscribe
+        this.setState({isResizing: false})
       }
     }
   }
@@ -127,7 +134,9 @@ class Panel extends Component {
   }
 
   handleResizing(updateFunc) {
-    if (!this.unsubscribe) this.unsubscribe = HighVolumeStore.subscribe(updateFunc)
+    if (!this.unsubscribe) {
+      this.unsubscribe = HighVolumeStore.subscribe(updateFunc)
+    }
   }
   
 	handleResizeH() {
