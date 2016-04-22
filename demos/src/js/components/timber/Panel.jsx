@@ -140,7 +140,6 @@ class Panel extends Component {
   }
   
 	handleResizeH() {
-    console.log('H')
 		const startX = HighVolumeStore.mouseX;
 		const startWidth = this.getClientWidth();
 		const updateWidth = () => {
