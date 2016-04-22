@@ -56,6 +56,7 @@ class Panel extends Component {
   componentWillUnmount() {
     if (typeof this.unsubscribe === 'function') {
       this.unsubscribe()
+      delete this.unsubscribe
     }
   }
 
@@ -92,6 +93,11 @@ class Panel extends Component {
               break
           }
         }
+      }
+    } else {
+      if (typeof this.unsubscribe === 'function') {
+        this.unsubscribe()
+        delete this.unsubscribe
       }
     }
   }
