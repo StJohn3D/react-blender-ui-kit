@@ -26,7 +26,7 @@ ReactDOM.render(
             Hi
           </h1>
         </Panel>
-        <Panel width="100px">
+        <Panel height="100px">
           <h1>
             Bye
           </h1>

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
+import generateID from '../../utils/generate-id'
 import { registerPanel } from '../../actions/registry-actions'
 import PANEL_TYPE from '../../constants/panel-types'
 import CONTAINER_FLOW from '../../constants/container-flows'
@@ -8,11 +9,16 @@ import ResizeHandle from './ResizeHandle'
 import HighVolumeStore from '../../utils/high-volume-store'
 
 class Panel extends Component {
+  constructor() {
+    super()
+    this.id = generateID('PANEL')
+    console.log('PANEL CONSTRUCTOR')
+  }
 
   buildResizer() {
-    const { id, type, parentContainerID, containerIndex, flow } = this.props
+    const { type, parentContainerID, containerIndex, flow } = this.props
     const handleProps = {
-      id, type, parentContainerID, containerIndex, flow
+      id: this.id, type, parentContainerID, containerIndex, flow
     }
     switch (type) {
       case PANEL_TYPE.LEFT:
@@ -33,7 +39,7 @@ class Panel extends Component {
     for (let panelKey in panels) {
       let panel = panels[panelKey]
       if (panel.parentContainerID === parentContainerID) {
-        if (panel.id === resize.panelID) {
+        if (this.id === resize.panelID) {
           amIBeingResized = true
         }
         else if (resize.containerIndex + 1 === containerIndex) {
@@ -79,9 +85,17 @@ class Panel extends Component {
           }
         }
         else if (containerInfo.amIBeingResized) {
-          this.unsubscribe = HighVolumeStore.subscribe(() => {
-
-          })
+          console.log('ME')
+          switch (flow) {
+            case CONTAINER_FLOW.VERTICAL:
+              this.handleResizeV()
+              style.height = this.resizedHeight
+              break
+            case CONTAINER_FLOW.HORIZONTAL:
+              this.handleResizeH()
+              style.width = this.resizedWidth
+              break
+          }
         }
       }
     }
@@ -93,62 +107,47 @@ class Panel extends Component {
     )
   }
 
-  // handleResizing(updateFunc) {
-	// 	var listenerID;
-  //
-	// 	var updateSize = () => {
-	// 		if ( MouseStore.leftButtonState === 'UP' ) {
-	// 			this.setState({ active: false }, function() {
-	// 				uiActions.doneResizing();
-	// 				listenerID.remove();
-	// 			});
-	// 		} else {
-	// 			updateFunc();
-	// 		}
-	// 	}.bind(this);
-  //
-	// 	this.setState({ active: true }, function() {
-	// 		uiActions.resizing();
-	// 		listenerID = MouseStore.addListener(updateSize);
-	// 	});
-	// }
-  //
-	// handleResizeH() {
-	// 	event.preventDefault();
-	// 	var refs = uiStore.getChildPanels( this.props.parentContainerID );
-	// 	refs[ this.props.containerIndex + 1 ].setWidth('auto');
-  //
-	// 	var startX = MouseStore.mouseX;
-	// 	var startWidth = this.getClientWidth();
-	// 	var updateWidth = function() {
-	// 		var newWidth = Number(startWidth) + (MouseStore.mouseX - startX);
-	// 		this.setWidth( newWidth + 'px' );
-	// 	}.bind(this);
-  //
-	// 	this.handleResizing(updateWidth);
-	// }
-  //
-	// handleResizeV() {
-	// 	event.preventDefault();
-	// 	var refs = uiStore.getChildPanels( this.props.parentContainerID );
-	// 	refs[ this.props.containerIndex + 1 ].setHeight('auto');
-  //
-	// 	var startY = MouseStore.mouseY;
-	// 	var startHeight = this.getClientHeight();
-	// 	var updateHeight = function() {
-	// 		var newHeight = Number(startHeight) + (MouseStore.mouseY - startY);
-	// 		this.setHeight( newHeight + 'px' );
-	// 	}.bind(this);
-  //
-	// 	this.handleResizing(updateHeight);
-	// }
+  getClientWidth() {
+    return ReactDOM.findDOMNode(this).clientWidth
+  }
+  getClientHeight() {
+    return ReactDOM.findDOMNode(this).clientHeight
+  }
+
+  handleResizing(updateFunc) {
+    if (!this.unsubscribe) this.unsubscribe = HighVolumeStore.subscribe(updateFunc)
+  }
+  
+	handleResizeH() {
+    console.log('H')
+		var startX = HighVolumeStore.mouseX;
+		var startWidth = this.getClientWidth();
+		var updateWidth = function() {
+			var newWidth = Number(startWidth) + (HighVolumeStore.mouseX - startX);
+			this.resizedWidth = newWidth + 'px'
+		}.bind(this);
+  
+		this.handleResizing(updateWidth);
+	}
+  
+	handleResizeV() {
+    console.log('V')
+		var startY = HighVolumeStore.mouseY;
+		var startHeight = this.getClientHeight();
+		var updateHeight = function() {
+			var newHeight = Number(startHeight) + (HighVolumeStore.mouseY - startY);
+			this.resizedHeight = newHeight + 'px'
+		}.bind(this);
+  
+		this.handleResizing(updateHeight);
+	}
 
   // after panel renders, register it in the store
   componentDidMount() {
-    const { dispatch, id, tools, parentContainerID, containerIndex } = this.props
+    const { dispatch, tools, parentContainerID, containerIndex } = this.props
     const node = ReactDOM.findDOMNode(this)
     dispatch(registerPanel({
-      id, // todo make this a required proptype
+      id: this.id, // todo make this a required proptype
       width: node.clientWidth,
       height: node.clientHeight,
       parentContainerID,

@@ -23,17 +23,22 @@ const computePanelType = (flow, i, lastIndex) => {
 }
 
 class Container extends Component {
+  constructor() {
+    super()
+    this.id = generateID('CONTAINER')
+    console.log('CONTAINER CONSTRUCTOR')
+  }
+
   render() {
-    const { children, flow, id } = this.props
+    const { children, flow} = this.props
     const childrenArray = React.Children.toArray(children)
     return (
       <section className="timber-container">
         {childrenArray.map((child, i) => {
           const type = computePanelType(flow, i, childrenArray.length - 1)
           const childComponent = <child.type
-            id={generateID('PANEL')}
             key={'child'+i}
-            parentContainerID={id}
+            parentContainerID={this.id}
             containerIndex={i}
             type={type}
             flow={flow}
@@ -58,10 +63,10 @@ class Container extends Component {
   componentDidMount() {
     const { dispatch, id, flow, minWidth, tools } = this.props
     dispatch(registerContainer({
-      id, // todo make this a required proptype
-      flow : flow || CONTAINER_FLOW.VERTICAL,
+      id      : this.id,
+      flow    : flow || CONTAINER_FLOW.VERTICAL,
       minWidth: minWidth || '480px',
-      tools: tools || []
+      tools   : tools || []
     }))
   }
 }

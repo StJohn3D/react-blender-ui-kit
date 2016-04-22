@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { doneResizing } from '../../actions/resize-actions'
-import generateID from '../../utils/generate-id'
 import HighVolumeStore from '../../utils/high-volume-store'
 
 class TimberApp extends Component {
@@ -10,7 +9,7 @@ class TimberApp extends Component {
     const container = React.Children.only(children)
     return (
       <div className="timber-ui" onMouseMove={onMouseMove} onMouseUp={this.onMouseUp}>
-        <container.type id={generateID('CONTAINER')} {...container.props} />
+        {container}
       </div>
     );
   }
