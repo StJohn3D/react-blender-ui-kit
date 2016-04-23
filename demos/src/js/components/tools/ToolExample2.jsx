@@ -1,15 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { select } from '../../actions/data-actions'
 
 class ToolExample2 extends Component {
 	handleClick(index) {
-		// ExampleActions.selectionMade(index);
-		console.log('selection made')
+		const { dispatch } = this.props
+		dispatch(select(index))
 	}
 
 	buildDisplay() {
 		const { list: thingsList, selectedIndex } = this.props.things
-
 		return thingsList.map( (value, index) => {
 			const classes = index === selectedIndex ?
 			'tool-example-2-item tool-example-2-selected' : 'tool-example-2-item';
@@ -20,7 +20,7 @@ class ToolExample2 extends Component {
 			)
 		})
 	}
-	
+
 	render() {
 		const { toolSelector } = this.props
 		return (
@@ -38,7 +38,7 @@ class ToolExample2 extends Component {
 ToolExample2.niceName = 'Tool Example 2'
 
 const mapStateToProps = state => ({
-	things: state.timberUI.things
+	things: state.data.things
 })
 
 export default connect(mapStateToProps)(ToolExample2)

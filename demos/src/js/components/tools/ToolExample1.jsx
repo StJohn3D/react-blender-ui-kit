@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { select } from '../../actions/data-actions'
 
 class ToolExample1 extends Component {
 	handleClick(index) {
-		// ExampleActions.selectionMade(index);
-		console.log('selection made')
+		const { dispatch } = this.props
+		dispatch(select(index))
 	}
 
 	buildDisplay() {
@@ -38,7 +39,7 @@ class ToolExample1 extends Component {
 ToolExample1.niceName = 'Tool Example 1'
 
 const mapStateToProps = state => ({
-	things: state.timberUI.things
+	things: state.data.things
 })
 
 export default connect(mapStateToProps)(ToolExample1)
