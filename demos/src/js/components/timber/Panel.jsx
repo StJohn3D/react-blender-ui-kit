@@ -154,13 +154,11 @@ class Panel extends Component {
 	}
 
 	getClientWidth() {
-		const node = ReactDOM.findDOMNode(this)
-		return node.clientWidth + node.style.borderWidth
+		return ReactDOM.findDOMNode(this).clientWidth
 	}
 
 	getClientHeight() {
-		const node = ReactDOM.findDOMNode(this)
-		return node.clientHeight + node.style.borderWidth
+		return ReactDOM.findDOMNode(this).clientHeight
 	}
 
 	handleResizing(updateFunc) {
