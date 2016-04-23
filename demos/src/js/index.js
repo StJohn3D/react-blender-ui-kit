@@ -20,7 +20,7 @@ const createFinalStoreWithMiddleware = compose(
 
 const ComplexLayout1 = () => (
   <TimberApp>
-    <Container flow={CONTAINER_FLOW.VERTICAL}>
+    <Container flow={CONTAINER_FLOW.VERTICAL} height="30%">
       <Panel>
         <h1>
           Hi
@@ -49,7 +49,7 @@ const ComplexLayout1 = () => (
         </h1>
       </Panel>
     </Container>
-    <Container flow={CONTAINER_FLOW.HORIZONTAL}>
+    <Container flow={CONTAINER_FLOW.HORIZONTAL} height="50%">
       <Panel>
         <h1>
           Hi
@@ -61,11 +61,11 @@ const ComplexLayout1 = () => (
         </h1>
       </Panel>
     </Container>
-    <Container>
+    <Container height="20%">
       <Panel>
         This is the last one
       </Panel>
-  </Container>
+    </Container>
   </TimberApp>
 )
 
@@ -81,7 +81,6 @@ const TwoColumns = () => (
     </Container>
   </TimberApp>
 )
-
 const ThreeColumns = () => (
   <TimberApp>
     <Container flow={CONTAINER_FLOW.HORIZONTAL}>
@@ -113,7 +112,7 @@ const TwoRows = () => (
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThreeColumns />
+    <ComplexLayout1 />
   </Provider>,
   document.getElementById('app')
 )

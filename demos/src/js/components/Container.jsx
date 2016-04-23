@@ -6,30 +6,30 @@ import * as styles from '../utils/temp-styles'
 class Container extends Component {
   render() {
     this.panels = this.panels || []
-    const { containerID, children, flow } = this.props
+    const { containerID, children, flow, height, width } = this.props
+    let style = {
+      ...styles.container,
+      height,
+    }
     return (
-      <div style={styles.container}>
+      <div style={style}>
         {React.Children.map(children, (childComponent, childIndex) => {
-          const key = `child${childIndex}`
-          let props = { ...childComponent.props }
-          props.parentContainerID = containerID
-          props.ref = panel => { if (panel) this.panels.push(panel) }
-          if (flow === CONTAINER_FLOW.HORIZONTAL)
-            props.key = key
-          props.panelID = this.panels.length > childIndex
-            ? this.panels[childIndex].panelID : undefined
-          const panel = <childComponent.type { ...props } />
-          switch (flow) {
-            case CONTAINER_FLOW.VERTICAL:
-              return (
-                <div key={key} className='timber-row'>
-                  { panel }
-                </div>
-              )
-
-            case CONTAINER_FLOW.HORIZONTAL:
-              return panel
+          const props = {
+            parent: {
+              containerID,
+              flow,
+              panelCount: React.Children.count(children)
+            },
+            index: childIndex,
+            ref: panel => {
+              if (panel) this.panels.push(panel)
+            },
+            panelID: this.panels.length > childIndex
+              ? this.panels[childIndex].panelID : undefined,
+            ...childComponent.props
           }
+          const panel = <childComponent.type { ...props } />
+          return panel
         })}
       </div>
     )

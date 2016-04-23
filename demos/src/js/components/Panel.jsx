@@ -7,10 +7,10 @@ import * as styles from '../utils/temp-styles'
 class Panel extends Component {
   render() {
     this.containers = this.containers || []
-    const { panelID, children } = this.props
+    const { panelID, index, children, parent: { flow, panelCount } } = this.props
     let containerIndex = 0
     return (
-      <section style={styles.panel}>
+      <section style={styles.panel[flow]}>
         {React.Children.map(children, (childComponent, childIndex) => {
           let props = { ...childComponent.props }
           if (childComponent.type === Container) {
@@ -24,14 +24,36 @@ class Panel extends Component {
           const contents = typeof childComponent === 'object'
             ? <childComponent.type { ...props } />
             : childComponent
-          return (
-            <div style={styles.table}>
-              <div style={styles.tableCell}>
-                { contents }
-              </div>
-              <div style={styles.resizeEW} />
-            </div>
-          )
+          let panel = (<div style={styles.tableCell}>
+              { contents }
+            </div>)
+          switch (flow) {
+            case CONTAINER_FLOW.HORIZONTAL: // columns
+              panel = (
+                <div style={styles.table}>
+                  { panel }
+                  { index < panelCount - 1
+                    ? <div style={styles.resizeEW} />
+                    : undefined }
+                </div>
+              )
+              break
+            case CONTAINER_FLOW.VERTICAL: // rows
+              panel = (
+                <div style={styles.table}>
+                  <div style={styles.tableRow}>
+                    { panel }
+                  </div>
+                  { index < panelCount - 1
+                    ? <div style={styles.resizeNS}>
+                        <div style={styles.tableCell} />
+                      </div>
+                    : undefined }
+                </div>
+              )
+              break
+          }
+          return panel
         })}
       </section>
     )
