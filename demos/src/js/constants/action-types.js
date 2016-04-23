@@ -13,3 +13,7 @@ export const RESIZE = {
   BEGIN: 'RESIZE_BEGIN',
   DONE : 'RESIZE_DONE'
 }
+
+export const SELECTION = {
+	CHANGED: 'CHANGED_SELECTION'
+}
