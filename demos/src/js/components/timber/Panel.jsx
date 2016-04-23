@@ -15,51 +15,6 @@ class Panel extends Component {
 		this.state = {}
 	}
 
-	buildResizer() {
-		const { type, parentContainerID, containerIndex, flow } = this.props
-		const handleProps = {
-			id: this.id, type, parentContainerID, containerIndex, flow
-		}
-		switch (type) {
-			case PANEL_TYPE.LEFT:
-			case PANEL_TYPE.CENTER:
-			case PANEL_TYPE.TOP:
-			case PANEL_TYPE.MIDDLE:
-			return <ResizeHandle {...handleProps} />
-
-			default:
-			return undefined
-		}
-	}
-
-	getContainerInfo(props) {
-		const { resize, panels, parentContainerID, containerIndex } = props
-		let amIBeingResized = false
-		let doIComeAfterThePanelBeingResized = false
-		for (let panelKey in panels) {
-			let panel = panels[panelKey]
-			if (panel.parentContainerID === parentContainerID) {
-				if (this.id === resize.panelID) {
-					amIBeingResized = true
-				}
-				else if (resize.containerIndex + 1 === containerIndex) {
-					doIComeAfterThePanelBeingResized = true
-				}
-			}
-		}
-		return {
-			amIBeingResized,
-			doIComeAfterThePanelBeingResized
-		}
-	}
-
-	componentWillUnmount() {
-		if (typeof this.unsubscribe === 'function') {
-			this.unsubscribe()
-			delete this.unsubscribe
-		}
-	}
-
 	componentWillReceiveProps(nextProps) {
 		const { resize, parentContainerID, flow, type } = nextProps
 		const node = ReactDOM.findDOMNode(this)
@@ -107,79 +62,59 @@ class Panel extends Component {
 				delete this.unsubscribe
 			}
 			if (this.props.resize.isResizing !== resize.isResizing) {
-        // SJ: A resize event just ended so we need to update our width and height
-        this.setState({
-        	width: computedWidth + 'px',
-        	height: computedHeight + 'px',
-        	isResizing: false
-        })
-    }
-}
-}
-
-render() {
-	const { children, width, height, resize, panels, parentContainerID, flow, type } = this.props
-	let style = {
-		width: this.state.width || width || 'auto',
-		height: this.state.height || height || 'auto'
-	}
-	switch(flow) {
-		case CONTAINER_FLOW.VERTICAL:
-		style.width = 'auto'
-		break
-		case CONTAINER_FLOW.HORIZONTAL:
-		style.height = 'auto'
-		break
+		        // SJ: A resize event just ended so we need to update our width and height
+		        this.setState({
+		        	width: computedWidth + 'px',
+		        	height: computedHeight + 'px',
+		        	isResizing: false
+		        })
+    		}
+		}
 	}
 
-	const resizer = this.buildResizer()
+	buildResizer() {
+		const { type, parentContainerID, containerIndex, flow } = this.props
+		const handleProps = {
+			id: this.id, type, parentContainerID, containerIndex, flow
+		}
+		switch (type) {
+			case PANEL_TYPE.LEFT:
+			case PANEL_TYPE.CENTER:
+			case PANEL_TYPE.TOP:
+			case PANEL_TYPE.MIDDLE:
+			return <ResizeHandle {...handleProps} />
 
-	return (
-		<section className="timber-panel" style={style}>
-		{children}
-		{resizer}
-		</section>
-		)
-}
-
-getClientWidth() {
-	const node = ReactDOM.findDOMNode(this)
-	return node.clientWidth + node.style.borderWidth
-}
-getClientHeight() {
-	const node = ReactDOM.findDOMNode(this)
-	return node.clientHeight + node.style.borderWidth
-}
-
-handleResizing(updateFunc) {
-	if (!this.unsubscribe) {
-		this.unsubscribe = HighVolumeStore.subscribe(updateFunc)
-	}
-}
-
-handleResizeH() {
-	const startX = HighVolumeStore.mouseX;
-	const startWidth = this.getClientWidth();
-	const updateWidth = () => {
-		const newWidth = Number(startWidth) + (HighVolumeStore.mouseX - startX);
-		this.setState({width: newWidth + 'px'})
+			default:
+			return undefined
+		}
 	}
 
-	this.handleResizing(updateWidth)
-}
+	render() {
+		const { children, width, height, resize, panels, parentContainerID, flow, type } = this.props
+		let style = {
+			width: this.state.width || width || 'auto',
+			height: this.state.height || height || 'auto'
+		}
+		switch(flow) {
+			case CONTAINER_FLOW.VERTICAL:
+			style.width = 'auto'
+			break
+			case CONTAINER_FLOW.HORIZONTAL:
+			style.height = 'auto'
+			break
+		}
 
-handleResizeV() {
-	const startY = HighVolumeStore.mouseY;
-	const startHeight = this.getClientHeight();
-	const updateHeight = () => {
-		const newHeight = Number(startHeight) + (HighVolumeStore.mouseY - startY);
-		this.setState({height: newHeight + 'px'})
+		const resizer = this.buildResizer()
+
+		return (
+			<section className="timber-panel" style={style}>
+			{children}
+			{resizer}
+			</section>
+			)
 	}
 
-	this.handleResizing(updateHeight)
-}
-
-  // after panel renders, register it in the store
+	// after panel renders, register it in the store
 	componentDidMount() {
 		const { dispatch, tools, parentContainerID, containerIndex } = this.props
 		const node = ReactDOM.findDOMNode(this)
@@ -191,6 +126,72 @@ handleResizeV() {
     		containerIndex,
     		tools: tools || [],
 		}))
+	}
+
+	componentWillUnmount() {
+		if (typeof this.unsubscribe === 'function') {
+			this.unsubscribe()
+			delete this.unsubscribe
+		}
+	}
+
+	getContainerInfo(props) {
+		const { resize, panels, parentContainerID, containerIndex } = props
+		let amIBeingResized = false
+		let doIComeAfterThePanelBeingResized = false
+		for (let panelKey in panels) {
+			let panel = panels[panelKey]
+			if (panel.parentContainerID === parentContainerID) {
+				if (this.id === resize.panelID) {
+					amIBeingResized = true
+				}
+				else if (resize.containerIndex + 1 === containerIndex) {
+					doIComeAfterThePanelBeingResized = true
+				}
+			}
+		}
+		return {
+			amIBeingResized,
+			doIComeAfterThePanelBeingResized
+		}
+	}
+
+	getClientWidth() {
+		const node = ReactDOM.findDOMNode(this)
+		return node.clientWidth + node.style.borderWidth
+	}
+
+	getClientHeight() {
+		const node = ReactDOM.findDOMNode(this)
+		return node.clientHeight + node.style.borderWidth
+	}
+
+	handleResizing(updateFunc) {
+		if (!this.unsubscribe) {
+			this.unsubscribe = HighVolumeStore.subscribe(updateFunc)
+		}
+	}
+
+	handleResizeH() {
+		const startX = HighVolumeStore.mouseX;
+		const startWidth = this.getClientWidth();
+		const updateWidth = () => {
+			const newWidth = Number(startWidth) + (HighVolumeStore.mouseX - startX);
+			this.setState({width: newWidth + 'px'})
+		}
+
+		this.handleResizing(updateWidth)
+	}
+
+	handleResizeV() {
+		const startY = HighVolumeStore.mouseY;
+		const startHeight = this.getClientHeight();
+		const updateHeight = () => {
+			const newHeight = Number(startHeight) + (HighVolumeStore.mouseY - startY);
+			this.setState({height: newHeight + 'px'})
+		}
+
+		this.handleResizing(updateHeight)
 	}
 }
 
