@@ -61,14 +61,11 @@ class Panel extends Component {
 				this.unsubscribe()
 				delete this.unsubscribe
 			}
-			if (this.props.resize.isResizing !== resize.isResizing) {
-		        // SJ: A resize event just ended so we need to update our width and height
-		        this.setState({
-		        	width: computedWidth + 'px',
-		        	height: computedHeight + 'px',
-		        	isResizing: false
-		        })
-    		}
+	        this.setState({
+	        	width: computedWidth + 'px',
+	        	height: computedHeight + 'px',
+	        	isResizing: false
+	        })
 		}
 	}
 
@@ -196,8 +193,9 @@ class Panel extends Component {
 }
 
 const mapStateToProps = state => ({
-	resize: state.timberUI.resize,
-	panels: state.timberUI.panels
+	resize    : state.timberUI.resize,
+	panels    : state.timberUI.panels,
+	containers: state.timberUI.containers
 })
 
 export default connect(mapStateToProps)(Panel)
