@@ -6,10 +6,8 @@ const reducer = combineReducers({
   workspacr: function(state = initialState, action) {
     switch (action.type) {
 
-      case 'INITIAL_ACTION':
-        return Object.assign({}, state, {
-          layout: action.payload
-        })
+      case 'INITIALIZE_STATE':
+        return Object.assign({}, state, action.payload)
 
       default:
         return initialState

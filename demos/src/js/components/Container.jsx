@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import CONTAINER_FLOW from '../constants/container-flows'
+import * as styles from '../utils/temp-styles'
 
 class Container extends Component {
   render() {
     this.panels = this.panels || []
     const { containerID, children, flow } = this.props
     return (
-      <section className="timber-container">
+      <div style={styles.container}>
         {React.Children.map(children, (childComponent, childIndex) => {
           const key = `child${childIndex}`
           let props = { ...childComponent.props }
@@ -21,16 +22,16 @@ class Container extends Component {
           switch (flow) {
             case CONTAINER_FLOW.VERTICAL:
               return (
-                <section key={key} className='timber-row'>
+                <div key={key} className='timber-row'>
                   { panel }
-                </section>
+                </div>
               )
 
             case CONTAINER_FLOW.HORIZONTAL:
               return panel
           }
         })}
-      </section>
+      </div>
     )
   }
 }

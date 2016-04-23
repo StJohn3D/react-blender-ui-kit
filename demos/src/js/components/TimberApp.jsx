@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CONTAINER_FLOW from '../constants/container-flows'
 import initializeState from '../actions/initialize-state'
+import * as styles from '../utils/temp-styles'
 
 class TimberApp extends Component {
   render() {
     this.containers = this.containers || []
     const { children } = this.props
     return (
-      <div className="timber-ui">
+      <div style={styles.root}>
         {React.Children.map(children, (childComponent, childIndex) => {
           let props = { ...childComponent.props }
           props.ref = container => { if (container) this.containers.push(container) }
@@ -23,8 +24,8 @@ class TimberApp extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    const layout = initializeState(this)
-    dispatch({type: 'INITIAL_ACTION', payload: layout})
+    const state = initializeState(this)
+    dispatch({type: 'INITIALIZE_STATE', payload: state})
   }
 }
 

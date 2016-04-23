@@ -69,7 +69,7 @@ const ComplexLayout1 = () => (
   </TimberApp>
 )
 
-const OneByOneHorizontal = () => (
+const TwoColumns = () => (
   <TimberApp>
     <Container flow={CONTAINER_FLOW.HORIZONTAL}>
       <Panel>
@@ -82,9 +82,38 @@ const OneByOneHorizontal = () => (
   </TimberApp>
 )
 
+const ThreeColumns = () => (
+  <TimberApp>
+    <Container flow={CONTAINER_FLOW.HORIZONTAL}>
+      <Panel>
+        Left
+      </Panel>
+      <Panel>
+        Center
+      </Panel>
+      <Panel>
+        Right
+      </Panel>
+    </Container>
+  </TimberApp>
+)
+
+const TwoRows = () => (
+  <TimberApp>
+    <Container flow={CONTAINER_FLOW.VERTICAL}>
+      <Panel>
+        Top
+      </Panel>
+      <Panel>
+        Bottom
+      </Panel>
+    </Container>
+  </TimberApp>
+)
+
 ReactDOM.render(
   <Provider store={store}>
-    <ComplexLayout1 />
+    <ThreeColumns />
   </Provider>,
   document.getElementById('app')
-);
+)
