@@ -16,7 +16,11 @@ const initialState = {
     isLeftDown: false
   },
   containers: {},
-  panels: {}
+  panels: {},
+  things: {
+    list: ['Thing 1', 'Thing 2', 'Thing 3'],
+    selectedIndex: 0
+  }
 }
 
 const rootReducer = combineReducers({

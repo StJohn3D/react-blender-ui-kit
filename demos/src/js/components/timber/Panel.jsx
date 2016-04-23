@@ -108,7 +108,7 @@ class Panel extends Component {
 			{children}
 			{resizer}
 			</section>
-			)
+		)
 	}
 
 	// after panel renders, register it in the store
