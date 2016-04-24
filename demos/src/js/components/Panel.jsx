@@ -33,22 +33,24 @@ class Panel extends Component {
                 <div style={styles.table}>
                   { panel }
                   { index < panelCount - 1
-                    ? <div style={styles.resizeEW} />
+                    ? <div className="timber-resizer-ew"><div /></div>
                     : undefined }
                 </div>
               )
               break
             case CONTAINER_FLOW.VERTICAL: // rows
               panel = (
-                <div style={styles.table}>
-                  <div style={styles.tableRow}>
-                    { panel }
+                <div style={styles.tableCell}>
+                  <div style={styles.table}>
+                    <div style={styles.tableRow}>
+                      { panel }
+                    </div>
+                    { index < panelCount - 1
+                      ? <div className="timber-resizer-ns">
+                          <div><div /></div>
+                        </div>
+                      : undefined }
                   </div>
-                  { index < panelCount - 1
-                    ? <div style={styles.resizeNS}>
-                        <div style={styles.tableCell} />
-                      </div>
-                    : undefined }
                 </div>
               )
               break

@@ -1,23 +1,40 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Container from './Container'
 import CONTAINER_FLOW from '../constants/container-flows'
 import initializeState from '../actions/initialize-state'
 import * as styles from '../utils/temp-styles'
 
 class TimberApp extends Component {
+
+  componentWillMount() {
+    const { children } = this.props
+    const childCount = React.Children.count(children)
+    let isOnlyChildContainer = true
+    if (childCount === 1) {
+      const onlyChild = React.Children.only(children)
+      isOnlyChildContainer = onlyChild && onlyChild.type && onlyChild.type === Container
+    }
+    if (childCount > 1 || !isOnlyChildContainer)
+      throw 'Timber Violation: TimberApp can only contain a single Container component.'
+  }
+
   render() {
     this.containers = this.containers || []
     const { children } = this.props
+    const rootContainer = React.Children.only(children)
+    const { flow } = rootContainer.props
+    const props = {
+      height: '100%',
+      ref: container => { if (container) this.containers.push(container) },
+      flow: flow || CONTAINER_FLOW.HORIZONTAL,
+      containerID: this.containers.length
+        ? this.containers[0].containerID : undefined,
+      ...rootContainer.props,
+    }
     return (
       <div style={styles.root}>
-        {React.Children.map(children, (childComponent, childIndex) => {
-          let props = { ...childComponent.props }
-          props.ref = container => { if (container) this.containers.push(container) }
-          props.flow = props.flow || CONTAINER_FLOW.HORIZONTAL
-          props.containerID = this.containers.length > childIndex
-            ? this.containers[childIndex].containerID : undefined
-          return <childComponent.type { ...props } />
-        })}
+        <rootContainer.type { ...props } />
       </div>
     )
   }

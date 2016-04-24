@@ -18,57 +18,6 @@ const createFinalStoreWithMiddleware = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)
 
-const ComplexLayout1 = () => (
-  <TimberApp>
-    <Container flow={CONTAINER_FLOW.VERTICAL} height="30%">
-      <Panel>
-        <h1>
-          Hi
-        </h1>
-        <Container flow={CONTAINER_FLOW.HORIZONTAL}>
-          <Panel>
-            <h1>
-              inner
-            </h1>
-          </Panel>
-          <Panel>
-            <h1>
-              inner
-            </h1>
-          </Panel>
-          <Panel>
-            <h1>
-              inner
-            </h1>
-          </Panel>
-        </Container>
-      </Panel>
-      <Panel>
-        <h1>
-          Bye
-        </h1>
-      </Panel>
-    </Container>
-    <Container flow={CONTAINER_FLOW.HORIZONTAL} height="50%">
-      <Panel>
-        <h1>
-          Hi
-        </h1>
-      </Panel>
-      <Panel>
-        <h1>
-          Bye
-        </h1>
-      </Panel>
-    </Container>
-    <Container height="20%">
-      <Panel>
-        This is the last one
-      </Panel>
-    </Container>
-  </TimberApp>
-)
-
 const TwoColumns = () => (
   <TimberApp>
     <Container flow={CONTAINER_FLOW.HORIZONTAL}>
@@ -109,10 +58,25 @@ const TwoRows = () => (
     </Container>
   </TimberApp>
 )
+const ThreeRows = () => (
+  <TimberApp>
+    <Container flow={CONTAINER_FLOW.VERTICAL}>
+      <Panel>
+        Top
+      </Panel>
+      <Panel>
+        Middle
+      </Panel>
+      <Panel>
+        Bottom
+      </Panel>
+    </Container>
+  </TimberApp>
+)
 
 ReactDOM.render(
   <Provider store={store}>
-    <ComplexLayout1 />
+    <TwoColumns />
   </Provider>,
   document.getElementById('app')
 )

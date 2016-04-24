@@ -74,6 +74,54 @@
       cursor: ns-resize;
     }
 
+    .timber-resizer-ew {
+      width: 12px;
+      display: table-cell;
+      position: relative;
+    }
+
+    .timber-resizer-ew > div {
+      position: absolute;
+      width: 4px;
+      height: 100%;
+      left: 8px;
+      background: #333;
+    }
+
+    .timber-resizer-ew:hover {
+      cursor: ew-resize;
+    }
+
+    .timber-resizer-ew:hover > div {
+      background: #ccc;
+    }
+
+    .timber-resizer-ns {
+      height: 12px;
+      display: table-row;
+    }
+
+    .timber-resizer-ns > div {
+      position: relative;
+      display: table-cell;
+    }
+
+    .timber-resizer-ns > div > div {
+      position: absolute;
+      height: 4px;
+      width: 100%;
+      top: 8px;
+      background: #333;
+    }
+
+    .timber-resizer-ns:hover {
+      cursor: ns-resize;
+    }
+
+    .timber-resizer-ns:hover > div > div {
+      background: #ccc;
+    }
+
     .timber-corner {
       width: 0;
       height: 0;

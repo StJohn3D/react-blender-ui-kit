@@ -8,12 +8,12 @@ export const root = {
 export const table = {
   display: 'table',
   width: '100%',
-  //height: '100%'
+  height: '100%'
 }
 
 export const container = {
   ...table,
-  //minHeight: '200px'
+  minHeight: '200px'
 }
 
 export const tableRow = {
@@ -34,16 +34,4 @@ export const panel = {
     ...tableCell,
     background: 'grey',
   },
-}
-
-export const resizeEW = {
-  ...tableCell,
-  width: '4px',
-  background: '#333'
-}
-
-export const resizeNS = {
-  ...tableRow,
-  height: '4px',
-  background: '#333'
 }
