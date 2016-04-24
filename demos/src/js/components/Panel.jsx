@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Container from './Container'
+import ResizeHandle from './ResizeHandle'
 import CONTAINER_FLOW from '../constants/container-flows'
 import * as styles from '../utils/temp-styles'
 
@@ -12,7 +13,7 @@ class Panel extends Component {
     let containerIndex = 0
     return (
       <section style={style}>
-        {React.Children.map(children, (childComponent, childIndex) => {
+        { React.Children.map(children, (childComponent, childIndex) => {
           let props = { ...childComponent.props }
           if (childComponent.type === Container) {
             props.parentPanelID = panelID
@@ -33,9 +34,7 @@ class Panel extends Component {
               panel = (
                 <div style={styles.table}>
                   { panel }
-                  { index < panelCount - 1
-                    ? <div className="timber-resizer-ew"><div /></div>
-                    : undefined }
+                  <ResizeHandle flow={flow} index={index} panelCount={panelCount} />
                 </div>
               )
               break
@@ -46,11 +45,7 @@ class Panel extends Component {
                     <div style={styles.tableRow}>
                       { panel }
                     </div>
-                    { index < panelCount - 1
-                      ? <div className="timber-resizer-ns">
-                          <div><div /></div>
-                        </div>
-                      : undefined }
+                    <ResizeHandle flow={flow} index={index} panelCount={panelCount} />
                   </div>
                 </div>
               )
