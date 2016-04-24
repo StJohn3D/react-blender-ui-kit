@@ -7,10 +7,11 @@ import * as styles from '../utils/temp-styles'
 class Panel extends Component {
   render() {
     this.containers = this.containers || []
-    const { panelID, index, children, parent: { flow, panelCount } } = this.props
+    const { panelID, index, children, parent: { flow, panelCount }, width, height } = this.props
+    const style = { width, height, ...styles.panel[flow] }
     let containerIndex = 0
     return (
-      <section style={styles.panel[flow]}>
+      <section style={style}>
         {React.Children.map(children, (childComponent, childIndex) => {
           let props = { ...childComponent.props }
           if (childComponent.type === Container) {
@@ -62,6 +63,14 @@ class Panel extends Component {
   }
 }
 
-const mapStateToProps = state => ({ ...state })
+const mapStateToProps = ({ workspacr: { panels, containers }}, { panelID, parent: { flow }}) => {
+  if (!panels) return {}
+  const width = flow === CONTAINER_FLOW.HORIZONTAL ? panels[panelID].clientWidth + 'px' : undefined
+  const height = flow === CONTAINER_FLOW.VERTICAL ? panels[panelID].clientHeight + 'px' : undefined
+  return {
+    width,
+    height,
+  }
+}
 
 export default connect(mapStateToProps, null, null, { withRef: true })(Panel)
