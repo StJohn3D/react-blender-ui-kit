@@ -17,27 +17,28 @@ const reducer = combineReducers({
       case 'DROP_RESIZE_HANDLE':
         const { panelID, mousePosition, flow } = payload
         const { panels } = state
-        const { parentContainerID, index } = panels[panelID]
-        const affectedPanels = _.filter(panels, x =>
+        const panel = panels[panelID]
+        const { parentContainerID, index } = panel
+        const allPanels = _.filter(_.sortBy(panels, x => (x.index)), x =>
           (x.parentContainerID === parentContainerID))
-        const otherPanels = _.filter(affectedPanels, x =>
-          (x.panelID != panelID))
+        const previousPanels = _.filter(allPanels, x => (x.index < panel.index))
+        const delta = {
+          x: mousePosition.clientX + mouseOffset.x - panel.clientWidth
+            - _.sumBy(previousPanels, x => (x.clientWidth)),
+        }
         let newPanels = { ...panels }
         switch (flow) {
 
           case CONTAINER_FLOW.HORIZONTAL: {
-            const totalWidth = _.sumBy(affectedPanels, x => (x.clientWidth))
-            const delta = mousePosition.clientX + mouseOffset.x - panels[panelID].clientWidth
+            const nextPanel = allPanels[index + 1]
             newPanels[panelID] = {
-              ...panels[panelID],
-              clientWidth: panels[panelID].clientWidth + delta
+              ...panel,
+              clientWidth: panel.clientWidth + delta.x,
             }
-            otherPanels.forEach(x => {
-              newPanels[x.panelID] = {
-                ...panels[x.panelID],
-                clientWidth: x.clientWidth - delta
-              }
-            })
+            newPanels[nextPanel.panelID] = {
+              ...nextPanel,
+              clientWidth: nextPanel.clientWidth - delta.x,
+            }
             break
           }
 

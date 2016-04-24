@@ -46,6 +46,34 @@ const ThreeColumns = () => (
   </TimberApp>
 )
 
+const SevenColumns = () => (
+  <TimberApp>
+    <Container flow={CONTAINER_FLOW.HORIZONTAL}>
+      <Panel>
+        One
+      </Panel>
+      <Panel>
+        Two
+      </Panel>
+      <Panel>
+        Three
+      </Panel>
+      <Panel>
+        Four
+      </Panel>
+      <Panel>
+        Five
+      </Panel>
+      <Panel>
+        Six
+      </Panel>
+      <Panel>
+        Seven
+      </Panel>
+    </Container>
+  </TimberApp>
+)
+
 const TwoRows = () => (
   <TimberApp>
     <Container flow={CONTAINER_FLOW.VERTICAL}>
@@ -76,7 +104,7 @@ const ThreeRows = () => (
 
 ReactDOM.render(
   <Provider store={store}>
-    <TwoColumns />
+    <SevenColumns />
   </Provider>,
   document.getElementById('app')
 )
