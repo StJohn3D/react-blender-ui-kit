@@ -8,7 +8,8 @@ import * as styles from '../utils/temp-styles'
 class Panel extends Component {
   render() {
     this.containers = this.containers || []
-    const { panelID, index, children, parent: { flow, panelCount }, width, height } = this.props
+    const { panelID, index, children, parent: { flow, panelCount, containerID },
+      width, height } = this.props
     const style = { width, height, ...styles.panel[flow] }
     let containerIndex = 0
     return (
@@ -26,6 +27,8 @@ class Panel extends Component {
           const contents = typeof childComponent === 'object'
             ? <childComponent.type { ...props } />
             : childComponent
+            const resizeHandle = <ResizeHandle panelID={panelID} containerID={containerID}
+              flow={flow} index={index} panelCount={panelCount} />
           let panel = (<div style={styles.tableCell}>
               { contents }
             </div>)
@@ -34,7 +37,7 @@ class Panel extends Component {
               panel = (
                 <div style={styles.table}>
                   { panel }
-                  <ResizeHandle flow={flow} index={index} panelCount={panelCount} />
+                  { resizeHandle }
                 </div>
               )
               break
@@ -45,7 +48,7 @@ class Panel extends Component {
                     <div style={styles.tableRow}>
                       { panel }
                     </div>
-                    <ResizeHandle flow={flow} index={index} panelCount={panelCount} />
+                    { resizeHandle }
                   </div>
                 </div>
               )
