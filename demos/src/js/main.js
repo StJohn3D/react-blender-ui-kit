@@ -27,7 +27,17 @@ ReactDOM.render(
 					<ToolExample1/>
 				</Panel>
 				<Panel height="100px">
-					<ToolExample2/>
+					<Container flow="HORIZONTAL">
+						<Panel height="100px">
+							<ToolExample1/>
+						</Panel>
+						<Panel height="100px">
+							<ToolExample2/>
+						</Panel>
+						<Panel width='50px'>
+							<ToolExample1/>
+						</Panel>
+					</Container>
 				</Panel>
 				<Panel width='50px'>
 					<ToolExample1/>
