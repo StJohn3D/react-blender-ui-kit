@@ -9,7 +9,9 @@ class ResizeHandle extends Component {
     const className = flow === CONTAINER_FLOW.HORIZONTAL
       ? 'timber-resize-h' : 'timber-resize-v'
     return (
-      <div className={className} onMouseDown={beginResize}></div>
+      <div className={className} onMouseDown={beginResize}>
+        <div></div>
+      </div>
     )
   }
 }
