@@ -26,13 +26,13 @@ class ResizeHandle extends Component {
     const { dispatch, panelID, flow } = this.props
     window.addEventListener('mousemove', this.onMouseMove)
     window.addEventListener('mouseup', this.onMouseUp)
+    e.preventDefault()
     return dispatch({
       type: 'GRAB_RESIZE_HANDLE',
       payload: {
         panelID, flow, mousePosition: MousePosition.current,
       }
     })
-    e.preventDefault()
   }
 
   onMouseMove = e => {

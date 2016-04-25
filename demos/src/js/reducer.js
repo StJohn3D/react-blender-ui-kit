@@ -7,7 +7,7 @@ const initialState = {}
 const reducer = combineReducers({
   workspacr: (state = initialState, action) => {
     const { type, payload } = action
-    const mouseOffset = { x: 3, y: 0 }
+    const mouseOffset = { x: 3, y: 3 }
     switch (type) {
       case 'INITIALIZE_STATE':
         return Object.assign({}, state, payload)
@@ -21,16 +21,18 @@ const reducer = combineReducers({
         const { parentContainerID, index } = panel
         const allPanels = _.filter(_.sortBy(panels, x => (x.index)), x =>
           (x.parentContainerID === parentContainerID))
+        const nextPanel = allPanels[index + 1]
         const previousPanels = _.filter(allPanels, x => (x.index < panel.index))
         const delta = {
           x: mousePosition.clientX + mouseOffset.x - panel.clientWidth
             - _.sumBy(previousPanels, x => (x.clientWidth)),
+          y: mousePosition.clientY + mouseOffset.y - panel.clientHeight
+            - _.sumBy(previousPanels, x => (x.clientHeight)),
         }
         let newPanels = { ...panels }
         switch (flow) {
 
-          case CONTAINER_FLOW.HORIZONTAL: {
-            const nextPanel = allPanels[index + 1]
+          case CONTAINER_FLOW.HORIZONTAL:
             newPanels[panelID] = {
               ...panel,
               clientWidth: panel.clientWidth + delta.x,
@@ -40,8 +42,17 @@ const reducer = combineReducers({
               clientWidth: nextPanel.clientWidth - delta.x,
             }
             break
-          }
 
+          case CONTAINER_FLOW.VERTICAL:
+            newPanels[panelID] = {
+              ...panel,
+              clientHeight: panel.clientHeight + delta.y,
+            }
+            newPanels[nextPanel.panelID] = {
+              ...nextPanel,
+              clientHeight: nextPanel.clientHeight - delta.y,
+            }
+            break
         }
 
         return Object.assign({}, state, {
