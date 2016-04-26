@@ -23,23 +23,37 @@ ReactDOM.render(
 	<Provider store={store}>
 		<TimberApp>
 			<Container flow="VERTICAL">
-				<Panel height="100px">
-					<ToolExample1/>
-				</Panel>
-				<Panel height="100px">
+				<Panel>
 					<Container flow="HORIZONTAL">
-						<Panel height="100px">
+						<Panel width='300px'>
 							<ToolExample1/>
 						</Panel>
-						<Panel height="100px">
-							<ToolExample2/>
-						</Panel>
-						<Panel width='50px'>
-							<ToolExample1/>
+						<Panel>
+							<Container flow="VERTICAL">
+								<Panel height="10%">
+									<ToolExample1/>
+								</Panel>
+								<Panel>
+									<Container flow="HORIZONTAL">
+										<Panel>
+											<ToolExample1/>
+										</Panel>
+										<Panel>
+											<ToolExample2/>
+										</Panel>
+										<Panel width='250px'>
+											<ToolExample1/>
+										</Panel>
+									</Container>
+								</Panel>
+								<Panel height='10%'>
+									<ToolExample1/>
+								</Panel>
+							</Container>
 						</Panel>
 					</Container>
 				</Panel>
-				<Panel width='50px'>
+				<Panel height='10%'>
 					<ToolExample1/>
 				</Panel>
 			</Container>
