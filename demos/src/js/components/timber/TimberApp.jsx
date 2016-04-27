@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { doneResizing } from '../../actions/resize-actions'
+import { registerTools } from '../../actions/registry-actions'
 import HighVolumeStore from '../../utils/high-volume-store'
 
 class TimberApp extends Component {
@@ -15,8 +16,14 @@ class TimberApp extends Component {
   }
 
   componentWillMount() {
-      const { onWindowResize } = this.props
+      const { onWindowResize, dispatch, tools } = this.props
       window.addEventListener('resize', onWindowResize);
+      
+      if ( tools.length ) {
+          dispatch(registerTools({
+              tools: tools
+          }))
+      }
   }
 
   onMouseUp = (e) => {

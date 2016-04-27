@@ -21,40 +21,33 @@ const store = createFinalStoreWithMiddleware(rootReducer);
 
 ReactDOM.render(
 	<Provider store={store}>
-		<TimberApp>
+		<TimberApp tools={[<ToolExample1/>, <ToolExample2/>]}>
 			<Container flow="VERTICAL">
 				<Panel>
 					<Container flow="HORIZONTAL">
 						<Panel width='300px'>
-							<ToolExample1/>
 						</Panel>
 						<Panel>
 							<Container flow="VERTICAL">
 								<Panel height="10%">
-									<ToolExample1/>
 								</Panel>
 								<Panel>
 									<Container flow="HORIZONTAL">
 										<Panel>
-											<ToolExample1/>
 										</Panel>
 										<Panel>
-											<ToolExample2/>
 										</Panel>
 										<Panel width='250px'>
-											<ToolExample1/>
 										</Panel>
 									</Container>
 								</Panel>
 								<Panel height='10%'>
-									<ToolExample1/>
 								</Panel>
 							</Container>
 						</Panel>
 					</Container>
 				</Panel>
 				<Panel height='10%'>
-					<ToolExample1/>
 				</Panel>
 			</Container>
 		</TimberApp>
