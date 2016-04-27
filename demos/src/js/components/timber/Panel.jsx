@@ -6,6 +6,7 @@ import { registerPanel } from '../../actions/registry-actions'
 import PANEL_TYPE from '../../constants/panel-types'
 import CONTAINER_FLOW from '../../constants/container-flows'
 import ResizeHandle from './ResizeHandle'
+import Tool from './Tool'
 import HighVolumeStore from '../../utils/high-volume-store'
 
 class Panel extends Component {
@@ -86,8 +87,16 @@ class Panel extends Component {
         }
     }
 
+    buildTool() {
+        const { children } = this.props
+
+        if ( React.Children.count(children) === 0 ) {
+            return <Tool panelID={this.id}/>
+        } else return null
+    }
+
     render() {
-        const { children, width, height, resize, panels, parentContainerID, flow, type } = this.props
+        const { children, width, height, flow } = this.props
         let style = {
             width: this.state.width || width || 'auto',
             height: this.state.height || height || 'auto'
@@ -102,23 +111,19 @@ class Panel extends Component {
         }
 
         const resizer = this.buildResizer()
+        const tool = this.buildTool()
 
         return (
             <section className="timber-panel" style={style}>
-            {children}
-            {resizer}
+            {children}{tool}{resizer}
             </section>
         )
     }
 
-    // after panel renders, register it in the store
-    componentDidMount() {
-        const { dispatch, tools, parentContainerID, containerIndex, toolIndex } = this.props
-        const node = ReactDOM.findDOMNode(this)
+    componentWillMount() {
+        const { dispatch, parentContainerID, containerIndex, toolIndex } = this.props
         dispatch(registerPanel({
             id: this.id,
-            width: node.clientWidth,
-            height: node.clientHeight,
             parentContainerID,
             containerIndex,
             selectedToolIndex: toolIndex || 0
