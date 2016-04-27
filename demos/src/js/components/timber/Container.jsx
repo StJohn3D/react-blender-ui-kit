@@ -26,7 +26,6 @@ class Container extends Component {
   constructor() {
     super()
     this.id = generateID('CONTAINER')
-    console.log('CONTAINER CONSTRUCTOR')
   }
 
   render() {

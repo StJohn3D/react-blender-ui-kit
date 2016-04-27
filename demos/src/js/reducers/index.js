@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import friendList from './friendList';
 import { MOUSE, REGISTER, RESIZE, SELECTION } from '../constants/action-types'
 
 const initialState = {
@@ -91,7 +90,7 @@ const rootReducer = combineReducers({
 			})
 
 			default:
-			return initialState
+			return state
 		}
 	},
 	data: function(state = initialData, action) {
@@ -104,7 +103,7 @@ const rootReducer = combineReducers({
 					}
 				})
 			default:
-			return initialData
+			return state
 		}
 	}
 });
