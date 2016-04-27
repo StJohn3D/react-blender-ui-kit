@@ -24,11 +24,11 @@ class ToolExample1 extends Component {
 	}
 
 	render() {
-		const { toolSelector } = this.props
+		const { toolSelector, name } = this.props
 		return (
 			<div className='tool-example-1'>
 				{toolSelector}
-				<h2>Tool example 1</h2>
+				<h2>{name || 'Tool example 1'}</h2>
 				<div>
 					{this.buildDisplay()}
 				</div>

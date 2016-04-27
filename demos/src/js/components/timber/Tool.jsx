@@ -5,7 +5,11 @@ class Tool extends Component {
     render() {
         const { tools, panels, panelID } = this.props
         if ( tools.length ) {
-            return tools[panels[panelID].selectedToolIndex]
+            const tool = tools[panels[panelID].selectedToolIndex]
+            const selector = <select></select>
+            return (
+                <tool.type toolSelector={selector} {...tool.props}/>
+            )
         } else return null
     }
 }
