@@ -25,7 +25,7 @@ ReactDOM.render(
 			<Container flow="VERTICAL">
 				<Panel>
 					<Container flow="HORIZONTAL">
-						<Panel width='300px'>
+						<Panel width='300px' toolIndex="1">
 						</Panel>
 						<Panel>
 							<Container flow="VERTICAL">
