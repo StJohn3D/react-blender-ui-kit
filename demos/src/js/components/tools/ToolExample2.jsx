@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { select } from '../../actions/data-actions'
+require("./toolExample2.css");
 
 class ToolExample2 extends Component {
 	handleClick(index) {

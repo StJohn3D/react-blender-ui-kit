@@ -97,9 +97,12 @@ const rootReducer = combineReducers({
 	data: function(state = initialData, action) {
 		switch (action.type) {
 			case SELECTION.CHANGED:
-			return Object.assign({}, state, {
-				selectedIndex: action.payload.index
-			})
+				return Object.assign({}, state, {
+					things: {
+						...state.things,
+						selectedIndex: action.payload.index
+					}
+				})
 			default:
 			return initialData
 		}
