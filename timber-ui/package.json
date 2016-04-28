@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/StJohn3D/timber-ui#readme",
   "dependencies": {
+    "babel-register": "^6.7.2",
     "js-stylesheet": "^0.0.1",
     "keymirror": "^0.1.1",
     "react": "15.0.1",
