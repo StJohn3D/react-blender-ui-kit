@@ -15,6 +15,10 @@ export const RESIZE = {
     DONE : 'RESIZE_DONE'
 }
 
+export const UI = {
+    TOOL_SELECTED: 'TOOL_SELECTED'
+}
+
 export const SELECTION = {
     CHANGED: 'CHANGED_SELECTION'
 }

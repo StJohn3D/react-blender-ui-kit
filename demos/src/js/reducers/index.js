@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { MOUSE, REGISTER, RESIZE, SELECTION } from '../constants/action-types'
+import { MOUSE, REGISTER, RESIZE, UI, SELECTION } from '../constants/action-types'
 
 const initialState = {
     resize: {
@@ -93,6 +93,15 @@ const rootReducer = combineReducers({
                         parentContainerID: undefined
                     }
                 })
+
+            case UI.TOOL_SELECTED:
+                stateOverride = {
+                    panels: {
+                        ...state.panels
+                    }
+                }
+                stateOverride.panels[action.payload.panelID].selectedToolIndex = action.payload.selectedIndex
+                return Object.assign({}, state, stateOverride)
 
             default:
                 return state
