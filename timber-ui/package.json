@@ -34,7 +34,9 @@
     "js-stylesheet": "^0.0.1",
     "keymirror": "^0.1.1",
     "react": "15.0.1",
-    "react-dom": "15.0.1"
+    "react-dom": "15.0.1",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
   },
   "devDependencies": {
     "eslint": "^2.7.0",
