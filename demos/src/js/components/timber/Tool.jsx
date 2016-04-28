@@ -16,8 +16,10 @@ class Tool extends Component {
         const { tools, panels, panelID } = this.props
         if ( tools.length ) {
             const tool = tools[panels[panelID].selectedToolIndex]
+            const value = tool.props.name || tool.type.niceName || tool.type.displayName
             const selector = <select onChange={this.handleToolChange.bind(this)}>{tools.map((tool, index) => {
-                return <option key={index}>{tool.type.niceName}</option>
+                const opValue = tool.props.name || tool.type.niceName || tool.type.displayName
+                return <option selected={opValue === value} key={index}>{opValue}</option>
             })}</select>
             return (
                 <tool.type toolSelector={selector} {...tool.props}/>
