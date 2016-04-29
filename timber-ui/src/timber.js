@@ -1,14 +1,12 @@
+import TimberApp from './components/TimberApp'
+import Container from './components/Container'
+import Panel from './components/Panel'
 const jss = require('js-stylesheet')
-require('babel-register')({
-    // This will override `node_modules` ignoring - you can alternatively pass
-    // an array of strings to be explicitly matched or a regex / glob
-    ignore: false
-});
 
 module.exports = {
-    TimberApp: {}, // require('./components/TimberApp.jsx'),
-    Container: {}, //require('./components/Container'),
-    Panel    : {}, //require('./components/Panel'),
+    TimberApp,
+    Container,
+    Panel,
     injectCSS: () => {
         jss({
             'body': {
