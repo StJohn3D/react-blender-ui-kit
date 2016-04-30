@@ -3,13 +3,23 @@
     "version": "0.0.1",
     "description": "A ui framework inspired by Blender.org",
     "main": "dist/timber.js",
-    "directories": {
-        "lib": "./lib",
-        "constants": "./constants"
-    },
+    "directories": {},
+    "files": [
+        "dist",
+        "lib",
+        "src"
+    ],
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "build:lib": "babel src --out-dir lib"
+        "build": "npm run build:lib && npm run build:umd && npm run build:umd:min && node ./prepublish",
+        "build:lib": "babel src --out-dir lib",
+        "build:umd": "cross-env NODE_ENV=development webpack src/timber.js dist/timber.js",
+        "build:umd:min": "cross-env NODE_ENV=production webpack src/timber.js dist/timber.min.js",
+        "clean": "rimraf lib dist coverage",
+        "lint": "eslint src test",
+        "prepublish": "npm run clean && npm run build",
+        "test": "mocha --compilers js:babel-register --recursive --require ./test/setup.js",
+        "test:cov": "babel-node ./node_modules/isparta/bin/isparta cover ./node_modules/mocha/bin/_mocha -- --recursive",
+        "test:watch": "npm test -- --watch"
     },
     "repository": {
         "type": "git",
@@ -36,7 +46,7 @@
     },
     "peerDependencies": {
         "react"      : "^0.14.0 || ^15.0.0-0",
-        "react-dom"  : "15.0.1",
+        "react-dom"  : "^0.14.0 || ^15.0.0-0",
         "redux"      : "^2.0.0 || ^3.0.0",
         "react-redux": "^4.4.5"
     },
@@ -69,9 +79,23 @@
         "babel-plugin-transform-object-rest-spread": "^6.3.13",
         "babel-plugin-transform-react-display-name": "^6.4.0",
         "babel-plugin-transform-react-jsx": "^6.4.0",
-        "babel-runtime": "^6.6.1",
-        "eslint": "^2.7.0",
-        "eslint-plugin-react": "^4.3.0",
-        "webpack": "^1.13.0"
+        "babel-register": "^6.3.13",
+        "cross-env": "^1.0.7",
+        "es3ify": "^0.2.0",
+        "eslint": "^1.7.1",
+        "eslint-config-rackt": "1.1.0",
+        "eslint-plugin-react": "^3.6.3",
+        "expect": "^1.8.0",
+        "glob": "^6.0.4",
+        "isparta": "4.0.0",
+        "istanbul": "^0.3.17",
+        "jsdom": "~5.4.3",
+        "mocha": "^2.2.5",
+        "react": "^0.14.0",
+        "react-addons-test-utils": "^0.14.0",
+        "react-dom": "^0.14.0",
+        "redux": "^3.0.0",
+        "rimraf": "^2.3.4",
+        "webpack": "^1.11.0"
     }
 }
