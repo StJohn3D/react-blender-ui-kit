@@ -1,24 +1,3 @@
-export const MOUSE = {
-    LEFT_BUTTON_PRESSED : 'MOUSE_LEFT_BUTTON_PRESSED',
-    LEFT_BUTTON_RELEASED: 'MOUSE_LEFT_BUTTON_RELEASED',
-    MOVED               : 'MOUSE_MOVED',
-}
-
-export const REGISTER = {
-    CONTAINER: 'CONTAINER_REGISTERED',
-    PANEL    : 'PANEL_REGISTERED',
-    TOOLS    : 'TOOL_REGISTERED'
-}
-
-export const RESIZE = {
-    BEGIN: 'RESIZE_BEGIN',
-    DONE : 'RESIZE_DONE'
-}
-
-export const UI = {
-    TOOL_SELECTED: 'TOOL_SELECTED'
-}
-
 export const SELECTION = {
     CHANGED: 'CHANGED_SELECTION'
 }
