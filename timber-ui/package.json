@@ -1,43 +1,50 @@
 {
-  "name": "timber-ui",
-  "version": "0.0.1",
-  "description": "A ui framework inspired by Blender.org",
-  "main": "timber.js",
-  "directories": {
-    "lib": "./lib",
-    "constants": "./constants"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/StJohn3D/timber-ui.git"
-  },
-  "keywords": [
-    "resize",
-    "split",
-    "merge",
-    "panels",
-    "timber",
-    "ui",
-    "blender",
-    "react"
-  ],
-  "author": "StJohn3D",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/StJohn3D/timber-ui/issues"
-  },
-  "homepage": "https://github.com/StJohn3D/timber-ui#readme",
-  "dependencies": {
-    "js-stylesheet": "^0.0.1",
-    "keymirror": "^0.1.1",
-    "react": "15.0.1",
-    "react-dom": "15.0.1"
-  },
-  "devDependencies": {
-    "eslint": "^2.7.0",
-    "eslint-plugin-react": "^4.3.0"
-  }
+    "name": "timber-ui",
+    "version": "0.0.1",
+    "description": "A ui framework inspired by Blender.org",
+    "main": "lib/timber.js",
+    "directories": {},
+    "files": [
+        "lib",
+        "src"
+    ],
+    "scripts": {
+        "build": "babel src --out-dir lib",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/StJohn3D/timber-ui.git"
+    },
+    "keywords": [
+        "resize",
+        "split",
+        "merge",
+        "panels",
+        "timber",
+        "ui",
+        "blender",
+        "react"
+    ],
+    "author": "StJohn3D",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/StJohn3D/timber-ui/issues"
+    },
+    "homepage": "https://github.com/StJohn3D/timber-ui#readme",
+    "dependencies": {
+        "js-stylesheet": "^0.0.1"
+    },
+    "peerDependencies": {
+        "react"      : "^0.14.0 || ^15.0.0-0",
+        "react-dom"  : "^0.14.0 || ^15.0.0-0",
+        "redux"      : "^2.0.0 || ^3.0.0",
+        "react-redux": "^4.4.5"
+    },
+    "devDependencies": {
+        "babel-preset-es2015": "^6.6.0",
+        "babel-preset-react": "^6.5.0",
+        "babel-preset-stage-1": "^6.5.0",
+        "react": "^15.0.2"
+    }
 }
