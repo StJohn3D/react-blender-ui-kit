@@ -10,10 +10,8 @@ import rootReducer from './reducers'
 // import Panel from './components/timber/Panel'
 import ToolExample1 from './components/tools/ToolExample1'
 import ToolExample2 from './components/tools/ToolExample2'
-// import { TimberApp, Container, Panel } from 'timber-ui'
-// console.log(TimberApp, Container, Panel)
-import TestMod from 'test-mod'
-
+import { TimberApp, Container, Panel } from 'timber-ui'
+console.log(TimberApp, Container, Panel)
 
 const createFinalStoreWithMiddleware = compose(
     applyMiddleware(),
@@ -24,7 +22,36 @@ const store = createFinalStoreWithMiddleware(rootReducer);
 
 ReactDOM.render(
     <Provider store={store}>
-        <TestMod />
+        <TimberApp tools={[<ToolExample1 name="Blocks"/>, <ToolExample2/>]}>
+            <Container flow="VERTICAL">
+                <Panel>
+                    <Container flow="HORIZONTAL">
+                        <Panel width='300px' toolIndex="1">
+                        </Panel>
+                        <Panel>
+                            <Container flow="VERTICAL">
+                                <Panel height="10%">
+                                </Panel>
+                                <Panel>
+                                    <Container flow="HORIZONTAL">
+                                        <Panel>
+                                        </Panel>
+                                        <Panel>
+                                        </Panel>
+                                        <Panel width='250px'>
+                                        </Panel>
+                                    </Container>
+                                </Panel>
+                                <Panel height='10%'>
+                                </Panel>
+                            </Container>
+                        </Panel>
+                    </Container>
+                </Panel>
+                <Panel height='10%'>
+                </Panel>
+            </Container>
+        </TimberApp>
     </Provider>,
     document.getElementById('app')
 );
