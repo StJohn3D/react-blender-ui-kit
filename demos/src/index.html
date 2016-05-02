@@ -1,11 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Timber UI Demos</title>
-    <link rel="stylesheet" href="css/bundle.css" />
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="scripts/bundle.js"></script>
-  </body>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timber UI Demos</title>
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <style>
+    body {
+      width: 100vw;
+      height: 100vh;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    #app {
+      height: 100%;
+      width: 100%;
+    }
+
+    .timber-ui {
+      width: 100%;
+      height: 100%;
+    }
+
+    .timber-container {
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      display: table;
+      border-right: 1px solid black;
+    }
+
+    .timber-row {
+      display: table-row;
+      border-bottom: 1px solid black;
+    }
+
+    .timber-panel {
+      display: table-cell;
+      background-color: grey;
+      position: relative;
+    }
+
+    @media (max-width: 420px) {
+      .timber-container, .timber-row, .timber-panel: [object Object];
+    }
+
+    .timber-resize-h {
+      position: absolute;
+      top: 0px;
+      right: -6px;
+      width: 12px;
+      height: 100%;
+      z-index: 99999;
+      background-color: transparent;
+    }
+
+    .timber-resize-h > div {
+      position: absolute;
+      left: 4px;
+      width: 4px;
+      height: 100%;
+      background-color: black;
+    }
+
+    .timber-resize-h:hover {
+      cursor: ew-resize;
+    }
+
+    .timber-resize-h:hover > div{
+      background-color: white;
+    }
+
+    .timber-resize-v {
+      position: absolute;
+      bottom: -6px;
+      left: 0px;
+      width: 100%;
+      height: 12px;
+      z-index: 99999;
+      background-color: transparent;
+    }
+
+    .timber-resize-v > div {
+      position: absolute;
+      top: 4px;
+      height: 4px;
+      width: 100%;
+      background-color: black;
+    }
+
+    .timber-resize-v:hover {
+      cursor: ns-resize;
+    }
+
+    .timber-resize-v:hover > div{
+      background-color: white;
+    }
+
+    .timber-corner {
+      width: 0;
+      height: 0;
+      border-top: 20px solid red;
+      border-left: 20px solid transparent;
+      float: right;
+    }
+
+    .timber-corner:hover {
+      border-top: 20px solid white;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script src="/js/vendor.bundle.js"></script>
+<script src="/js/app.js"></script>
+</body>
 </html>

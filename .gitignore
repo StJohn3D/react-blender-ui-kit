@@ -1,4 +1,7 @@
 .DSstore
-node_modules
-dist
-*.log
+node_modules/
+dist/
+build/
+*.log*
+.idea
+*.iml
