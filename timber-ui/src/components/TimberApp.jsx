@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { doneResizing } from '../actions/resize-actions'
 import { registerTools } from '../actions/registry-actions'
 import HighVolumeStore from '../utils/high-volume-store'
+import styles from '../styles/'
+const jss = require('js-stylesheet')
 
 class TimberApp extends Component {
     render() {
@@ -24,6 +26,9 @@ class TimberApp extends Component {
                 tools: tools
             }))
         }
+
+        // SJ: Apply Timber's CSS
+        jss(styles)
     }
 
     onMouseUp = (e) => {
