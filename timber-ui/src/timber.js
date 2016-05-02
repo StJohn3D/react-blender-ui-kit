@@ -3,7 +3,7 @@ import Container from './components/Container'
 import Panel from './components/Panel'
 import timberUIReducer from './reducers/'
 import styles from './styles'
-const jss = require('js-stylesheet')
+import jss from 'js-stylesheet'
 
 module.exports = {
     TimberApp,
