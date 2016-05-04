@@ -45,6 +45,21 @@ import { TimberApp, Container, Panel } from 'timber-ui'
 
 ##Change log
 
+###0.0.4
+
+**New Features**
+ - N/A
+
+**Improvements**
+ - TimberUI is now TestDriven!
+ - Row components will warn instead of throwing Invariant errors
+   - This should never happen in production since the Row component is not exposed in the public api
+   - Still, it is possible in development to accidentally create a row with no children
+   - Now they will give a more meaningful warning message and return false
+
+ **Bug fixes**
+ - N/A
+___
 ###0.0.3
 
 **New Features**
