@@ -21,7 +21,7 @@ class TimberApp extends Component {
         const { onWindowResize, dispatch, tools } = this.props
         window.addEventListener('resize', onWindowResize);
 
-        if ( tools.length ) {
+        if (  tools && tools.length ) {
             dispatch(registerTools({
                 tools: tools
             }))
