@@ -10,7 +10,7 @@
 
 Where you combine your Redux reducers bring in the Timber UI Reducer
 
-```
+```js
 import { timberUIReducer } from 'timber-ui'
 
 const rootReducer = combineReducers({
@@ -20,8 +20,8 @@ const rootReducer = combineReducers({
 ```
 
 Where you define your default page layouts...
-```
-import { TimberApp, Container, Panel }
+```js
+import { TimberApp, Container, Panel } from 'timber-ui'
 ...
  render() {
     <TimberApp tools={[ myAweseomeComponent1, myOtherCoolComponent]}>
@@ -41,7 +41,7 @@ import { TimberApp, Container, Panel }
 
 ##Local Dev Setup
 
-```
+```bash
 cd timber-ui/timber-ui
 
 npm install
@@ -53,7 +53,7 @@ npm link
 
 then...
 
-```
+```bash
 cd timber-ui/demos
 
 npm install

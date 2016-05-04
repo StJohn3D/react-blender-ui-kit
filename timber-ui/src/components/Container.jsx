@@ -17,8 +17,6 @@ const computePanelType = (flow, i, lastIndex) => {
             if (i === 0) return PANEL_TYPE.TOP
             else if (i < lastIndex) return PANEL_TYPE.MIDDLE
             else return PANEL_TYPE.BOTTOM
-        default:
-            throw 'error'
     }
 }
 
@@ -29,20 +27,26 @@ class Container extends Component {
     }
 
     render() {
-        const { children, flow} = this.props
+        const { children } = this.props
+        let { flow } = this.props
+        if ( typeof flow === 'string' ) flow = flow.toUpperCase();
+        if ( flow && flow != CONTAINER_FLOW.HORIZONTAL && flow != CONTAINER_FLOW.VERTICAL ) {
+            if ( console && console.warn ) console.warn("Container's flow prop expects either HORIZONTAL or VERTICAL, got " + flow + " - Defaulting to VERTICAL")
+        }
+        const _flow = flow == CONTAINER_FLOW.HORIZONTAL ? CONTAINER_FLOW.HORIZONTAL : CONTAINER_FLOW.VERTICAL
         const childrenArray = React.Children.toArray(children)
         return (
             <section className="timber-container">
                 {childrenArray.map((child, i) => {
-                    const type = computePanelType(flow, i, childrenArray.length - 1)
+                    const type = computePanelType(_flow, i, childrenArray.length - 1)
                     const childComponent = <child.type
                         key={'child'+i}
                         parentContainerID={this.id}
                         containerIndex={i}
                         type={type}
-                        flow={flow}
+                        flow={_flow}
                         {...child.props} />
-                    switch (flow) {
+                    switch (_flow) {
                         case CONTAINER_FLOW.VERTICAL:
                             return (
                                 <Row key={'child-row'+i}>

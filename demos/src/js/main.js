@@ -19,13 +19,13 @@ const store = createFinalStoreWithMiddleware(rootReducer);
 ReactDOM.render(
     <Provider store={store}>
         <TimberApp tools={[<ToolExample1 name="Blocks"/>, <ToolExample2/>]}>
-            <Container flow="VERTICAL">
+            <Container>
                 <Panel>
-                    <Container flow="HORIZONTAL">
+                    <Container flow="horizontal">
                         <Panel width='300px' toolIndex="1">
                         </Panel>
                         <Panel>
-                            <Container flow="VERTICAL">
+                            <Container flow="virticalMispelled">
                                 <Panel height="10%">
                                 </Panel>
                                 <Panel>

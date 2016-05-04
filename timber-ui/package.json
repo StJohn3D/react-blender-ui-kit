@@ -1,7 +1,7 @@
 {
     "name": "timber-ui",
     "version": "0.0.2",
-    "description": "A configurable panel framework inspired by blender.org",
+    "description": "A configurable panels framework inspired by blender.org",
     "main": "lib/timber.js",
     "directories": {},
     "files": [
