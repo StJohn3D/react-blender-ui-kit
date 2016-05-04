@@ -52,7 +52,7 @@ import { TimberApp, Container, Panel } from 'timber-ui'
 
 **Bug fixes**
  - [**#5:**](https://github.com/StJohn3D/timber-ui/issues/5) NPM documentation was missing ` from 'timber-ui'` in the _HOW to use it_ instructions
- - [**#4:**](https://github.com/StJohn3D/timber-ui/issues/4) Panels throw an error if the tools prop isn't provided
+ - [**#4:**](https://github.com/StJohn3D/timber-ui/issues/4) TimberApp throws an error if the tools prop isn't provided
  - [**#3:**](https://github.com/StJohn3D/timber-ui/issues/3) Container throws an error if no Flow is provided
 ___
 ###0.0.2
