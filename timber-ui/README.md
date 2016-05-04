@@ -58,7 +58,7 @@ ___
 ###0.0.2
 
 **New Features**
- - Added an NPM README.md
+ - Added an NPM README
 
 **Bug fixes**
  - There was no README on npm before
