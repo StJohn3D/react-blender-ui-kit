@@ -1,5 +1,5 @@
 {
-    "name": "timber-ui",
+    "name": "redux-ui-panels",
     "version": "0.0.3",
     "description": "A configurable panels framework inspired by blender.org",
     "main": "lib/timber.js",
