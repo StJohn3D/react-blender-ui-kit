@@ -7,7 +7,7 @@ import { compose, createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers'
 import ToolExample1 from './components/tools/ToolExample1'
 import ToolExample2 from './components/tools/ToolExample2'
-import { TimberApp, Container, Panel } from 'timber-ui'
+import { TimberApp, Container, Panel } from 'redux-ui-panels'
 
 const createFinalStoreWithMiddleware = compose(
     applyMiddleware(),

@@ -1,15 +1,12 @@
-#Timber UI
-
-[tim-ber] 5. a single ~~piece of wood~~ _component_ forming part of a structure or the like
 
 ##How to use it
 
-`npm install --save timber-ui`
+`npm install --save redux-ui-panels`
 
 Where you combine your Redux reducers bring in the Timber UI Reducer
 
 ```js
-import { timberUIReducer } from 'timber-ui'
+import { timberUIReducer } from 'redux-ui-panels'
 
 const rootReducer = combineReducers({
     timberUI: timberUIReducer,
@@ -47,7 +44,7 @@ import { TimberApp, Container, Panel } from 'timber-ui'
 
 ##Change log
 
-###0.0.4
+###0.0.5
 
 **New Features**
  - N/A
@@ -62,15 +59,19 @@ import { TimberApp, Container, Panel } from 'timber-ui'
  **Bug fixes**
  - N/A
 ___
+###0.0.4
+
+ - CHANGED NAME to redux-ui-panels ( Formerly timber-ui )
+___
 ###0.0.3
 
 **New Features**
  - Added Project Road-Map and this Change log to the npm documentation
 
 **Bug fixes**
- - [**#5:**](https://github.com/StJohn3D/timber-ui/issues/5) NPM documentation was missing ` from 'timber-ui'` in the _HOW to use it_ instructions
- - [**#4:**](https://github.com/StJohn3D/timber-ui/issues/4) TimberApp throws an error if the tools prop isn't provided
- - [**#3:**](https://github.com/StJohn3D/timber-ui/issues/3) Container throws an error if no Flow is provided
+ - [**#5:**](https://github.com/StJohn3D/redux-ui-panels/issues/5) NPM documentation was missing ` from 'timber-ui'` in the _HOW to use it_ instructions
+ - [**#4:**](https://github.com/StJohn3D/redux-ui-panels/issues/4) TimberApp throws an error if the tools prop isn't provided
+ - [**#3:**](https://github.com/StJohn3D/redux-ui-panels/issues/3) Container throws an error if no Flow is provided
 ___
 ###0.0.2
 
