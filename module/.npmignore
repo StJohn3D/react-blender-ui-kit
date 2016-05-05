@@ -1,2 +1,4 @@
 .eslintrc
 .babelrc
+test/
+utils/

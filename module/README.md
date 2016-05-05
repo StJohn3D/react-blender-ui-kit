@@ -6,7 +6,7 @@
 Where you combine your Redux reducers bring in the Timber UI Reducer
 
 ```js
-import { timberUIReducer } from 'timber-ui'
+import { timberUIReducer } from 'redux-ui-panels'
 
 const rootReducer = combineReducers({
     timberUI: timberUIReducer,
@@ -39,9 +39,26 @@ import { TimberApp, Container, Panel } from 'timber-ui'
  - Bring in BDD/TDD and code coverage: **_maintenance_**
  - Splitting/Merging Panels: **_feature_**
  - Thorough documentation on github: **_maintenance_**
+ - Screen Casts demonstrations: **_tutorial_**
+ - Travis Integration tests **_maintenance_**
 
 ##Change log
 
+###0.0.5
+
+**New Features**
+ - N/A
+
+**Improvements**
+ - TimberUI is now TestDriven!
+ - Row components will warn instead of throwing Invariant errors
+   - This should never happen in production since the Row component is not exposed in the public api
+   - Still, it is possible in development to accidentally create a row with no children
+   - Now they will give a more meaningful warning message and return false
+
+ **Bug fixes**
+ - N/A
+___
 ###0.0.4
 
  - CHANGED NAME to redux-ui-panels ( Formerly timber-ui )
