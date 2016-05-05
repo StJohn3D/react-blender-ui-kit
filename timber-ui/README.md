@@ -42,6 +42,8 @@ import { TimberApp, Container, Panel } from 'timber-ui'
  - Bring in BDD/TDD and code coverage: **_maintenance_**
  - Splitting/Merging Panels: **_feature_**
  - Thorough documentation on github: **_maintenance_**
+ - Screen Casts demonstrations: **_tutorial_**
+ - Travis Integration tests **_maintenance_**
 
 ##Change log
 
