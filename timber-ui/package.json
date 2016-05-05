@@ -1,6 +1,6 @@
 {
     "name": "redux-ui-panels",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "A configurable panels framework inspired by blender.org",
     "main": "lib/timber.js",
     "directories": {},

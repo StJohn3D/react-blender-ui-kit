@@ -42,6 +42,10 @@ import { TimberApp, Container, Panel } from 'timber-ui'
 
 ##Change log
 
+###0.0.4
+
+ - CHANGED NAME to redux-ui-panels ( Formerly timber-ui )
+___
 ###0.0.3
 
 **New Features**
