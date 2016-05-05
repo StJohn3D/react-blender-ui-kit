@@ -1,15 +1,15 @@
-import TimberApp from './components/TimberApp'
+import ReduxUIPanels from './components/ReduxUIPanels'
 import Container from './components/Container'
 import Panel from './components/Panel'
-import timberUIReducer from './reducers/'
+import ReduxUIPanelsReducer from './reducers/'
 import styles from './styles'
 import jss from 'js-stylesheet'
 
 module.exports = {
-    TimberApp,
+    ReduxUIPanels,
     Container,
     Panel,
-    timberUIReducer,
+    ReduxUIPanelsReducer,
     injectCSS: () => {
         jss(styles)
     }

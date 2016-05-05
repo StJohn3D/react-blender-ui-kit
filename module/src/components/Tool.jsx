@@ -29,8 +29,8 @@ class Tool extends Component {
 }
 
 const mapStateToProps = state => ({
-    tools : state.timberUI.tools,
-    panels: state.timberUI.panels
+    tools : state.ReduxUIPanels.tools,
+    panels: state.ReduxUIPanels.panels
 })
 
 

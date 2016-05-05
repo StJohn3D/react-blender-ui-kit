@@ -196,10 +196,10 @@ class Panel extends Component {
 }
 
 const mapStateToProps = state => ({
-    resize    : state.timberUI.resize,
-    panels    : state.timberUI.panels,
-    containers: state.timberUI.containers,
-    tools 	  : state.timberUI.tools
+    resize    : state.ReduxUIPanels.resize,
+    panels    : state.ReduxUIPanels.panels,
+    containers: state.ReduxUIPanels.containers,
+    tools 	  : state.ReduxUIPanels.tools
 })
 
 export default connect(mapStateToProps)(Panel)

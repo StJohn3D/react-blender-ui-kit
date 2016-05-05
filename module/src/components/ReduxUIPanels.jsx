@@ -6,7 +6,7 @@ import HighVolumeStore from '../utils/high-volume-store'
 import styles from '../styles/'
 import jss from 'js-stylesheet'
 
-class TimberApp extends Component {
+class ReduxUIPanels extends Component {
     render() {
         const { children, onMouseMove } = this.props
         const container = React.Children.only(children)
@@ -38,7 +38,7 @@ class TimberApp extends Component {
 }
 
 const mapStateToProps = state => ({
-    isResizing: state.timberUI.resize.isResizing
+    isResizing: state.ReduxUIPanels.resize.isResizing
 })
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -53,4 +53,4 @@ const mapDispatchToProps = (dispatch, props) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TimberApp);
+export default connect(mapStateToProps, mapDispatchToProps)(ReduxUIPanels);

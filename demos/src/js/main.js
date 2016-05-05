@@ -7,7 +7,7 @@ import { compose, createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers'
 import ToolExample1 from './components/tools/ToolExample1'
 import ToolExample2 from './components/tools/ToolExample2'
-import { TimberApp, Container, Panel } from 'redux-ui-panels'
+import { ReduxUIPanels, Container, Panel } from 'redux-ui-panels'
 
 const createFinalStoreWithMiddleware = compose(
     applyMiddleware(),
@@ -18,7 +18,7 @@ const store = createFinalStoreWithMiddleware(rootReducer);
 
 ReactDOM.render(
     <Provider store={store}>
-        <TimberApp tools={[<ToolExample1 name="Blocks"/>, <ToolExample2/>]}>
+        <ReduxUIPanels tools={[<ToolExample1 name="Blocks"/>, <ToolExample2/>]}>
             <Container>
                 <Panel>
                     <Container flow="horizontal">
@@ -47,7 +47,7 @@ ReactDOM.render(
                 <Panel height='10%'>
                 </Panel>
             </Container>
-        </TimberApp>
+        </ReduxUIPanels>
     </Provider>,
     document.getElementById('app')
 );

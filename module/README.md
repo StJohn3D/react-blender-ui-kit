@@ -6,20 +6,20 @@
 Where you combine your Redux reducers bring in the Timber UI Reducer
 
 ```js
-import { timberUIReducer } from 'redux-ui-panels'
+import { ReduxUIPanelsReducer } from 'redux-ui-panels'
 
 const rootReducer = combineReducers({
-    timberUI: timberUIReducer,
+    ReduxUIPanels: ReduxUIPanelsReducer,
     ...
 })
 ```
 
 Where you define your default page layouts...
 ```js
-import { TimberApp, Container, Panel } from 'redux-ui-panels'
+import { ReduxUIPanels, Container, Panel } from 'redux-ui-panels'
 ...
  render() {
-    <TimberApp tools={[ myAweseomeComponent1, myOtherCoolComponent]}>
+    <ReduxUIPanels tools={[ myAweseomeComponent1, myOtherCoolComponent]}>
         <Container flow="HORIZONTAL">
             <Panel width="25%" toolIndex={0}/>
             <Panel toolIndex={1}/>
@@ -30,7 +30,7 @@ import { TimberApp, Container, Panel } from 'redux-ui-panels'
                 </Container>
             </Panel>
         </Container>
-    </TimberApp>
+    </ReduxUIPanels>
  }
 ```
 
