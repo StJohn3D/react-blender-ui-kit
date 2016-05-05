@@ -1,6 +1,3 @@
-#Timber UI
-
-[tim-ber] 5. a single ~~piece of wood~~ _component_ forming part of a structure or the like
 
 ##How to use it
 
