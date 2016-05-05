@@ -11,7 +11,7 @@ class ReduxUIPanels extends Component {
         const { children, onMouseMove } = this.props
         const container = React.Children.only(children)
         return (
-            <div className="timber-ui" onMouseMove={onMouseMove} onMouseUp={this.onMouseUp}>
+            <div className="redux-ui-panels" onMouseMove={onMouseMove} onMouseUp={this.onMouseUp}>
                 {container}
             </div>
         );

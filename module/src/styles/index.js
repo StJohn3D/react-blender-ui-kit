@@ -1,32 +1,32 @@
 
 const styles = {
-    '.timber-ui': {
+    ".redux-ui-panels": {
         'width' : '100%',
         'height': '100%'
     },
-    '.timber-container': {
+    ".ruip-container": {
         'width'       : '100%',
         'height'      : '100%',
         'min-height'  : '200px',
         'display'     : 'table'
     },
-    '.timber-row': {
+    ".ruip-row": {
         'display'      : 'table-row'
     },
-    '.timber-panel': {
+    ".ruip-panel": {
         'display'         : 'table-cell',
         'background-color': 'grey',
         'position'        : 'relative'
     },
     '@media (max-width: 420px)': {
-        '.timber-container, .timber-row, .timber-panel': {
+        '.ruip-container, .ruip-row, .ruip-panel': {
             'display'   : 'block',
             'width'     : '100%',
             'height'    : 'auto',
             'min-height': 'auto'
         }
     },
-    '.timber-resize-h': {
+    '.ruip-resize-h': {
         'position'        : 'absolute',
         'top'             : '0px',
         'right'           : '-6px',
@@ -35,20 +35,20 @@ const styles = {
         'z-index'         : '99990',
         'background-color': 'transparent'
     },
-    '.timber-resize-h > div': {
+    '.ruip-resize-h > div': {
         'position'        : 'absolute',
         'left'            : '4px',
         'width'           : '4px',
         'height'          : '100%',
         'background-color': 'black'
     },
-    '.timber-resize-h:hover': {
+    '.ruip-resize-h:hover': {
         'cursor': 'ew-resize'
     },
-    '.timber-resize-h:hover > div': {
+    '.ruip-resize-h:hover > div': {
         'background-color': 'white'
     },
-    '.timber-resize-v': {
+    '.ruip-resize-v': {
         'position'        : 'absolute',
         'bottom'          : '-6px',
         'left'            : '2px',
@@ -57,27 +57,27 @@ const styles = {
         'z-index'         : '99999',
         'background-color': 'transparent'
     },
-    '.timber-resize-v > div': {
+    '.ruip-resize-v > div': {
         'position'        : 'absolute',
         'top'             : '4px',
         'height'          : '4px',
         'width'           : '100%',
         'background-color': 'black'
     },
-    '.timber-resize-v:hover': {
+    '.ruip-resize-v:hover': {
         'cursor': 'ns-resize'
     },
-    '.timber-resize-v:hover > div': {
+    '.ruip-resize-v:hover > div': {
         'background-color': 'white'
     },
-    '.timber-corner': {
+    '.ruip-corner': {
         'width'      : '0',
         'height'     : '0',
         'border-top' : '20px solid red',
         'border-left': '20px solid transparent',
         'float'      : 'right'
     },
-    '.timber-corner:hover': {
+    '.ruip-corner:hover': {
         'border-top': '20px solid white'
     }
 }

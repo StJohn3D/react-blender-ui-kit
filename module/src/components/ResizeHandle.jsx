@@ -7,7 +7,7 @@ class ResizeHandle extends Component {
   render() {
     const { flow, beginResize } = this.props
     const className = flow === CONTAINER_FLOW.HORIZONTAL
-      ? 'timber-resize-h' : 'timber-resize-v'
+      ? 'ruip-resize-h' : 'ruip-resize-v'
     return (
       <div className={className} onMouseDown={beginResize}>
         <div></div>

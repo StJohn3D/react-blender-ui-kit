@@ -114,7 +114,7 @@ class Panel extends Component {
         const tool = this.buildTool()
 
         return (
-            <section className="timber-panel" style={style}>
+            <section className="ruip-panel" style={style}>
             {children}{tool}{resizer}
             </section>
         )

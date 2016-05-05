@@ -11,7 +11,7 @@ const initialState = {
     tools: []
 }
 
-const timberUIReducer = function(state = initialState, action) {
+const reduxUIPanelsReducer = function(state = initialState, action) {
     let stateOverride
     switch (action.type) {
         case REGISTER.CONTAINER:
@@ -72,4 +72,4 @@ const timberUIReducer = function(state = initialState, action) {
     }
 }
 
-export default timberUIReducer
+export default reduxUIPanelsReducer

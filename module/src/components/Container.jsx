@@ -36,7 +36,7 @@ class Container extends Component {
         const _flow = flow == CONTAINER_FLOW.HORIZONTAL ? CONTAINER_FLOW.HORIZONTAL : CONTAINER_FLOW.VERTICAL
         const childrenArray = React.Children.toArray(children)
         return (
-            <section className="timber-container">
+            <section className="ruip-container">
                 {childrenArray.map((child, i) => {
                     const type = computePanelType(_flow, i, childrenArray.length - 1)
                     const childComponent = <child.type
