@@ -4,12 +4,12 @@
 
 ##How to use it
 
-`npm install --save timber-ui`
+`npm install --save redux-ui-panels`
 
 Where you combine your Redux reducers bring in the Timber UI Reducer
 
 ```js
-import { timberUIReducer } from 'timber-ui'
+import { timberUIReducer } from 'redux-ui-panels'
 
 const rootReducer = combineReducers({
     timberUI: timberUIReducer,
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
 
 Where you define your default page layouts...
 ```js
-import { TimberApp, Container, Panel } from 'timber-ui'
+import { TimberApp, Container, Panel } from 'redux-ui-panels'
 ...
  render() {
     <TimberApp tools={[ myAweseomeComponent1, myOtherCoolComponent]}>

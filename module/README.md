@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
 
 Where you define your default page layouts...
 ```js
-import { TimberApp, Container, Panel } from 'timber-ui'
+import { TimberApp, Container, Panel } from 'redux-ui-panels'
 ...
  render() {
     <TimberApp tools={[ myAweseomeComponent1, myOtherCoolComponent]}>
@@ -36,7 +36,6 @@ import { TimberApp, Container, Panel } from 'timber-ui'
 
 ##Project Road-map
 
- - Bring in BDD/TDD and code coverage: **_maintenance_**
  - Splitting/Merging Panels: **_feature_**
  - Thorough documentation on github: **_maintenance_**
  - Screen Casts demonstrations: **_tutorial_**
