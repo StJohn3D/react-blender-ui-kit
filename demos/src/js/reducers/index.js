@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { SELECTION } from '../constants/action-types'
-import { timberUIReducer } from 'timber-ui'
+import { timberUIReducer } from 'redux-ui-panels'
 
 const initialData = {
     things: {

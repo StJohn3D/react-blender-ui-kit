@@ -1,8 +1,6 @@
-#Timber UI
+#Redux UI Panels
 
 ####A configurable panel framework inspired by blender.org
-
-[tim-ber] 5. a single ~~piece of wood~~ _component_ forming part of a structure or the like
 
 ##How to use it
 
@@ -42,7 +40,7 @@ import { TimberApp, Container, Panel } from 'timber-ui'
 ##Local Dev Setup
 
 ```bash
-cd timber-ui/timber-ui
+cd redux-ui-panels/module
 
 npm install
 
@@ -54,7 +52,7 @@ npm link
 then...
 
 ```bash
-cd timber-ui/demos
+cd redux-ui-panels/demos
 
 npm install
 

@@ -2,7 +2,7 @@
     "name": "redux-ui-panels",
     "version": "0.0.4",
     "description": "A configurable panels framework inspired by blender.org",
-    "main": "lib/timber.js",
+    "main": "lib/index.js",
     "directories": {},
     "files": [
         "lib",
@@ -30,9 +30,9 @@
     "author": "StJohn3D",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/StJohn3D/timber-ui/issues"
+        "url": "https://github.com/StJohn3D/redux-ui-panels/issues"
     },
-    "homepage": "https://github.com/StJohn3D/timber-ui#readme",
+    "homepage": "https://github.com/StJohn3D/redux-ui-panels#readme",
     "dependencies": {
         "js-stylesheet": "^0.0.1"
     },
