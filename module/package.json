@@ -1,6 +1,6 @@
 {
     "name": "redux-ui-panels",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "A configurable panels framework inspired by blender.org",
     "main": "lib/index.js",
     "directories": {},
