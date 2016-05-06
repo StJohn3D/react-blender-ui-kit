@@ -8,12 +8,18 @@ const initialState = {
     },
     containers: {},
     panels: {},
-    tools: []
+    tools: [],
+    layout: {}
 }
 
 const reduxUIPanelsReducer = function(state = initialState, action) {
     let stateOverride
     switch (action.type) {
+        case REGISTER.INIT_LAYOUT:
+            return Object.assign({}, state, {
+                layout: action.payload.layout
+            })
+
         case REGISTER.CONTAINER:
             stateOverride = {
                 containers: {

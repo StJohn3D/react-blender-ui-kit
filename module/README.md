@@ -3,7 +3,7 @@
 
 `npm install --save redux-ui-panels`
 
-Where you combine your Redux reducers bring in the Timber UI Reducer
+Where you combine your Redux reducers bring in the Redux UI Panels Reducer
 
 ```js
 import { ReduxUIPanelsReducer } from 'redux-ui-panels'
