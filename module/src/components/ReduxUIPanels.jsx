@@ -6,6 +6,7 @@ import { registerTools, initiateLayout } from '../actions/registry-actions'
 import HighVolumeStore from '../utils/high-volume-store'
 import styles from '../styles/'
 import jss from 'js-stylesheet'
+import Container from './Container'
 
 const getChildName = (child) => {
     let name = undefined
@@ -16,29 +17,32 @@ const getChildName = (child) => {
     return name
 }
 
-const parseChildrenForLayout = (child) => {
+const parseChildrenForLayout = (parentID, child, index) => {
     const name = getChildName(child)
-
+    const id = generateID()
     switch (name) {
         case 'Container':
             return {
                 type: 'Container',
-                id: generateID('Container'),
+                id,
+                parentID: parentID,
                 flow: child.props.flow,
                 minWidth: child.props.minWidth,
-                children: React.Children.toArray(child.props.children).map(parseChildrenForLayout)
+                children: React.Children.toArray(child.props.children).map(parseChildrenForLayout.bind(this,id))
             }
         case 'Panel':
             return {
                 type: 'Panel',
-                id: generateID('Panel'),
+                id,
+                parentID: parentID,
                 toolIndex: child.props.toolIndex,
-                children: React.Children.toArray(child.props.children).map(parseChildrenForLayout)
+                children: React.Children.toArray(child.props.children).map(parseChildrenForLayout.bind(this,id))
             }
         default:
             return {
                 type: 'Unknown',
-                id: generateID('Unknown'),
+                id,
+                parentID: parentID,
                 props: child.props
             }
     }
@@ -46,11 +50,10 @@ const parseChildrenForLayout = (child) => {
 
 class ReduxUIPanels extends Component {
     render() {
-        const { children, onMouseMove } = this.props
-        const container = React.Children.only(children)
+        const { layout: topContainer, onMouseMove } = this.props
         return (
             <div className="redux-ui-panels" onMouseMove={onMouseMove} onMouseUp={this.onMouseUp}>
-                {container}
+                <Container id={topContainer.id}/>
             </div>
         );
     }
@@ -69,7 +72,7 @@ class ReduxUIPanels extends Component {
             const child = React.Children.only(children)
 
             dispatch(initiateLayout({
-                layout: parseChildrenForLayout(child)
+                layout: parseChildrenForLayout('root', child)
             }))
         }
 
@@ -84,7 +87,8 @@ class ReduxUIPanels extends Component {
 }
 
 const mapStateToProps = state => ({
-    isResizing: state.ReduxUIPanels.resize.isResizing
+    isResizing: state.ReduxUIPanels.resize.isResizing,
+    layout: state.ReduxUIPanels.layout
 })
 
 const mapDispatchToProps = (dispatch, props) => {
