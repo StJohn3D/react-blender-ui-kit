@@ -1,18 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import generateID from '../utils/generate-id'
-import { registerPanel } from '../actions/registry-actions'
 import PANEL_TYPE from '../constants/panel-types'
 import CONTAINER_FLOW from '../constants/container-flows'
 import ResizeHandle from './ResizeHandle'
 import Tool from './Tool'
+import Container from './Container'
 import HighVolumeStore from '../utils/high-volume-store'
+import { layout } from '../utils/layout'
 
 class Panel extends Component {
     constructor() {
         super()
-        this.id = generateID('PANEL')
         this.state = {}
     }
 
@@ -70,10 +69,10 @@ class Panel extends Component {
         }
     }
 
-    buildResizer() {
-        const { type, parentContainerID, containerIndex, flow } = this.props
+    buildResizer(type, flow, props) {
+        const { id, parentID, parentIndex } = props
         const handleProps = {
-            id: this.id, type, parentContainerID, containerIndex, flow
+            type, flow, id, parentID, parentIndex,
         }
         switch (type) {
             case PANEL_TYPE.LEFT:
@@ -83,51 +82,46 @@ class Panel extends Component {
             return <ResizeHandle {...handleProps} />
 
             default:
-            return undefined
+            return false
         }
     }
 
-    buildTool() {
-        const { children } = this.props
+    buildTool(props) {
+        const { children, id, toolIndex } = props
 
-        if ( React.Children.count(children) === 0 ) {
-            return <Tool panelID={this.id}/>
-        } else return null
+        if ( children.length === 0 ) {
+            return <Tool panelID={id} selectedIndex={toolIndex}/>
+        } else return false
     }
 
     render() {
-        const { children, width, height, flow } = this.props
+        const { index, id, type, flow } = this.props
+        const props = layout(index).getProps(id)
+        const { children, width, height } = props
         let style = {
             width: this.state.width || width || 'auto',
             height: this.state.height || height || 'auto'
         }
         switch(flow) {
             case CONTAINER_FLOW.VERTICAL:
-            style.width = 'auto'
-            break
+                style.width = 'auto'
+                break
             case CONTAINER_FLOW.HORIZONTAL:
-            style.height = 'auto'
-            break
+                style.height = 'auto'
+                break
         }
 
-        const resizer = this.buildResizer()
-        const tool = this.buildTool()
+        const resizer = this.buildResizer(type, flow, props)
+        const tool = this.buildTool(props)
 
         return (
             <section className="ruip-panel" style={style}>
-            {children}{tool}{resizer}
+                {children.map(function(child) {
+                    if (child.type === 'Container') return <Container key={child.parentIndex} id={child.id} />
+                    else return child.component
+                })}{tool}{resizer}
             </section>
         )
-    }
-
-    componentWillMount() {
-        const { dispatch, parentContainerID, containerIndex, toolIndex } = this.props
-        dispatch(registerPanel({
-            id: this.id,
-            parentContainerID,
-            containerIndex,
-            selectedToolIndex: toolIndex || 0
-        }))
     }
 
     componentWillUnmount() {
@@ -196,10 +190,9 @@ class Panel extends Component {
 }
 
 const mapStateToProps = state => ({
-    resize    : state.ReduxUIPanels.resize,
-    panels    : state.ReduxUIPanels.panels,
-    containers: state.ReduxUIPanels.containers,
-    tools 	  : state.ReduxUIPanels.tools
+    resize: state.ReduxUIPanels.resize,
+    tools : state.ReduxUIPanels.tools,
+    index : state.ReduxUIPanels.index
 })
 
 export default connect(mapStateToProps)(Panel)

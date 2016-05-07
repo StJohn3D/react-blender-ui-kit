@@ -22,30 +22,27 @@ ReactDOM.render(
             <Container>
                 <Panel>
                     <Container flow="horizontal">
-                        <Panel width='300px' toolIndex="1">
-                        </Panel>
+                        <Panel width='300px' toolIndex="1"/>
                         <Panel>
                             <Container flow="virticalMispelled">
-                                <Panel height="10%">
-                                </Panel>
+                                <Panel height="10%"/>
                                 <Panel>
                                     <Container flow="HORIZONTAL">
-                                        <Panel>
-                                        </Panel>
-                                        <Panel>
-                                        </Panel>
+                                        <Panel/>
+                                        <Panel/>
                                         <Panel width='250px'>
+                                            <div>
+                                                <span>This is non standard content</span>
+                                            </div>
                                         </Panel>
                                     </Container>
                                 </Panel>
-                                <Panel height='10%'>
-                                </Panel>
+                                <Panel height='10%'/>
                             </Container>
                         </Panel>
                     </Container>
                 </Panel>
-                <Panel height='10%'>
-                </Panel>
+                <Panel height='10%'/>
             </Container>
         </ReduxUIPanels>
     </Provider>,

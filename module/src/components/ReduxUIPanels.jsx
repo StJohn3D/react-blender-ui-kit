@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { doneResizing } from '../actions/resize-actions'
-import { registerTools } from '../actions/registry-actions'
 import HighVolumeStore from '../utils/high-volume-store'
 import styles from '../styles/'
 import jss from 'js-stylesheet'
@@ -25,16 +24,12 @@ class ReduxUIPanels extends Component {
         const { onWindowResize, dispatch, tools, children } = this.props
         window.addEventListener('resize', onWindowResize);
 
-        if (  tools && tools.length ) {
-            dispatch(registerTools({
-                tools: tools
-            }))
-        }
-
         if ( children && React.Children.count(children) === 1 ) {
             const child = React.Children.only(children)
+            const toolArray = tools && tools.length ? tools : []
 
             dispatch(initiateLayout({
+                tools: toolArray,
                 index: generateIndexFrom(child)
             }))
         }

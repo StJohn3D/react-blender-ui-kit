@@ -4,14 +4,8 @@ export const MOUSE = {
     MOVED               : 'MOUSE_MOVED',
 }
 
-export const REGISTER = {
-    CONTAINER: 'CONTAINER_REGISTERED',
-    PANEL    : 'PANEL_REGISTERED',
-    TOOLS    : 'TOOL_REGISTERED'
-}
-
 export const LAYOUT = {
-    INIT: 'LAYOUT_INIT'
+    INIT: 'LAYOUT_INIT',
 }
 
 export const RESIZE = {

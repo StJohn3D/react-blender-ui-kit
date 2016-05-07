@@ -34,7 +34,7 @@ const Container = ({id, index}) => {
             {childrenArray.map((child, i) => {
                 if (child.type != 'Panel') return false
                 const type = computePanelType(_flow, i, childrenArray.length - 1)
-                const childComponent = <Panel key={'child-panel' + i} id={child.id} type={type}/>
+                const childComponent = <Panel key={'child-panel' + i} id={child.id} type={type} flow={_flow}/>
                 switch (_flow) {
                     case CONTAINER_FLOW.VERTICAL:
                         return (
