@@ -16,19 +16,19 @@ class Panel extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { resize, parentContainerID, flow, type } = nextProps
+        const { resize, index, id, type, flow } = nextProps
+        const { parentID, parentIndex } = layout(index).getProps(id)
         const node = ReactDOM.findDOMNode(this)
         let computedWidth = this.getClientWidth()
         let computedHeight = this.getClientHeight()
         if (resize.isResizing) {
-            if (resize.parentContainerID !== parentContainerID) {
+            if (resize.parentContainerID !== parentID) { // SJ: We're not in the container being resized
                 if (flow === CONTAINER_FLOW.VERTICAL && type === PANEL_TYPE.BOTTOM) {
                     computedHeight = 'auto'
                 }
             }
-            else {
-                const containerInfo = this.getContainerInfo(nextProps)
-                if (containerInfo.doIComeAfterThePanelBeingResized) {
+            else { // SJ: We ARE in the container being resized
+                if ( resize.containerIndex + 1 === parentIndex ) {// SJ: I come after the panel being resized
                     switch (flow) {
                         case CONTAINER_FLOW.VERTICAL:
                         computedHeight = 'auto'
@@ -38,7 +38,7 @@ class Panel extends Component {
                         break
                     }
                 }
-                else if (containerInfo.amIBeingResized) {
+                else if ( id === resize.panelID ) { // SJ: I AM the panel being resized
                     switch (flow) {
                         case CONTAINER_FLOW.VERTICAL:
                         this.handleResizeV()
@@ -69,8 +69,9 @@ class Panel extends Component {
         }
     }
 
-    buildResizer(type, flow, props) {
-        const { id, parentID, parentIndex } = props
+    buildResizer(id, type, flow, props) {
+        const { parentID, parentIndex } = props
+        console.log(id)
         const handleProps = {
             type, flow, id, parentID, parentIndex,
         }
@@ -111,7 +112,7 @@ class Panel extends Component {
                 break
         }
 
-        const resizer = this.buildResizer(type, flow, props)
+        const resizer = this.buildResizer(id, type, flow, props)
         const tool = this.buildTool(props)
 
         return (
@@ -128,27 +129,6 @@ class Panel extends Component {
         if (typeof this.unsubscribe === 'function') {
             this.unsubscribe()
             delete this.unsubscribe
-        }
-    }
-
-    getContainerInfo(props) {
-        const { resize, panels, parentContainerID, containerIndex } = props
-        let amIBeingResized = false
-        let doIComeAfterThePanelBeingResized = false
-        for (let panelKey in panels) {
-            let panel = panels[panelKey]
-            if (panel.parentContainerID === parentContainerID) {
-                if (this.id === resize.panelID) {
-                    amIBeingResized = true
-                }
-                else if (resize.containerIndex + 1 === containerIndex) {
-                    doIComeAfterThePanelBeingResized = true
-                }
-            }
-        }
-        return {
-            amIBeingResized,
-            doIComeAfterThePanelBeingResized
         }
     }
 

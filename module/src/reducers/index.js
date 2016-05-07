@@ -4,7 +4,8 @@ const initialState = {
     resize: {
         isResizing: false,
         panelID: undefined,
-        parentContainerID: undefined
+        parentContainerID: undefined,
+        containerIndex: undefined
     },
     tools: [],
     index: []
@@ -22,7 +23,6 @@ const reduxUIPanelsReducer = function(state = initialState, action) {
         case RESIZE.BEGIN:
             return Object.assign({}, state, {
                 resize: {
-                    ...state.resize,
                     isResizing: true,
                     panelID: action.payload.panelID,
                     parentContainerID: action.payload.parentContainerID,
@@ -33,10 +33,10 @@ const reduxUIPanelsReducer = function(state = initialState, action) {
         case RESIZE.DONE:
             return Object.assign({}, state, {
                 resize: {
-                    ...state.resize,
                     isResizing: false,
                     panelID: undefined,
-                    parentContainerID: undefined
+                    parentContainerID: undefined,
+                    containerIndex: undefined
                 }
             })
 
