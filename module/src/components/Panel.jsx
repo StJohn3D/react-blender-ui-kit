@@ -6,6 +6,7 @@ import CONTAINER_FLOW from '../constants/container-flows'
 import ResizeHandle from './ResizeHandle'
 import Tool from './Tool'
 import Container from './Container'
+import Corner from './Corner'
 import HighVolumeStore from '../utils/high-volume-store'
 import { layout } from '../utils/layout'
 
@@ -71,7 +72,6 @@ class Panel extends Component {
 
     buildResizer(id, type, flow, props) {
         const { parentID, parentIndex } = props
-        console.log(id)
         const handleProps = {
             type, flow, id, parentID, parentIndex,
         }
@@ -114,10 +114,11 @@ class Panel extends Component {
 
         const resizer = this.buildResizer(id, type, flow, props)
         const tool = this.buildTool(props)
+        const corner = <Corner/>
 
         return (
             <section className="ruip-panel" style={style}>
-                {children.map(function(child) {
+                {corner}{children.map(function(child) {
                     if (child.type === 'Container') return <Container key={child.parentIndex} id={child.id} />
                     else return child.component
                 })}{tool}{resizer}
