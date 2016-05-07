@@ -1,4 +1,4 @@
-import { REGISTER, RESIZE, UI } from '../constants/action-types'
+import { REGISTER, RESIZE, UI, LAYOUT } from '../constants/action-types'
 
 const initialState = {
     resize: {
@@ -6,18 +6,16 @@ const initialState = {
         panelID: undefined,
         parentContainerID: undefined
     },
-    containers: {},
-    panels: {},
     tools: [],
-    layout: {}
+    index: []
 }
 
 const reduxUIPanelsReducer = function(state = initialState, action) {
     let stateOverride
     switch (action.type) {
-        case REGISTER.INIT_LAYOUT:
+        case LAYOUT.INIT:
             return Object.assign({}, state, {
-                layout: action.payload.layout
+                index: action.payload.index
             })
 
         case REGISTER.CONTAINER:
