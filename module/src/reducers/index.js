@@ -8,7 +8,7 @@ const initialState = {
         containerIndex: undefined
     },
     tools: [],
-    index: []
+    index: {}
 }
 
 const reduxUIPanelsReducer = function(state = initialState, action) {
@@ -41,13 +41,15 @@ const reduxUIPanelsReducer = function(state = initialState, action) {
             })
 
         case UI.TOOL_SELECTED:
-            stateOverride = {
-                panels: {
-                    ...state.panels
+            return Object.assign({}, state, {
+                index: {
+                    ...state.index,
+                    [action.payload.panelID]: {
+                        ...state.index[action.payload.panelID],
+                        toolIndex: action.payload.selectedIndex
+                    }
                 }
-            }
-            stateOverride.panels[action.payload.panelID].selectedToolIndex = action.payload.selectedIndex
-            return Object.assign({}, state, stateOverride)
+            })
 
         default:
             return state

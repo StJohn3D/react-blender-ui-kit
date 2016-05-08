@@ -87,8 +87,8 @@ class Panel extends Component {
         }
     }
 
-    buildTool(props) {
-        const { children, id, toolIndex } = props
+    buildTool(id, props) {
+        const { children, toolIndex } = props
 
         if ( children.length === 0 ) {
             return <Tool panelID={id} selectedIndex={toolIndex}/>
@@ -113,7 +113,7 @@ class Panel extends Component {
         }
 
         const resizer = this.buildResizer(id, type, flow, props)
-        const tool = this.buildTool(props)
+        const tool = this.buildTool(id, props)
         const corner = children.length < 1 ? <Corner/> : false
 
         return (
