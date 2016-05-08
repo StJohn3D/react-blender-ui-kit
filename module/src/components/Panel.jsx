@@ -114,7 +114,7 @@ class Panel extends Component {
 
         const resizer = this.buildResizer(id, type, flow, props)
         const tool = this.buildTool(props)
-        const corner = <Corner/>
+        const corner = children.length < 1 ? <Corner/> : false
 
         return (
             <section className="ruip-panel" style={style}>
