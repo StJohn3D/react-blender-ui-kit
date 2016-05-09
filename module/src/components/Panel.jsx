@@ -114,7 +114,7 @@ class Panel extends Component {
 
         const resizer = this.buildResizer(id, type, flow, props)
         const tool = this.buildTool(id, props)
-        const corner = children.length < 1 ? <Corner/> : false
+        const corner = children.length < 1 ? <Corner panelID={id} parentContainerFlow={flow}/> : false
 
         return (
             <section className="ruip-panel" style={style}>
@@ -167,6 +167,10 @@ class Panel extends Component {
         }
 
         this.handleResizing(updateHeight)
+    }
+
+    handleSplit() {
+
     }
 }
 
