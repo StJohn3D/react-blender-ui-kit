@@ -19,7 +19,7 @@ export const generateIndexFrom = (child) => {
             case 'Container':
                 index[id] = {
                     type: 'Container',
-                    parentID: parentID,
+                    parentID,
                     parentIndex,
                     flow: child.props.flow,
                     minWidth: child.props.minWidth
@@ -29,7 +29,7 @@ export const generateIndexFrom = (child) => {
             case 'Panel':
                 index[id] = {
                     type: 'Panel',
-                    parentID: parentID,
+                    parentID,
                     parentIndex,
                     toolIndex: child.props.toolIndex,
                 }
@@ -38,7 +38,7 @@ export const generateIndexFrom = (child) => {
             default:
                 index[id] = {
                     type: 'Unknown',
-                    parentID: parentID,
+                    parentID,
                     parentIndex,
                     component: child
                 }

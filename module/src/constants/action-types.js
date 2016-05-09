@@ -6,6 +6,8 @@ export const MOUSE = {
 
 export const LAYOUT = {
     INIT: 'LAYOUT_INIT',
+    SPLIT_PANEL: 'SPLIT_PANEL',
+    MERGE_PANEL: 'MERGE_PANEL'
 }
 
 export const RESIZE = {
@@ -14,7 +16,15 @@ export const RESIZE = {
 }
 
 export const UI = {
-    TOOL_SELECTED: 'TOOL_SELECTED'
+    TOOL_SELECTED: 'TOOL_SELECTED',
+    SPLIT: {
+        HORIZONTAL: 'SPLIT_HORIZONTAL',
+        VERTICAL: 'SPLIT_VERTICAL'
+    },
+    MERGE: {
+        HORIZONTAL: 'MERGE_HORIZONTAL',
+        VERTICAL: 'MERGE_VERTICAL'
+    }
 }
 
 export const SELECTION = {

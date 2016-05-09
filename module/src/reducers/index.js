@@ -1,4 +1,5 @@
 import { RESIZE, UI, LAYOUT } from '../constants/action-types'
+import splitPanelReducer from './split-panel-reducer'
 
 const initialState = {
     resize: {
@@ -50,6 +51,9 @@ const reduxUIPanelsReducer = function(state = initialState, action) {
                     }
                 }
             })
+
+        case LAYOUT.SPLIT_PANEL:
+            return splitPanelReducer( state, action.payload )
 
         default:
             return state
