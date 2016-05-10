@@ -26,26 +26,26 @@ const splitHorizontal = (state, payload) => {
                 index: newIndex
             })
         case flow.VERTICAL:
-            const leftPanelID = generateID()
+            const containerID = generateID()
             const rightPanelID = generateID()
             return Object.assign({}, state, {
                 index: {
                     ...state.index,
-                    [newPanelID]: {
+                    [containerID]: {
                         type: 'Container',
                         parentID: panelID,
                         parentIndex: 0,
                         flow: flow.HORIZONTAL
                     },
-                    [leftPanelID]: {
+                    [resizeID]: {
                         type: 'Panel',
-                        parentID: newPanelID,
+                        parentID: containerID,
                         parentIndex: 0,
                         toolIndex,
                     },
                     [rightPanelID]: {
                         type: 'Panel',
-                        parentID: newPanelID,
+                        parentID: containerID,
                         parentIndex: 1,
                         toolIndex,
                     }

@@ -25,8 +25,7 @@ const reduxUIPanelsReducer = function(state = initialState, action) {
             return Object.assign({}, state, {
                 resize: {
                     isResizing: true,
-                    panelID: action.payload.panelID,
-                    parentContainerID: action.payload.parentContainerID
+                    panelID: action.payload.panelID
                 }
             })
 

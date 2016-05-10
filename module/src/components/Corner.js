@@ -34,7 +34,7 @@ const handleMouseDown = (panelID, parentContainerFlow, dispatch, index, e) => {
             parentIndex,
             toolIndex,
         }))
-        dispatch(beginResizing(resizeID, parentID))
+        dispatch(beginResizing(resizeID))
     }
 
     setTimeout(() => {

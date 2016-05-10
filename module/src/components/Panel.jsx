@@ -19,17 +19,17 @@ class Panel extends Component {
     componentWillReceiveProps(nextProps) {
         const { resize, index, id, type, flow } = nextProps
         const { parentID, parentIndex } = layout(index).getProps(id)
-        const { parentIndex: resizeIndex } = layout(index).getProps(resize.panelID)
+        const { parentIndex: resizeParentIndex, parentID: resizeParentID } = layout(index).getProps(resize.panelID)
         let computedWidth = this.getClientWidth()
         let computedHeight = this.getClientHeight()
         if (resize.isResizing) {
-            if (resize.parentContainerID !== parentID) { // SJ: We're not in the container being resized
+            if ( resizeParentID !== parentID ) { // SJ: We're not in the container being resized
                 if (flow === CONTAINER_FLOW.VERTICAL && type === PANEL_TYPE.BOTTOM) {
                     computedHeight = 'auto'
                 }
             }
             else { // SJ: We ARE in the container being resized
-                if ( resizeIndex + 1 === parentIndex ) {// SJ: I come after the panel being resized
+                if ( resizeParentIndex + 1 === parentIndex ) {// SJ: I come after the panel being resized
                     switch (flow) {
                         case CONTAINER_FLOW.VERTICAL:
                         computedHeight = 'auto'
