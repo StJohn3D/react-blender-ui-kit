@@ -16,15 +16,7 @@ export const RESIZE = {
 }
 
 export const UI = {
-    TOOL_SELECTED: 'TOOL_SELECTED',
-    SPLIT: {
-        HORIZONTAL: 'SPLIT_HORIZONTAL',
-        VERTICAL: 'SPLIT_VERTICAL'
-    },
-    MERGE: {
-        HORIZONTAL: 'MERGE_HORIZONTAL',
-        VERTICAL: 'MERGE_VERTICAL'
-    }
+    TOOL_SELECTED: 'TOOL_SELECTED'
 }
 
 export const SELECTION = {

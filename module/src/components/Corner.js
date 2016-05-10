@@ -5,7 +5,7 @@ import { splitPanel, mergePanel } from '../actions/layout-actions'
 import { beginResizing } from '../actions/resize-actions'
 import generateID from '../utils/generate-id'
 import { layout } from '../utils/layout'
-import { UI } from '../constants/action-types'
+import intent from '../constants/container-flows'
 
 const handleMouseDown = (panelID, parentContainerFlow, dispatch, index, e) => {
     e.preventDefault()
@@ -47,15 +47,15 @@ const handleMouseDown = (panelID, parentContainerFlow, dispatch, index, e) => {
         if (xDelta > sensitivity || yDelta > sensitivity) { // SJ: We're either splitting or merging
             if ( xDelta > yDelta ) { // SJ: We're either splitting or merging horizontally
                 if ( newX < startX ) { // SJ: We're splitting horizontally
-                    split( UI.SPLIT.HORIZONTAL )
+                    split( intent.HORIZONTAL )
                 } else { //: We're merging horizontally
-                    merge( UI.MERGE.HORIZONTAL )
+                    merge( intent.HORIZONTAL )
                 }
             } else { // SJ: We're either splitting or merging vertically
                 if ( newY > startY ) { // SJ: We're splitting vertically
-                    split( UI.SPLIT.VERTICAL )
+                    split( intent.VERTICAL )
                 } else { //: We're merging vertically
-                    merge( UI.MERGE.VERTICAL )
+                    merge( intent.VERTICAL )
                 }
             }
         }
