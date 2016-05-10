@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import HighVolumeStore from '../utils/high-volume-store'
-import { splitPanel, mergePanel } from '../actions/layout-actions'
-import { beginResizing } from '../actions/ui-actions'
+import { splitPanel } from '../actions/layout-actions'
+import { beginResizing, startMerge } from '../actions/ui-actions'
 import generateID from '../utils/generate-id'
 import { layout } from '../utils/layout'
 import intent from '../constants/container-flows'
@@ -15,10 +15,9 @@ const handleMouseDown = (panelID, parentContainerFlow, dispatch, index, e) => {
     const startY = HighVolumeStore.mouseY
 
     const merge = ( intent ) => {
-        dispatch(mergePanel({
+        dispatch(startMerge({
             panelID,
-            parentContainerFlow,
-            intent,
+            intent
         }))
     }
 

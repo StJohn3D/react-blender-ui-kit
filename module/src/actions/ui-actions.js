@@ -5,18 +5,22 @@ export const toolSelected = payload => ({
     payload: payload
 })
 
-export const beginResizing = (id) => {
-    return {
-        type: UI.RESIZE_BEGIN,
-        payload: {
-            panelID: id
-        }
+export const beginResizing = panelID => ({
+    type: UI.RESIZE_BEGIN,
+    payload: {
+        panelID
     }
-}
+})
 
-export const doneResizing = () => {
-    return {
-        type: UI.RESIZE_DONE,
-        payload: {}
+export const doneResizing = () => ({
+    type: UI.RESIZE_DONE,
+    payload: {}
+})
+
+export const startMerge = ({panelID, intent}) => ({
+    type: UI.MERGE_START,
+    payload: {
+        panelID,
+        intent
     }
-}
+})
