@@ -1,5 +1,5 @@
 import generateID from './generate-id'
-import { beginResizing, doneResizing } from '../actions/resize-actions'
+import { beginResizing, doneResizing } from '../actions/ui-actions'
 
 export default class HighVolumeStore {
 

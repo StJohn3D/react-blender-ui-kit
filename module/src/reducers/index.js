@@ -1,12 +1,15 @@
-import { RESIZE, UI, LAYOUT } from '../constants/action-types'
+import { UI, LAYOUT } from '../constants/action-types'
 import splitPanelReducer from './split-panel-reducer'
 
 const initialState = {
     resize: {
         isResizing: false,
+        panelID: undefined
+    },
+    merge: {
+        isMerging: false,
         panelID: undefined,
-        parentContainerID: undefined,
-        containerIndex: undefined
+        intent: undefined
     },
     tools: [],
     index: {}
@@ -21,7 +24,22 @@ const reduxUIPanelsReducer = function(state = initialState, action) {
                 index: action.payload.index
             })
 
-        case RESIZE.BEGIN:
+        case LAYOUT.SPLIT_PANEL:
+            return splitPanelReducer( state, action.payload )
+
+        case LAYOUT.MERGE_PANEL:
+            return mergePanelReducer( state, action.payload )
+
+        case UI.MERGE_START:
+            return Object.assign({}, state, {
+                merge: {
+                    isMerging: true,
+                    panelID: action.payload.panelID,
+                    intent: action.payload.intent
+                }
+            })
+
+        case UI.RESIZE_BEGIN:
             return Object.assign({}, state, {
                 resize: {
                     isResizing: true,
@@ -29,13 +47,11 @@ const reduxUIPanelsReducer = function(state = initialState, action) {
                 }
             })
 
-        case RESIZE.DONE:
+        case UI.RESIZE_DONE:
             return Object.assign({}, state, {
                 resize: {
                     isResizing: false,
-                    panelID: undefined,
-                    parentContainerID: undefined,
-                    containerIndex: undefined
+                    panelID: undefined
                 }
             })
 
@@ -49,9 +65,6 @@ const reduxUIPanelsReducer = function(state = initialState, action) {
                     }
                 }
             })
-
-        case LAYOUT.SPLIT_PANEL:
-            return splitPanelReducer( state, action.payload )
 
         default:
             return state

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import CONTAINER_FLOW from '../constants/container-flows'
-import { beginResizing } from '../actions/resize-actions'
+import { beginResizing } from '../actions/ui-actions'
 
 const ResizeHandle = ({ flow, beginResize }) => {
     const className = flow === CONTAINER_FLOW.HORIZONTAL

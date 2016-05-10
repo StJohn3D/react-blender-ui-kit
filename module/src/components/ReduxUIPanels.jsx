@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { doneResizing } from '../actions/resize-actions'
+import { doneResizing } from '../actions/ui-actions'
 import HighVolumeStore from '../utils/high-volume-store'
 import styles from '../styles/'
 import jss from 'js-stylesheet'
