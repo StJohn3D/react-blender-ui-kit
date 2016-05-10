@@ -7,6 +7,7 @@ import ResizeHandle from './ResizeHandle'
 import Tool from './Tool'
 import Container from './Container'
 import Corner from './Corner'
+import MergeIndicator from './MergeIndicator'
 import HighVolumeStore from '../utils/high-volume-store'
 import { layout } from '../utils/layout'
 
@@ -98,7 +99,7 @@ class Panel extends Component {
     }
 
     render() {
-        const { index, id, type, flow } = this.props
+        const { index, id, type, flow, merge } = this.props
         const props = layout(index).getProps(id)
         const { children, width, height } = props
         let style = {
@@ -117,15 +118,11 @@ class Panel extends Component {
         const resizer = this.buildResizer(id, type, flow, props)
         const tool = this.buildTool(id, props)
         const corner = children.length < 1 ? <Corner panelID={id} parentContainerFlow={flow}/> : false
+        const mergeIndicator = children.length < 1 ? <MergeIndicator panelID={id} merge={merge} /> : false
 
         return (
-            <section
-                className="ruip-panel"
-                style={style}
-                onMouseOver={this.handleMouseOver.bind(this)}
-                onMouseUp={this.handleMouseUp.bind(this)}
-            >
-                {corner}{children.map(function(child) {
+            <section className="ruip-panel" style={style}>
+                {mergeIndicator}{corner}{children.map(function(child) {
                     if (child.type === 'Container') return <Container key={child.parentIndex} id={child.id} />
                     else return child.component
                 })}{tool}{resizer}
@@ -174,16 +171,6 @@ class Panel extends Component {
         }
 
         this.handleResizing(updateHeight)
-    }
-
-    handleMouseOver() {
-        if ( this.props.merge.isMerging ) {
-            console.log('test')
-        }
-    }
-
-    handleMouseUp() {
-
     }
 }
 

@@ -1,4 +1,18 @@
 
+const mergeFromLeftShape = [
+    '0% 40%',    // Arrow top left
+    '0 0%',      // Top Left
+    '100% 0%',   // Top Right
+    '100% 100%', // Bottom Right
+    '0% 100%',   // Bottom Left
+    '0% 60%',    // Arrow bottom left
+    '10% 60%',   // Arrow bottom right
+    '10% 70%',   // Arrow bottom corner
+    '30% 50%',   // Arrow Point
+    '10% 30%',   // Arrow top corner
+    '10% 40%'    // Arrow top right
+]
+
 const styles = {
     ".redux-ui-panels": {
         'width' : '100%',
@@ -71,14 +85,23 @@ const styles = {
         'background-color': 'white'
     },
     '.ruip-corner': {
+        'position'   : 'absolute',
+        'right'      : '0',
         'width'      : '0',
         'height'     : '0',
         'border-top' : '20px solid red',
-        'border-left': '20px solid transparent',
-        'float'      : 'right'
+        'border-left': '20px solid transparent'
     },
     '.ruip-corner:hover': {
         'border-top': '20px solid white'
+    },
+    '.ruip-merge-from-left': {
+        'position': 'absolute',
+        'width': '100%',
+        'height': '100%',
+        'background-color': 'rgba(0,0,0,0.5)',
+        '-webkit-clip-path': 'polygon(' + mergeFromLeftShape.toString() + ')',
+        'clip-path': 'polygon(' + mergeFromLeftShape.toString() + ')'
     }
 }
 
