@@ -165,6 +165,12 @@ const styles = {
         'background-color': 'rgba(0,0,0,0.5)',
         '-webkit-clip-path': 'polygon(' + mergeFromBottomShape.toString() + ')',
         'clip-path': 'polygon(' + mergeFromBottomShape.toString() + ') '
+    },
+    '.hidden': {
+        'position': 'absolute',
+        'width': '100%',
+        'height': '100%',
+        'background-color': 'transparent',
     }
 }
 

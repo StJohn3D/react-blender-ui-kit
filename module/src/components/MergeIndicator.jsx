@@ -1,19 +1,44 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 
-const handleMouseOver = (e) => {
+class MergeIndicator extends Component {
+    constructor() {
+        super()
+        this.state = {
+            isMergeTarget: false
+        }
+    }
 
+    handleMouseOver(e) {
+        this.setState({
+            isMergeTarget: true
+        })
+    }
+
+    handleMouseOut(e) {
+        this.setState({
+            isMergeTarget: false
+        })
+    }
+
+    handleMouseUp(e) {
+
+    }
+
+    render() {
+        const {panelID, merge} = this.props
+        if ( !merge.isMerging ) return false
+
+        const { isMergeTarget } = this.state
+        const handleMouseOver = this.handleMouseOver.bind(this)
+        const handleMouseOut = this.handleMouseOut.bind(this)
+        const handleMouseUp = this.handleMouseUp.bind(this)
+        return (<div
+            className={isMergeTarget ? 'ruip-merge-from-bottom' : 'hidden'}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+            onMouseUp={handleMouseUp}
+        ></div>)
+    }
 }
 
-const handleMouseUp = (e) => {
-
-}
-
-export default ({panelID, merge}) => {
-    if ( !merge.isMerging ) return false
-
-    return (<div
-        className='ruip-merge-from-bottom'
-        onMouseOver={handleMouseOver.bind(this)}
-        onMouseUp={handleMouseUp.bind(this)}
-    ></div>)
-}
+export default MergeIndicator

@@ -14,9 +14,7 @@ import { layout } from '../utils/layout'
 class Panel extends Component {
     constructor() {
         super()
-        this.state = {
-            mergeClass: '' //ruip-merge-from-left/top/right/bottom
-        }
+        this.state = {}
     }
 
     componentWillReceiveProps(nextProps) {
