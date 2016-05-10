@@ -12,7 +12,7 @@ export default ({panelID, merge}) => {
     if ( !merge.isMerging ) return false
 
     return (<div
-        className='ruip-merge-from-left'
+        className='ruip-merge-from-bottom'
         onMouseOver={handleMouseOver.bind(this)}
         onMouseUp={handleMouseUp.bind(this)}
     ></div>)

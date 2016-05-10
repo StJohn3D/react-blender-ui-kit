@@ -1,16 +1,55 @@
 
 const mergeFromLeftShape = [
-    '0% 40%',    // Arrow top left
-    '0 0%',      // Top Left
-    '100% 0%',   // Top Right
-    '100% 100%', // Bottom Right
-    '0% 100%',   // Bottom Left
-    '0% 60%',    // Arrow bottom left
-    '10% 60%',   // Arrow bottom right
-    '10% 70%',   // Arrow bottom corner
-    '30% 50%',   // Arrow Point
-    '10% 30%',   // Arrow top corner
-    '10% 40%'    // Arrow top right
+    '0% calc(50% - 25px)',      // Arrow top left
+    '0% 0%',                    // Top Left
+    '100% 0%',                  // Top Right
+    '100% 100%',                // Bottom Right
+    '0% 100%',                  // Bottom Left
+    '0% calc(50% + 25px)',      // Arrow bottom left
+    '40px calc(50% + 25px)',    // Arrow bottom right
+    '40px calc(50% + 50px)',    // Arrow bottom corner
+    '100px 50%',                // Arrow Point
+    '40px calc(50% - 50px)',    // Arrow top corner
+    '40px calc(50% - 25px)'     // Arrow top right
+]
+const mergeFromRightShape = [
+    '100% calc(50% - 25px)',    // Arrow top right
+    '100% 0%',                  // Top Right
+    '0% 0%',                    // Top Left
+    '0% 100%',                  // Bottom Left
+    '100% 100%',                // Bottom Right
+    '100% calc(50% + 25px)',    // Arrow bottom right
+    'calc(100% - 40px) calc(50% + 25px)',    // Arrow bottom left
+    'calc(100% - 40px) calc(50% + 50px)',    // Arrow bottom corner
+    'calc(100% - 100px) 50%',                // Arrow Point
+    'calc(100% - 40px) calc(50% - 50px)',    // Arrow top corner
+    'calc(100% - 40px) calc(50% - 25px)'     // Arrow top right
+]
+const mergeFromTopShape = [
+    'calc(50% - 25px) 0%',      // Arrow top left
+    '0% 0%',                    // Top Left
+    '0% 100%',                  // Bottom Left
+    '100% 100%',                // Bottom Right
+    '100% 0%',                  // Top Right
+    'calc(50% + 25px) 0%',      // Arrow top right
+    'calc(50% + 25px) 40px',    // Arrow bottom right
+    'calc(50% + 50px) 40px',    // Arrow right corner
+    '50% 100px',                // Arrow Point
+    'calc(50% - 50px) 40px',    // Arrow left corner
+    'calc(50% - 25px) 40px'     // Arrow bottom left
+]
+const mergeFromBottomShape = [
+    'calc(50% + 25px) 100%',    // Arrow bottom right
+    '100% 100%',                // Bottom Right
+    '100% 0%',                  // Top Right
+    '0% 0%',                    // Top Left
+    '0% 100%',                  // Bottom Left
+    'calc(50% - 25px) 100%',    // Arrow bottom left
+    'calc(50% - 25px) calc(100% - 40px)',    // Arrow top left
+    'calc(50% - 50px) calc(100% - 40px)',    // Arrow left corner
+    '50% calc(100% - 100px)',                // Arrow Point
+    'calc(50% + 50px) calc(100% - 40px)',    // Arrow right corner
+    'calc(50% + 25px) calc(100% - 40px)'     // Arrow top right
 ]
 
 const styles = {
@@ -101,7 +140,31 @@ const styles = {
         'height': '100%',
         'background-color': 'rgba(0,0,0,0.5)',
         '-webkit-clip-path': 'polygon(' + mergeFromLeftShape.toString() + ')',
-        'clip-path': 'polygon(' + mergeFromLeftShape.toString() + ')'
+        'clip-path': 'polygon(' + mergeFromLeftShape.toString() + ') '
+    },
+    '.ruip-merge-from-right': {
+        'position': 'absolute',
+        'width': '100%',
+        'height': '100%',
+        'background-color': 'rgba(0,0,0,0.5)',
+        '-webkit-clip-path': 'polygon(' + mergeFromRightShape.toString() + ')',
+        'clip-path': 'polygon(' + mergeFromRightShape.toString() + ') '
+    },
+    '.ruip-merge-from-top': {
+        'position': 'absolute',
+        'width': '100%',
+        'height': '100%',
+        'background-color': 'rgba(0,0,0,0.5)',
+        '-webkit-clip-path': 'polygon(' + mergeFromTopShape.toString() + ')',
+        'clip-path': 'polygon(' + mergeFromTopShape.toString() + ') '
+    },
+    '.ruip-merge-from-bottom': {
+        'position': 'absolute',
+        'width': '100%',
+        'height': '100%',
+        'background-color': 'rgba(0,0,0,0.5)',
+        '-webkit-clip-path': 'polygon(' + mergeFromBottomShape.toString() + ')',
+        'clip-path': 'polygon(' + mergeFromBottomShape.toString() + ') '
     }
 }
 
