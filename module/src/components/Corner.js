@@ -61,8 +61,8 @@ const handleMouseDown = (panelID, parentContainerFlow, dispatch, index, e) => {
     }, 200)
 }
 
-/* TODO:    Should subscribe for a mouse up event and pole
-            This way a user can click, hover, decide, and then either
+// TODO:    Should subscribe for a mouse up event and pole
+/*          This way a user can click, hover, decide, and then either
             cancel by releasing or continue by dragging beyond the threshold
  */
 

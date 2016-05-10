@@ -13,7 +13,9 @@ import { layout } from '../utils/layout'
 class Panel extends Component {
     constructor() {
         super()
-        this.state = {}
+        this.state = {
+            mergeClass: '' //ruip-merge-from-left/top/right/bottom
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -117,7 +119,12 @@ class Panel extends Component {
         const corner = children.length < 1 ? <Corner panelID={id} parentContainerFlow={flow}/> : false
 
         return (
-            <section className="ruip-panel" style={style}>
+            <section
+                className="ruip-panel"
+                style={style}
+                onMouseOver={this.handleMouseOver.bind(this)}
+                onMouseUp={this.handleMouseUp.bind(this)}
+            >
                 {corner}{children.map(function(child) {
                     if (child.type === 'Container') return <Container key={child.parentIndex} id={child.id} />
                     else return child.component
@@ -169,13 +176,20 @@ class Panel extends Component {
         this.handleResizing(updateHeight)
     }
 
-    handleSplit() {
+    handleMouseOver() {
+        if ( this.props.merge.isMerging ) {
+            console.log('test')
+        }
+    }
+
+    handleMouseUp() {
 
     }
 }
 
 const mapStateToProps = state => ({
     resize: state.ReduxUIPanels.resize,
+    merge : state.ReduxUIPanels.merge,
     tools : state.ReduxUIPanels.tools,
     index : state.ReduxUIPanels.index
 })
