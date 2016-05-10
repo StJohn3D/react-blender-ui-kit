@@ -4,22 +4,22 @@ import { layout } from '../utils/layout'
 import generateID from '../utils/generate-id'
 
 const splitHorizontal = (state, payload) => {
-    const { panelID, parentContainerFlow, newPanelID, parentID, parentIndex, toolIndex } = payload
+    const { panelID, parentContainerFlow, resizeID, parentID, parentIndex, toolIndex } = payload
     const { children } = layout(state.index).getProps(parentID)
 
 
     switch ( parentContainerFlow ) {
         case flow.HORIZONTAL:
             let newIndex = Object.assign({}, state.index, {
-                [newPanelID]: {
+                [resizeID]: {
                     type: 'Panel',
                     parentID,
-                    parentIndex: parentIndex + 1,
+                    parentIndex: parentIndex,
                     toolIndex,
                 }
             })
             children.forEach((child) => {
-                newIndex[child.id].parentIndex = child.parentIndex < parentIndex + 1 ?
+                newIndex[child.id].parentIndex = child.parentIndex < parentIndex ?
                     child.parentIndex : child.parentIndex + 1
             })
             return Object.assign({}, state, {
