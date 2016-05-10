@@ -26,14 +26,15 @@ const handleMouseDown = (panelID, parentContainerFlow, dispatch, index, e) => {
         const newPanelID = generateID()
         const { parentID, parentIndex, toolIndex } = props
         dispatch(splitPanel({
+            panelID,
             parentContainerFlow,
             intent,
             newPanelID,
             parentID,
-            newParentIndex: parentIndex + 1,
+            parentIndex,
             toolIndex,
         }))
-        dispatch(beginResizing(panelID, parentID, parentIndex))
+        // dispatch(beginResizing(panelID, parentID, parentIndex))
     }
 
     setTimeout(() => {

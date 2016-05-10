@@ -51,6 +51,11 @@ export const generateIndexFrom = (child) => {
 }
 
 export const layout = (index) => {
+    if (!index) {
+        const message = 'layout must be called with the index object from the store\ne.g. layout(index)\nFailed with ' + index
+        if (console && console.warn) console.warn(message)
+        return 'ERROR: ' + message
+    }
     return {
         rootID() {
             return Object.keys(index).find(function(key) {

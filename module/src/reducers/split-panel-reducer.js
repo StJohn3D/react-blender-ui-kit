@@ -1,9 +1,10 @@
 import { UI } from '../constants/action-types'
 import flow from '../constants/container-flows'
 import { layout } from '../utils/layout'
+import generateID from '../utils/generate-id'
 
 const splitHorizontal = (state, payload) => {
-    const { parentContainerFlow, newPanelID, parentID, newParentIndex, toolIndex } = payload
+    const { panelID, parentContainerFlow, newPanelID, parentID, parentIndex, toolIndex } = payload
     const { children } = layout(state.index).getProps(parentID)
 
 
@@ -13,19 +14,43 @@ const splitHorizontal = (state, payload) => {
                 [newPanelID]: {
                     type: 'Panel',
                     parentID,
-                    parentIndex: newParentIndex,
+                    parentIndex: parentIndex + 1,
                     toolIndex,
                 }
             })
             children.forEach((child) => {
-                newIndex[child.id].parentIndex = child.parentIndex < newParentIndex ?
+                newIndex[child.id].parentIndex = child.parentIndex < parentIndex + 1 ?
                     child.parentIndex : child.parentIndex + 1
             })
             return Object.assign({}, state, {
                 index: newIndex
             })
         case flow.VERTICAL:
-            break
+            const leftPanelID = generateID()
+            const rightPanelID = generateID()
+            return Object.assign({}, state, {
+                index: {
+                    ...state.index,
+                    [newPanelID]: {
+                        type: 'Container',
+                        parentID: panelID,
+                        parentIndex: 0,
+                        flow: flow.HORIZONTAL
+                    },
+                    [leftPanelID]: {
+                        type: 'Panel',
+                        parentID: newPanelID,
+                        parentIndex: 0,
+                        toolIndex,
+                    },
+                    [rightPanelID]: {
+                        type: 'Panel',
+                        parentID: newPanelID,
+                        parentIndex: 1,
+                        toolIndex,
+                    }
+                }
+            })
         default:
             return state
     }
