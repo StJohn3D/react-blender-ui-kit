@@ -1,9 +1,3 @@
-export const MOUSE = {
-    LEFT_BUTTON_PRESSED : 'MOUSE_LEFT_BUTTON_PRESSED',
-    LEFT_BUTTON_RELEASED: 'MOUSE_LEFT_BUTTON_RELEASED',
-    MOVED               : 'MOUSE_MOVED',
-}
-
 export const LAYOUT = {
     INIT: 'LAYOUT_INIT',
     SPLIT_PANEL: 'SPLIT_PANEL',
@@ -17,8 +11,4 @@ export const RESIZE = {
 
 export const UI = {
     TOOL_SELECTED: 'TOOL_SELECTED'
-}
-
-export const SELECTION = {
-    CHANGED: 'CHANGED_SELECTION'
 }
