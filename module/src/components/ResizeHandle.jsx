@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     beginResize: (e) => {
       e.preventDefault()
-      dispatch(beginResizing(props.id, props.parentID, props.parentIndex))
+      dispatch(beginResizing(props.id, props.parentID))
     }
   }
 }

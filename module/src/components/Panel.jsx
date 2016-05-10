@@ -19,7 +19,7 @@ class Panel extends Component {
     componentWillReceiveProps(nextProps) {
         const { resize, index, id, type, flow } = nextProps
         const { parentID, parentIndex } = layout(index).getProps(id)
-        const node = ReactDOM.findDOMNode(this)
+        const { parentIndex: resizeIndex } = layout(index).getProps(resize.panelID)
         let computedWidth = this.getClientWidth()
         let computedHeight = this.getClientHeight()
         if (resize.isResizing) {
@@ -29,7 +29,7 @@ class Panel extends Component {
                 }
             }
             else { // SJ: We ARE in the container being resized
-                if ( resize.containerIndex + 1 === parentIndex ) {// SJ: I come after the panel being resized
+                if ( resizeIndex + 1 === parentIndex ) {// SJ: I come after the panel being resized
                     switch (flow) {
                         case CONTAINER_FLOW.VERTICAL:
                         computedHeight = 'auto'
