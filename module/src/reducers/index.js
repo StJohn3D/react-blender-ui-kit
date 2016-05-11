@@ -1,5 +1,6 @@
 import { UI, LAYOUT } from '../constants/action-types'
 import splitPanelReducer from './split-panel-reducer'
+import mergePanelReducer from './merge-panel-reducer'
 
 const initialState = {
     resize: {
