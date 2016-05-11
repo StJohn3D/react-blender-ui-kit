@@ -1,10 +1,6 @@
 import React from 'react'
 import generateID from '../utils/generate-id'
 
-const clean = (index) => {
-    return index
-}
-
 const getProps = (index, id) => {
     let children = []
     let props = {}
@@ -19,6 +15,22 @@ const getProps = (index, id) => {
         id,
         children,
     })
+}
+
+const clean = (index) => {
+    let cleanIndex = Object.assign({}, index)
+    Object.keys(index).forEach(function(key) {
+        if ( index[key].type === 'Container' && index[key].parentID !== 'ROOT' ) {
+            const container = getProps(index, key)
+            if ( container.children.length === 1 ) {
+                const singlePanel = container.children[0]
+                cleanIndex[ container.parentID ].toolIndex = singlePanel.toolIndex
+                delete cleanIndex[ container.id ]
+                delete cleanIndex[ singlePanel.id ]
+            }
+        }
+    })
+    return cleanIndex
 }
 
 const getRootID = (index) => {
@@ -57,7 +69,7 @@ export const generateIndexFrom = (child) => {
                     type: 'Panel',
                     parentID,
                     parentIndex,
-                    toolIndex: child.props.toolIndex,
+                    toolIndex: child.props.toolIndex
                 }
                 React.Children.toArray(child.props.children).map(recursiveParse.bind(this, id))
                 break
