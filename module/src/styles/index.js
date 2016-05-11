@@ -132,7 +132,8 @@ const styles = {
         'border-left': '20px solid transparent'
     },
     '.ruip-corner:hover': {
-        'border-top': '20px solid white'
+        'border-top': '20px solid white',
+        'cursor': 'crosshair'
     },
     '.ruip-merge-from-left': {
         'position': 'absolute',

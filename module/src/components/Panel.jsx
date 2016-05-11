@@ -116,7 +116,7 @@ class Panel extends Component {
         const resizer = this.buildResizer(id, type, flow, props)
         const tool = this.buildTool(id, props)
         const corner = children.length < 1 ? <Corner panelID={id} parentContainerFlow={flow}/> : false
-        const mergeIndicator = children.length < 1 ? <MergeIndicator panelID={id} merge={merge} /> : false
+        const mergeIndicator = children.length < 1 ? <MergeIndicator panelID={id} parentContainerFlow={flow} merge={merge} /> : false
 
         return (
             <section className="ruip-panel" style={style}>

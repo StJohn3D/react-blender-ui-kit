@@ -24,3 +24,8 @@ export const startMerge = ({panelID, intent}) => ({
         intent
     }
 })
+
+export const cancelMerge = () => ({
+    type: UI.MERGE_CANCELED,
+    payload: {}
+})

@@ -38,6 +38,15 @@ const reduxUIPanelsReducer = function(state = initialState, action) {
                     intent: action.payload.intent
                 }
             })
+        
+        case UI.MERGE_CANCELED:
+            return Object.assign({}, state, {
+                merge: {
+                    isMerging: false,
+                    panelID: undefined,
+                    intent: undefined
+                }
+            })
 
         case UI.RESIZE_BEGIN:
             return Object.assign({}, state, {
