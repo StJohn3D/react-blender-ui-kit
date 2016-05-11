@@ -54,10 +54,11 @@ const consolidateSingleChildren = (index) => {
         if ( index[key].type === 'Container' && index[key].parentID !== 'ROOT' ) {
             const container = getProps(index, key)
             if ( container.children.length === 1 ) {
-                const singlePanel = container.children[0]
-                consolidatedIndex[ container.parentID ].toolIndex = singlePanel.toolIndex
+                let keepID = container.children[0].id
+                consolidatedIndex[keepID].parentID = consolidatedIndex[ container.parentID ].parentID
+                consolidatedIndex[keepID].parentIndex = consolidatedIndex[ container.parentID ].parentIndex
+                delete consolidatedIndex[ container.parentID ]
                 delete consolidatedIndex[ container.id ]
-                delete consolidatedIndex[ singlePanel.id ]
             }
         }
     })
