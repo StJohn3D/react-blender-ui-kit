@@ -17,20 +17,57 @@ const getProps = (index, id) => {
     })
 }
 
-const clean = (index) => {
-    let cleanIndex = Object.assign({}, index)
+const removeOrphanContainers = (index) => {
+    let indexWithoutOrphanContainers = Object.assign({}, index)
+
+    Object.keys(index).forEach(function(key) {
+        if ( index[key].type === 'Container' && index[key].parentID !== 'ROOT' ) {
+            const container = getProps(index, key)
+            if ( !index[container.parentID] ) {
+                delete indexWithoutOrphanContainers[ container.id ]
+            }
+        }
+    })
+
+    return indexWithoutOrphanContainers
+}
+
+const removeOrphans = (index) => {
+    let indexWithoutOrphans = removeOrphanContainers(index)
+
+    Object.keys(indexWithoutOrphans).forEach(function(key) {
+        if ( indexWithoutOrphans[key].type !== 'Container' ) {
+            const child = getProps(indexWithoutOrphans, key)
+            if ( !indexWithoutOrphans[child.parentID] ) {
+                delete indexWithoutOrphans[ child.id ]
+            }
+        }
+    })
+
+    return indexWithoutOrphans
+}
+
+const consolidateSingleChildren = (index) => {
+    let consolidatedIndex = Object.assign({}, index)
+
     Object.keys(index).forEach(function(key) {
         if ( index[key].type === 'Container' && index[key].parentID !== 'ROOT' ) {
             const container = getProps(index, key)
             if ( container.children.length === 1 ) {
                 const singlePanel = container.children[0]
-                cleanIndex[ container.parentID ].toolIndex = singlePanel.toolIndex
-                delete cleanIndex[ container.id ]
-                delete cleanIndex[ singlePanel.id ]
+                consolidatedIndex[ container.parentID ].toolIndex = singlePanel.toolIndex
+                delete consolidatedIndex[ container.id ]
+                delete consolidatedIndex[ singlePanel.id ]
             }
         }
     })
-    return cleanIndex
+
+    return consolidatedIndex
+}
+
+const clean = (index) => {
+    const consolidatedIndex = consolidateSingleChildren(index)
+    return removeOrphans(consolidatedIndex)
 }
 
 const getRootID = (index) => {
