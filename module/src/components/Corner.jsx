@@ -35,8 +35,12 @@ const handleMouseDown = (panelID, parentContainerFlow, dispatch, index, e) => {
         }))
         dispatch(beginResizing(resizeID))
     }
-
-    setTimeout(() => {
+    
+    const onMouseUP = () => {
+        removeSubscription()
+    }
+    
+    const onMouseMove = () => {
         const newX = HighVolumeStore.mouseX
         const newY = HighVolumeStore.mouseY
         const xDelta = Math.abs( newX - startX)
@@ -47,24 +51,36 @@ const handleMouseDown = (panelID, parentContainerFlow, dispatch, index, e) => {
             if ( xDelta > yDelta ) { // SJ: We're either splitting or merging horizontally
                 if ( newX < startX ) { // SJ: We're splitting horizontally
                     split( intent.HORIZONTAL )
+                    removeSubscription()
                 } else { //: We're merging horizontally
                     merge( intent.HORIZONTAL )
+                    removeSubscription()
                 }
             } else { // SJ: We're either splitting or merging vertically
                 if ( newY > startY ) { // SJ: We're splitting vertically
                     split( intent.VERTICAL )
+                    removeSubscription()
                 } else { //: We're merging vertically
                     merge( intent.VERTICAL )
+                    removeSubscription()
                 }
             }
         }
-    }, 200)
-}
+    }
+    
+    const handleMouseEvents = (event) => {
+        switch (event) {
+            case 'MOUSE_MOVED':
+                return onMouseMove()
+            case 'MOUSE_LB_UP':
+                return onMouseUP()
+            default:
+                break
+        }
+    }
 
-// TODO:    Should subscribe for a mouse up event and pole
-/*          This way a user can click, hover, decide, and then either
-            cancel by releasing or continue by dragging beyond the threshold
- */
+    const removeSubscription = HighVolumeStore.subscribe(handleMouseEvents)
+}
 
 const mapStateToProps = state => ({
     index : state.ReduxUIPanels.index

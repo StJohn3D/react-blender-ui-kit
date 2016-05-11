@@ -20,8 +20,8 @@ ReactDOM.render(
     <Provider store={store}>
         <ReduxUIPanels tools={[<ToolExample1 name="Blocks"/>, <ToolExample2/>]}>
             <Container>
-                <Panel>
-                </Panel>
+                <Panel/>
+                <Panel/>
             </Container>
         </ReduxUIPanels>
     </Provider>,

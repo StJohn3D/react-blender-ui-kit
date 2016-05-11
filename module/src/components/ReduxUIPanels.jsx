@@ -14,7 +14,11 @@ class ReduxUIPanels extends Component {
     render() {
         const { index, onMouseMove } = this.props
         return (
-            <div className="redux-ui-panels" onMouseMove={onMouseMove} onMouseUp={this.onMouseUp}>
+            <div className="redux-ui-panels"
+                 onMouseMove={onMouseMove}
+                 onMouseUp={this.onMouseUp}
+                 onMouseDown={this.onMouseDown}
+            >
                 <Container id={layout(index).rootID()}/>
             </div>
         );
@@ -38,7 +42,12 @@ class ReduxUIPanels extends Component {
         jss(styles)
     }
 
+    onMouseDown = (e) => {
+        HighVolumeStore._mouseDown(e)
+    }
+
     onMouseUp = (e) => {
+        HighVolumeStore._mouseUp(e)
         const { isResizing, dispatch } = this.props
         if ( isResizing ) dispatch(doneResizing(e))
     }
