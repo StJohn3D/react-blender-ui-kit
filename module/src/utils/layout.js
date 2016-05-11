@@ -1,6 +1,32 @@
 import React from 'react'
 import generateID from '../utils/generate-id'
 
+const clean = (index) => {
+    return index
+}
+
+const getProps = (index, id) => {
+    let children = []
+    let props = {}
+    Object.keys(index).forEach(function(key) {
+        const item = index[key]
+        if ( item.parentID === id ) children[item.parentIndex] = (Object.assign({}, item, {
+            id: key
+        }))
+        else if (id === key) props = item
+    })
+    return Object.assign({}, props, {
+        id,
+        children,
+    })
+}
+
+const getRootID = (index) => {
+    return Object.keys(index).find(function(key) {
+        return index[key].parentID === 'ROOT'
+    })
+}
+
 export const generateIndexFrom = (child) => {
     let index = {}
 
@@ -47,7 +73,7 @@ export const generateIndexFrom = (child) => {
     }
     recursiveParse('ROOT', child)
 
-    return index
+    return clean(index)
 }
 
 export const layout = (index) => {
@@ -58,23 +84,13 @@ export const layout = (index) => {
     }
     return {
         rootID() {
-            return Object.keys(index).find(function(key) {
-                return index[key].parentID === 'ROOT'
-            })
+            return getRootID(index)
         },
         getProps(id) {
-            let children = []
-            let props = {}
-            Object.keys(index).forEach(function(key) {
-                const item = index[key]
-                if ( item.parentID === id ) children[item.parentIndex] = (Object.assign({}, item, {
-                    id: key
-                }))
-                else if (id === key) props = item
-            })
-            return Object.assign({}, props, {
-                children,
-            })
+            return getProps(index, id)
+        },
+        clean() {
+            return clean(index)
         }
     }
 }

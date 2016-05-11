@@ -55,10 +55,8 @@ class MergeIndicator extends Component {
         if ( !this.state.isMergeTarget ) {
             this.props.dispatch(cancelMerge())
         } else {
-            const {panelID, merge} = this.props
             this.props.dispatch(mergePanel({
-                caller: merge.panelID,
-                target: panelID
+                target: this.props.panelID
             }))
         }
     }
