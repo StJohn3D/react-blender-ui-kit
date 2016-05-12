@@ -97,7 +97,7 @@ class Panel extends Component {
     }
 
     render() {
-        const { index, id, type, flow, merge } = this.props
+        const { index, id, type, flow } = this.props
         const props = layout(index).getProps(id)
         const { children, width, height } = props
         let style = {
@@ -174,7 +174,6 @@ class Panel extends Component {
 
 const mapStateToProps = state => ({
     resize: state.ReduxUIPanels.resize,
-    merge : state.ReduxUIPanels.merge,
     tools : state.ReduxUIPanels.tools,
     index : state.ReduxUIPanels.index
 })
