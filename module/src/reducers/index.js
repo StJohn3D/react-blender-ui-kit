@@ -1,75 +1,84 @@
-import { REGISTER, RESIZE, UI } from '../constants/action-types'
+import { UI, LAYOUT } from '../constants/action-types'
+import splitPanelReducer from './split-panel-reducer'
+import mergePanelReducer from './merge-panel-reducer'
 
 const initialState = {
     resize: {
         isResizing: false,
-        panelID: undefined,
-        parentContainerID: undefined
+        panelID: undefined
     },
-    containers: {},
-    panels: {},
-    tools: []
+    merge: {
+        isMerging: false,
+        panelID: undefined,
+        intent: undefined
+    },
+    tools: [],
+    index: {}
 }
 
-const timberUIReducer = function(state = initialState, action) {
+const repanelReducer = function(state = initialState, action) {
     let stateOverride
     switch (action.type) {
-        case REGISTER.CONTAINER:
-            stateOverride = {
-                containers: {
-                    ...state.containers
-                }
-            }
-            stateOverride.containers[action.payload.id] = action.payload
-            return Object.assign({}, state, stateOverride)
-
-        case REGISTER.PANEL:
-            stateOverride = {
-                panels: {
-                    ...state.panels
-                }
-            }
-            stateOverride.panels[action.payload.id] = action.payload
-            return Object.assign({}, state, stateOverride)
-
-        case REGISTER.TOOLS:
+        case LAYOUT.INIT:
             return Object.assign({}, state, {
-                tools: action.payload.tools
+                tools: action.payload.tools,
+                index: action.payload.index
             })
 
-        case RESIZE.BEGIN:
+        case LAYOUT.SPLIT_PANEL:
+            return splitPanelReducer( state, action.payload )
+
+        case LAYOUT.MERGE_PANEL:
+            return mergePanelReducer( state, action.payload )
+
+        case UI.MERGE_START:
             return Object.assign({}, state, {
-                resize: {
-                    ...state.resize,
-                    isResizing: true,
+                merge: {
+                    isMerging: true,
                     panelID: action.payload.panelID,
-                    parentContainerID: action.payload.parentContainerID,
-                    containerIndex: action.payload.containerIndex
+                    intent: action.payload.intent
+                }
+            })
+        
+        case UI.MERGE_CANCELED:
+            return Object.assign({}, state, {
+                merge: {
+                    isMerging: false,
+                    panelID: undefined,
+                    intent: undefined
                 }
             })
 
-        case RESIZE.DONE:
+        case UI.RESIZE_BEGIN:
             return Object.assign({}, state, {
                 resize: {
-                    ...state.resize,
+                    isResizing: true,
+                    panelID: action.payload.panelID
+                }
+            })
+
+        case UI.RESIZE_DONE:
+            return Object.assign({}, state, {
+                resize: {
                     isResizing: false,
-                    panelID: undefined,
-                    parentContainerID: undefined
+                    panelID: undefined
                 }
             })
 
         case UI.TOOL_SELECTED:
-            stateOverride = {
-                panels: {
-                    ...state.panels
+            return Object.assign({}, state, {
+                index: {
+                    ...state.index,
+                    [action.payload.panelID]: {
+                        ...state.index[action.payload.panelID],
+                        toolIndex: action.payload.selectedIndex
+                    }
                 }
-            }
-            stateOverride.panels[action.payload.panelID].selectedToolIndex = action.payload.selectedIndex
-            return Object.assign({}, state, stateOverride)
+            })
 
         default:
             return state
     }
 }
 
-export default timberUIReducer
+export default repanelReducer

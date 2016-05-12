@@ -1,7 +1,7 @@
 {
-    "name": "redux-ui-panels",
-    "version": "0.0.4",
-    "description": "A configurable panels framework inspired by blender.org",
+    "name": "repanel",
+    "version": "0.0.6",
+    "description": "A configurable Redux panels framework inspired by blender.org",
     "main": "lib/index.js",
     "directories": {},
     "files": [
@@ -10,17 +10,18 @@
     ],
     "scripts": {
         "build": "babel src --out-dir lib",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "mocha --watch"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/StJohn3D/timber-ui.git"
+        "url": "git+https://github.com/StJohn3D/repanel.git"
     },
     "keywords": [
         "resize",
         "split",
         "merge",
         "panels",
+        "panel",
         "timber",
         "ui",
         "blender",
@@ -30,9 +31,9 @@
     "author": "StJohn3D",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/StJohn3D/redux-ui-panels/issues"
+        "url": "https://github.com/StJohn3D/repanel/issues"
     },
-    "homepage": "https://github.com/StJohn3D/redux-ui-panels#readme",
+    "homepage": "https://github.com/StJohn3D/repanel#readme",
     "dependencies": {
         "js-stylesheet": "^0.0.1"
     },

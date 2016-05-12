@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { SELECTION } from '../constants/action-types'
-import { timberUIReducer } from 'redux-ui-panels'
+import { repanelReducer } from 'repanel'
 
 const initialData = {
     things: {
@@ -10,7 +10,7 @@ const initialData = {
 }
 
 const rootReducer = combineReducers({
-    timberUI: timberUIReducer,
+    repanel: repanelReducer,
     data: function(state = initialData, action) {
         switch (action.type) {
             case SELECTION.CHANGED:

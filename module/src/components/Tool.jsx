@@ -13,9 +13,9 @@ class Tool extends Component {
         )
     }
     render() {
-        const { tools, panels, panelID } = this.props
+        const { tools, panelID, selectedIndex } = this.props
         if ( tools.length ) {
-            const tool = tools[panels[panelID].selectedToolIndex]
+            const tool = tools[ selectedIndex || 0 ]
             const value = tool.props.name || tool.type.niceName || tool.type.displayName
             const selector = <select value={value} onChange={this.handleToolChange.bind(this)}>{tools.map((tool, index) => {
                 const opValue = tool.props.name || tool.type.niceName || tool.type.displayName
@@ -29,8 +29,7 @@ class Tool extends Component {
 }
 
 const mapStateToProps = state => ({
-    tools : state.timberUI.tools,
-    panels: state.timberUI.panels
+    tools : state.repanel.tools
 })
 
 

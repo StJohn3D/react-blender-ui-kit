@@ -1,35 +1,36 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import generateID from '../utils/generate-id'
-import { registerPanel } from '../actions/registry-actions'
 import PANEL_TYPE from '../constants/panel-types'
 import CONTAINER_FLOW from '../constants/container-flows'
 import ResizeHandle from './ResizeHandle'
 import Tool from './Tool'
+import Container from './Container'
+import Corner from './Corner'
+import MergeIndicator from './MergeIndicator'
 import HighVolumeStore from '../utils/high-volume-store'
+import { layout } from '../utils/layout'
 
 class Panel extends Component {
     constructor() {
         super()
-        this.id = generateID('PANEL')
         this.state = {}
     }
 
     componentWillReceiveProps(nextProps) {
-        const { resize, parentContainerID, flow, type } = nextProps
-        const node = ReactDOM.findDOMNode(this)
+        const { resize, index, id, type, flow } = nextProps
+        const { parentID, parentIndex } = layout(index).getProps(id)
+        const { parentIndex: resizeParentIndex, parentID: resizeParentID } = layout(index).getProps(resize.panelID)
         let computedWidth = this.getClientWidth()
         let computedHeight = this.getClientHeight()
         if (resize.isResizing) {
-            if (resize.parentContainerID !== parentContainerID) {
+            if ( resizeParentID !== parentID ) { // SJ: We're not in the container being resized
                 if (flow === CONTAINER_FLOW.VERTICAL && type === PANEL_TYPE.BOTTOM) {
                     computedHeight = 'auto'
                 }
             }
-            else {
-                const containerInfo = this.getContainerInfo(nextProps)
-                if (containerInfo.doIComeAfterThePanelBeingResized) {
+            else { // SJ: We ARE in the container being resized
+                if ( resizeParentIndex + 1 === parentIndex ) {// SJ: I come after the panel being resized
                     switch (flow) {
                         case CONTAINER_FLOW.VERTICAL:
                         computedHeight = 'auto'
@@ -39,7 +40,7 @@ class Panel extends Component {
                         break
                     }
                 }
-                else if (containerInfo.amIBeingResized) {
+                else if ( id === resize.panelID ) { // SJ: I AM the panel being resized
                     switch (flow) {
                         case CONTAINER_FLOW.VERTICAL:
                         this.handleResizeV()
@@ -70,10 +71,10 @@ class Panel extends Component {
         }
     }
 
-    buildResizer() {
-        const { type, parentContainerID, containerIndex, flow } = this.props
+    buildResizer(id, type, flow, props) {
+        const { parentID, parentIndex } = props
         const handleProps = {
-            id: this.id, type, parentContainerID, containerIndex, flow
+            type, flow, id, parentID, parentIndex,
         }
         switch (type) {
             case PANEL_TYPE.LEFT:
@@ -83,78 +84,54 @@ class Panel extends Component {
             return <ResizeHandle {...handleProps} />
 
             default:
-            return undefined
+            return false
         }
     }
 
-    buildTool() {
-        const { children } = this.props
+    buildTool(id, props) {
+        const { children, toolIndex } = props
 
-        if ( React.Children.count(children) === 0 ) {
-            return <Tool panelID={this.id}/>
-        } else return null
+        if ( children.length === 0 ) {
+            return <Tool panelID={id} selectedIndex={toolIndex}/>
+        } else return false
     }
 
     render() {
-        const { children, width, height, flow } = this.props
+        const { index, id, type, flow } = this.props
+        const props = layout(index).getProps(id)
+        const { children, width, height } = props
         let style = {
             width: this.state.width || width || 'auto',
             height: this.state.height || height || 'auto'
         }
         switch(flow) {
             case CONTAINER_FLOW.VERTICAL:
-            style.width = 'auto'
-            break
+                style.width = 'auto'
+                break
             case CONTAINER_FLOW.HORIZONTAL:
-            style.height = 'auto'
-            break
+                style.height = 'auto'
+                break
         }
 
-        const resizer = this.buildResizer()
-        const tool = this.buildTool()
+        const resizer = this.buildResizer(id, type, flow, props)
+        const tool = this.buildTool(id, props)
+        const corner = children.length < 1 ? <Corner panelID={id} parentContainerFlow={flow}/> : false
+        const mergeIndicator = children.length < 1 ? <MergeIndicator panelID={id} parentContainerFlow={flow} /> : false
 
         return (
-            <section className="timber-panel" style={style}>
-            {children}{tool}{resizer}
+            <section className="ruip-panel" style={style}>
+                {mergeIndicator}{corner}{children.map(function(child) {
+                    if (child.type === 'Container') return <Container key={child.parentIndex} id={child.id} />
+                    else return child.component
+                })}{tool}{resizer}
             </section>
         )
-    }
-
-    componentWillMount() {
-        const { dispatch, parentContainerID, containerIndex, toolIndex } = this.props
-        dispatch(registerPanel({
-            id: this.id,
-            parentContainerID,
-            containerIndex,
-            selectedToolIndex: toolIndex || 0
-        }))
     }
 
     componentWillUnmount() {
         if (typeof this.unsubscribe === 'function') {
             this.unsubscribe()
             delete this.unsubscribe
-        }
-    }
-
-    getContainerInfo(props) {
-        const { resize, panels, parentContainerID, containerIndex } = props
-        let amIBeingResized = false
-        let doIComeAfterThePanelBeingResized = false
-        for (let panelKey in panels) {
-            let panel = panels[panelKey]
-            if (panel.parentContainerID === parentContainerID) {
-                if (this.id === resize.panelID) {
-                    amIBeingResized = true
-                }
-                else if (resize.containerIndex + 1 === containerIndex) {
-                    doIComeAfterThePanelBeingResized = true
-                }
-            }
-        }
-        return {
-            amIBeingResized,
-            doIComeAfterThePanelBeingResized
         }
     }
 
@@ -196,10 +173,9 @@ class Panel extends Component {
 }
 
 const mapStateToProps = state => ({
-    resize    : state.timberUI.resize,
-    panels    : state.timberUI.panels,
-    containers: state.timberUI.containers,
-    tools 	  : state.timberUI.tools
+    resize: state.repanel.resize,
+    tools : state.repanel.tools,
+    index : state.repanel.index
 })
 
 export default connect(mapStateToProps)(Panel)

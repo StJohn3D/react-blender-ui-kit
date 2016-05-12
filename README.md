@@ -1,28 +1,28 @@
-#Redux UI Panels
+#repanel
 
-####A configurable panel framework inspired by blender.org
+####A configurable Redux panel framework inspired by blender.org
 
 ##How to use it
 
-`npm install --save timber-ui`
+`npm install --save repanel`
 
-Where you combine your Redux reducers bring in the Timber UI Reducer
+Where you combine your Redux reducers bring in the repanel Reducer
 
 ```js
-import { timberUIReducer } from 'timber-ui'
+import { repanelReducer } from 'repanel'
 
 const rootReducer = combineReducers({
-    timberUI: timberUIReducer,
+    repanel: repanelReducer,
     ...
 })
 ```
 
 Where you define your default page layouts...
 ```js
-import { TimberApp, Container, Panel } from 'timber-ui'
+import { Repanel, Container, Panel } from 'repanel'
 ...
  render() {
-    <TimberApp tools={[ myAweseomeComponent1, myOtherCoolComponent]}>
+    <Repanel tools={[ myAweseomeComponent1, myOtherCoolComponent]}>
         <Container flow="HORIZONTAL">
             <Panel width="25%" toolIndex={0}/>
             <Panel toolIndex={1}/>
@@ -33,14 +33,14 @@ import { TimberApp, Container, Panel } from 'timber-ui'
                 </Container>
             </Panel>
         </Container>
-    </TimberApp>
+    </Repanel>
  }
 ```
 
 ##Local Dev Setup
 
 ```bash
-cd redux-ui-panels/module
+cd repanel/module
 
 npm install
 
@@ -52,11 +52,11 @@ npm link
 then...
 
 ```bash
-cd redux-ui-panels/demos
+cd repanel/demos
 
 npm install
 
-npm link timber-ui
+npm link repanel
 
 npm start
 ```

@@ -1,15 +1,15 @@
-import TimberApp from './components/TimberApp'
+import Repanel from './components/Repanel'
 import Container from './components/Container'
 import Panel from './components/Panel'
-import timberUIReducer from './reducers/'
+import repanelReducer from './reducers/'
 import styles from './styles'
 import jss from 'js-stylesheet'
 
 module.exports = {
-    TimberApp,
+    Repanel,
     Container,
     Panel,
-    timberUIReducer,
+    repanelReducer,
     injectCSS: () => {
         jss(styles)
     }

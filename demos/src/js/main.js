@@ -7,7 +7,7 @@ import { compose, createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers'
 import ToolExample1 from './components/tools/ToolExample1'
 import ToolExample2 from './components/tools/ToolExample2'
-import { TimberApp, Container, Panel } from 'redux-ui-panels'
+import { Repanel, Container, Panel } from 'repanel'
 
 const createFinalStoreWithMiddleware = compose(
     applyMiddleware(),
@@ -18,36 +18,12 @@ const store = createFinalStoreWithMiddleware(rootReducer);
 
 ReactDOM.render(
     <Provider store={store}>
-        <TimberApp tools={[<ToolExample1 name="Blocks"/>, <ToolExample2/>]}>
+        <Repanel tools={[<ToolExample1 name="Blocks"/>, <ToolExample2/>]}>
             <Container>
-                <Panel>
-                    <Container flow="horizontal">
-                        <Panel width='300px' toolIndex="1">
-                        </Panel>
-                        <Panel>
-                            <Container flow="virticalMispelled">
-                                <Panel height="10%">
-                                </Panel>
-                                <Panel>
-                                    <Container flow="HORIZONTAL">
-                                        <Panel>
-                                        </Panel>
-                                        <Panel>
-                                        </Panel>
-                                        <Panel width='250px'>
-                                        </Panel>
-                                    </Container>
-                                </Panel>
-                                <Panel height='10%'>
-                                </Panel>
-                            </Container>
-                        </Panel>
-                    </Container>
-                </Panel>
-                <Panel height='10%'>
-                </Panel>
+                <Panel/>
+                <Panel/>
             </Container>
-        </TimberApp>
+        </Repanel>
     </Provider>,
     document.getElementById('app')
 );
