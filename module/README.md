@@ -1,25 +1,25 @@
 
 ##How to use it
 
-`npm install --save redux-ui-panels`
+`npm install --save repanel`
 
-Where you combine your Redux reducers bring in the Redux UI Panels Reducer
+Where you combine your Redux reducers bring in the repanel Reducer
 
 ```js
-import { ReduxUIPanelsReducer } from 'redux-ui-panels'
+import { repanelReducer } from 'repanel'
 
 const rootReducer = combineReducers({
-    ReduxUIPanels: ReduxUIPanelsReducer,
+    repanel: repanelReducer,
     ...
 })
 ```
 
 Where you define your default page layouts...
 ```js
-import { ReduxUIPanels, Container, Panel } from 'redux-ui-panels'
+import { Repanel, Container, Panel } from 'repanel'
 ...
  render() {
-    <ReduxUIPanels tools={[ myAweseomeComponent1, myOtherCoolComponent]}>
+    <Repanel tools={[ myAweseomeComponent1, myOtherCoolComponent]}>
         <Container flow="HORIZONTAL">
             <Panel width="25%" toolIndex={0}/>
             <Panel toolIndex={1}/>
@@ -30,18 +30,28 @@ import { ReduxUIPanels, Container, Panel } from 'redux-ui-panels'
                 </Container>
             </Panel>
         </Container>
-    </ReduxUIPanels>
+    </Repanel>
  }
 ```
 
 ##Project Road-map
 
- - Splitting/Merging Panels: **_feature_**
  - Thorough documentation on github: **_maintenance_**
  - Screen Casts demonstrations: **_tutorial_**
  - Travis Integration tests **_maintenance_**
+ - 100% code coverage **_maintenance_**
 
 ##Change log
+
+###0.0.6
+**New Features**
+ - Splitting/Merging Panels
+
+**Improvements**
+ - CHANGED NAME to repanel (Formerly redux-ui-panels) Last name change I promise
+
+  **Bug fixes**
+  - N/A
 
 ###0.0.5
 
@@ -68,9 +78,9 @@ ___
  - Added Project Road-Map and this Change log to the npm documentation
 
 **Bug fixes**
- - [**#5:**](https://github.com/StJohn3D/redux-ui-panels/issues/5) NPM documentation was missing ` from 'timber-ui'` in the _HOW to use it_ instructions
- - [**#4:**](https://github.com/StJohn3D/redux-ui-panels/issues/4) TimberApp throws an error if the tools prop isn't provided
- - [**#3:**](https://github.com/StJohn3D/redux-ui-panels/issues/3) Container throws an error if no Flow is provided
+ - [**#5:**](https://github.com/StJohn3D/repanel/issues/5) NPM documentation was missing ` from 'timber-ui'` in the _HOW to use it_ instructions
+ - [**#4:**](https://github.com/StJohn3D/repanel/issues/4) TimberApp throws an error if the tools prop isn't provided
+ - [**#3:**](https://github.com/StJohn3D/repanel/issues/3) Container throws an error if no Flow is provided
 ___
 ###0.0.2
 

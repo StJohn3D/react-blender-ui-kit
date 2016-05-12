@@ -1,15 +1,15 @@
-import ReduxUIPanels from './components/ReduxUIPanels'
+import Repanel from './components/Repanel'
 import Container from './components/Container'
 import Panel from './components/Panel'
-import ReduxUIPanelsReducer from './reducers/'
+import repanelReducer from './reducers/'
 import styles from './styles'
 import jss from 'js-stylesheet'
 
 module.exports = {
-    ReduxUIPanels,
+    Repanel,
     Container,
     Panel,
-    ReduxUIPanelsReducer,
+    repanelReducer,
     injectCSS: () => {
         jss(styles)
     }

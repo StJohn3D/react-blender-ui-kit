@@ -51,7 +51,7 @@ const Container = ({id, index}) => {
 }
 
 const mapStateToProps = state => ({
-    index: state.ReduxUIPanels.index
+    index: state.repanel.index
 })
 
 export default connect(mapStateToProps)(Container)

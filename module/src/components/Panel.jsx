@@ -173,9 +173,9 @@ class Panel extends Component {
 }
 
 const mapStateToProps = state => ({
-    resize: state.ReduxUIPanels.resize,
-    tools : state.ReduxUIPanels.tools,
-    index : state.ReduxUIPanels.index
+    resize: state.repanel.resize,
+    tools : state.repanel.tools,
+    index : state.repanel.index
 })
 
 export default connect(mapStateToProps)(Panel)

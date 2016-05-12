@@ -16,7 +16,7 @@ const initialState = {
     index: {}
 }
 
-const reduxUIPanelsReducer = function(state = initialState, action) {
+const repanelReducer = function(state = initialState, action) {
     let stateOverride
     switch (action.type) {
         case LAYOUT.INIT:
@@ -81,4 +81,4 @@ const reduxUIPanelsReducer = function(state = initialState, action) {
     }
 }
 
-export default reduxUIPanelsReducer
+export default repanelReducer

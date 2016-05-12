@@ -29,7 +29,7 @@ class Tool extends Component {
 }
 
 const mapStateToProps = state => ({
-    tools : state.ReduxUIPanels.tools
+    tools : state.repanel.tools
 })
 
 

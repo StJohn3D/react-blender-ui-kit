@@ -54,8 +54,8 @@ class ReduxUIPanels extends Component {
 }
 
 const mapStateToProps = state => ({
-    isResizing: state.ReduxUIPanels.resize.isResizing,
-    index: state.ReduxUIPanels.index
+    isResizing: state.repanel.resize.isResizing,
+    index: state.repanel.index
 })
 
 const mapDispatchToProps = (dispatch, props) => {

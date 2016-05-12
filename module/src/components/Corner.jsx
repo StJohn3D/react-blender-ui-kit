@@ -83,7 +83,7 @@ const handleMouseDown = (panelID, parentContainerFlow, dispatch, index, e) => {
 }
 
 const mapStateToProps = state => ({
-    index : state.ReduxUIPanels.index
+    index : state.repanel.index
 })
 
 const mapDispatchToProps = (dispatch, props) => {

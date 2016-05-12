@@ -79,8 +79,8 @@ class MergeIndicator extends Component {
 }
 
 const mapStateToProps = state => ({
-    merge : state.ReduxUIPanels.merge,
-    index : state.ReduxUIPanels.index
+    merge : state.repanel.merge,
+    index : state.repanel.index
 })
 
 const mapDispatchToProps = (dispatch, props) => {
