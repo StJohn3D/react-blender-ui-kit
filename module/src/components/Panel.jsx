@@ -119,7 +119,7 @@ class Panel extends Component {
         const mergeIndicator = children.length < 1 ? <MergeIndicator panelID={id} parentContainerFlow={flow} /> : false
 
         return (
-            <section className="ruip-panel" style={style}>
+            <section className="repanel-panel" style={style}>
                 {mergeIndicator}{corner}{children.map(function(child) {
                     if (child.type === 'Container') return <Container key={child.parentIndex} id={child.id} />
                     else return child.component

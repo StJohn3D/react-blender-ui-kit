@@ -30,7 +30,7 @@ const Container = ({id, index}) => {
     const _flow = flow == CONTAINER_FLOW.HORIZONTAL ? CONTAINER_FLOW.HORIZONTAL : CONTAINER_FLOW.VERTICAL
     const childrenArray = props.children
     return (
-        <section className="ruip-container">
+        <section className="repanel-container">
             {childrenArray.map((child, i) => {
                 if (child.type != 'Panel') return false
                 const type = computePanelType(_flow, i, childrenArray.length - 1)

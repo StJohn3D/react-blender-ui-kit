@@ -92,7 +92,7 @@ const mapDispatchToProps = (dispatch, props) => {
 
 const Corner = ({panelID, parentContainerFlow, dispatch, index}) => {
     return (
-        <div className='ruip-corner' onMouseDown={handleMouseDown.bind(this, panelID, parentContainerFlow, dispatch, index)}/>
+        <div className='repanel-corner' onMouseDown={handleMouseDown.bind(this, panelID, parentContainerFlow, dispatch, index)}/>
     )
 }
 
