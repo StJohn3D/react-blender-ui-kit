@@ -70,7 +70,7 @@ class MergeIndicator extends Component {
         const handleMouseOut = this.handleMouseOut.bind(this)
         const handleMouseUp = this.handleMouseUp.bind(this)
         return (<div
-            className={isMergeTarget ? 'ruip-merge-' + direction : 'hidden'}
+            className={isMergeTarget ? 'repanel-merge-' + direction : 'repanel-hidden'}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
             onMouseUp={handleMouseUp}

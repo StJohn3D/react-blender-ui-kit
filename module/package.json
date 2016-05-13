@@ -1,6 +1,6 @@
 {
     "name": "repanel",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "description": "A configurable Redux panels framework inspired by blender.org",
     "main": "lib/index.js",
     "directories": {},
@@ -22,9 +22,13 @@
         "merge",
         "panels",
         "panel",
+        "pane",
+        "panes",
         "timber",
         "ui",
         "blender",
+        "b3d",
+        "#b3d",
         "react",
         "redux"
     ],

@@ -5,7 +5,7 @@ export default ({children}) => {
     if ( count === 1) {
         const child = React.Children.only(children)
         return (
-            <section className='ruip-row'>
+            <section className='repanel-row'>
                 {child}
             </section>
         )

@@ -53,33 +53,33 @@ const mergeFromBottomShape = [
 ]
 
 const styles = {
-    ".redux-ui-panels": {
+    ".repanel": {
         'width' : '100%',
         'height': '100%'
     },
-    ".ruip-container": {
+    ".repanel-container": {
         'width'       : '100%',
         'height'      : '100%',
         'min-height'  : '200px',
         'display'     : 'table'
     },
-    ".ruip-row": {
+    ".repanel-row": {
         'display'      : 'table-row'
     },
-    ".ruip-panel": {
+    ".repanel-panel": {
         'display'         : 'table-cell',
         'background-color': 'grey',
         'position'        : 'relative'
     },
     '@media (max-width: 420px)': {
-        '.ruip-container, .ruip-row, .ruip-panel': {
+        '.repanel-container, .repanel-row, .repanel-panel': {
             'display'   : 'block',
             'width'     : '100%',
             'height'    : 'auto',
             'min-height': 'auto'
         }
     },
-    '.ruip-resize-h': {
+    '.repanel-resize-h': {
         'position'        : 'absolute',
         'top'             : '0px',
         'right'           : '-6px',
@@ -88,20 +88,20 @@ const styles = {
         'z-index'         : '99990',
         'background-color': 'transparent'
     },
-    '.ruip-resize-h > div': {
+    '.repanel-resize-h > div': {
         'position'        : 'absolute',
         'left'            : '4px',
         'width'           : '4px',
         'height'          : '100%',
         'background-color': 'black'
     },
-    '.ruip-resize-h:hover': {
+    '.repanel-resize-h:hover': {
         'cursor': 'ew-resize'
     },
-    '.ruip-resize-h:hover > div': {
+    '.repanel-resize-h:hover > div': {
         'background-color': 'white'
     },
-    '.ruip-resize-v': {
+    '.repanel-resize-v': {
         'position'        : 'absolute',
         'bottom'          : '-6px',
         'left'            : '2px',
@@ -110,20 +110,20 @@ const styles = {
         'z-index'         : '99999',
         'background-color': 'transparent'
     },
-    '.ruip-resize-v > div': {
+    '.repanel-resize-v > div': {
         'position'        : 'absolute',
         'top'             : '4px',
         'height'          : '4px',
         'width'           : '100%',
         'background-color': 'black'
     },
-    '.ruip-resize-v:hover': {
+    '.repanel-resize-v:hover': {
         'cursor': 'ns-resize'
     },
-    '.ruip-resize-v:hover > div': {
+    '.repanel-resize-v:hover > div': {
         'background-color': 'white'
     },
-    '.ruip-corner': {
+    '.repanel-corner': {
         'position'   : 'absolute',
         'right'      : '0',
         'width'      : '0',
@@ -131,11 +131,11 @@ const styles = {
         'border-top' : '20px solid red',
         'border-left': '20px solid transparent'
     },
-    '.ruip-corner:hover': {
+    '.repanel-corner:hover': {
         'border-top': '20px solid white',
         'cursor': 'crosshair'
     },
-    '.ruip-merge-from-left': {
+    '.repanel-merge-from-left': {
         'position': 'absolute',
         'width': '100%',
         'height': '100%',
@@ -143,7 +143,7 @@ const styles = {
         '-webkit-clip-path': 'polygon(' + mergeFromLeftShape.toString() + ')',
         'clip-path': 'polygon(' + mergeFromLeftShape.toString() + ') '
     },
-    '.ruip-merge-from-right': {
+    '.repanel-merge-from-right': {
         'position': 'absolute',
         'width': '100%',
         'height': '100%',
@@ -151,7 +151,7 @@ const styles = {
         '-webkit-clip-path': 'polygon(' + mergeFromRightShape.toString() + ')',
         'clip-path': 'polygon(' + mergeFromRightShape.toString() + ') '
     },
-    '.ruip-merge-from-top': {
+    '.repanel-merge-from-top': {
         'position': 'absolute',
         'width': '100%',
         'height': '100%',
@@ -159,7 +159,7 @@ const styles = {
         '-webkit-clip-path': 'polygon(' + mergeFromTopShape.toString() + ')',
         'clip-path': 'polygon(' + mergeFromTopShape.toString() + ') '
     },
-    '.ruip-merge-from-bottom': {
+    '.repanel-merge-from-bottom': {
         'position': 'absolute',
         'width': '100%',
         'height': '100%',
@@ -167,7 +167,7 @@ const styles = {
         '-webkit-clip-path': 'polygon(' + mergeFromBottomShape.toString() + ')',
         'clip-path': 'polygon(' + mergeFromBottomShape.toString() + ') '
     },
-    '.hidden': {
+    '.repanel-hidden': {
         'position': 'absolute',
         'width': '100%',
         'height': '100%',

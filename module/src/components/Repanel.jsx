@@ -14,7 +14,7 @@ class ReduxUIPanels extends Component {
     render() {
         const { index, onMouseMove } = this.props
         return (
-            <div className="redux-ui-panels"
+            <div className="repanel"
                  onMouseMove={onMouseMove}
                  onMouseUp={this.onMouseUp}
                  onMouseDown={this.onMouseDown}

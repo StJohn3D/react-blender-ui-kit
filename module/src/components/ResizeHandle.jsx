@@ -5,7 +5,7 @@ import { beginResizing } from '../actions/ui-actions'
 
 const ResizeHandle = ({ flow, beginResize }) => {
     const className = flow === CONTAINER_FLOW.HORIZONTAL
-      ? 'ruip-resize-h' : 'ruip-resize-v'
+      ? 'repanel-resize-h' : 'repanel-resize-v'
     return (
       <div className={className} onMouseDown={beginResize}>
         <div></div>

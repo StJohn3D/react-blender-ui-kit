@@ -61,6 +61,6 @@ npm link repanel
 npm start
 ```
 
-Now go look at localhost:3000
+Now go look at localhost:7765 (RPNL)
 
 Also install the [Redux dev tools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) in chrome if you haven't already
