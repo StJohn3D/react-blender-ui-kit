@@ -1,4 +1,12 @@
 
+#In Open Beta 0.x.x
+For anyone interested in trying out this npm package please note that the 0.x.x series is to be considered an open beta.
+Possible breaking changes may occur during this phase although I will do my best to avoid them and document in the change log.
+
+This package is currently being tested with a greenfield enterprise solution. As the two projects evolve and mature this package will eventually reach a point where it will be considered production ready. At that time version 1.0.0 will be released and this package will follow [semver](http://semver.org/) from then on.
+
+For more information see the project roadmap below, and feel free to reach out to me on [github](https://github.com/StJohn3D/repanel) or [twitter](https://twitter.com/StJohn3D)
+___
 ##How to use it
 
 `npm install --save repanel`
@@ -40,23 +48,25 @@ import { Repanel, Container, Panel } from 'repanel'
  - Screen Casts demonstrations: **_tutorial_**
  - Travis Integration tests **_maintenance_**
  - 100% code coverage **_maintenance_**
+ - v1.0.0 **_Production Ready Release_**
 
 ##Change log
 
+###0.0.7
+
+**Improvements**
+ - [#9:](https://github.com/StJohn3D/repanel/issues/9) The .hidden class is now properly scoped to repanel-hidden
+ - All CSS classes have been rescoped to repanel (formerly ruip)
+   - NOTE: If you were overriding the CSS this will break your overrides. I'm releasing this under 0.0.7 because it is a hot fix for a publish that went out yesterday. Normally a breaking change like this would follow semver.
+___
 ###0.0.6
 **New Features**
  - Splitting/Merging Panels
 
 **Improvements**
  - CHANGED NAME to repanel (Formerly redux-ui-panels) Last name change I promise
-
-  **Bug fixes**
-  - N/A
-
+___
 ###0.0.5
-
-**New Features**
- - N/A
 
 **Improvements**
  - TimberUI is now TestDriven!
@@ -64,9 +74,6 @@ import { Repanel, Container, Panel } from 'repanel'
    - This should never happen in production since the Row component is not exposed in the public api
    - Still, it is possible in development to accidentally create a row with no children
    - Now they will give a more meaningful warning message and return false
-
- **Bug fixes**
- - N/A
 ___
 ###0.0.4
 
