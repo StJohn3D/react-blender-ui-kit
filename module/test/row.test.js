@@ -19,7 +19,7 @@ describe('Row', function() {
 
         it('Should have one class called timber-row', function() {
             expect(classes.length).to.equal(1);
-            expect(output.hasClass('ruip-row')).to.equal(true);
+            expect(output.hasClass('repanel-row')).to.equal(true);
         });
     });
     describe('children', function() {

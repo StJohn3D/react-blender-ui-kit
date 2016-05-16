@@ -1,0 +1,6 @@
+language: node_js
+node_js:
+- "stable"
+script: cd module && npm install && npm test
+after_success:
+- npm run coveralls
