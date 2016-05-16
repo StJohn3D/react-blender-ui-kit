@@ -44,11 +44,14 @@ import { Repanel, Container, Panel } from 'repanel'
 
 ##Project Road-map
 
- - Thorough documentation on github: **_maintenance_**
- - Screen Casts demonstrations: **_tutorial_**
  - Travis Integration tests **_maintenance_**
  - 100% code coverage **_maintenance_**
- - v1.0.0 **_Production Ready Release_**
+ - Resize edge snapping **_feature_**
+ - Cross container panel merging **_feature_**
+ - Thorough documentation on github **_maintenance_**
+ - v1.0.0 **_1st Production Ready Release!_**
+ - Screen Casts demonstrations **_tutorial_**
+ - Tonic example or some public demo page **_feature_**
 
 ##Change log
 
