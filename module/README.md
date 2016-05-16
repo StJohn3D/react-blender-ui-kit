@@ -46,6 +46,7 @@ import { Repanel, Container, Panel } from 'repanel'
 
  - Travis Integration tests **_maintenance_**
  - 100% code coverage **_maintenance_**
+ - Greeenkeeper integration **_maintenance_**
  - Resize edge snapping **_feature_**
  - Cross container panel merging **_feature_**
  - Thorough documentation on github **_maintenance_**

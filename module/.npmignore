@@ -2,3 +2,4 @@
 .babelrc
 test/
 utils/
+coverage/
