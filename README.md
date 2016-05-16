@@ -24,6 +24,7 @@ Where you define your default page layouts...
 import { Repanel, Container, Panel } from 'repanel'
 ...
  render() {
+    return(
     <Repanel tools={[ myAweseomeComponent1, myOtherCoolComponent]}>
         <Container flow="HORIZONTAL">
             <Panel width="25%" toolIndex={0}/>
@@ -36,6 +37,7 @@ import { Repanel, Container, Panel } from 'repanel'
             </Panel>
         </Container>
     </Repanel>
+    )
  }
 ```
 
