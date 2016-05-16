@@ -10,7 +10,7 @@
     ],
     "scripts": {
         "build": "babel src --out-dir lib",
-        "test": "mocha --watch"
+        "test": "mocha"
     },
     "repository": {
         "type": "git",
