@@ -66,8 +66,9 @@ import { Repanel, Container, Panel } from 'repanel'
 
 **Improvements**
  - Travis Integration tests **_maintenance_**
- - 100% code coverage **_maintenance_**
+ - Coveralls integration **_maintenance_**
  - Greeenkeeper integration **_maintenance_**
+ - Gemnasium integration **_maintenance_**
 
 ###0.0.7
 
