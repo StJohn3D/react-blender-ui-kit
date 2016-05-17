@@ -8,7 +8,9 @@ This package is currently being tested with a greenfield enterprise solution. As
 For more information see the project roadmap below, and feel free to reach out to me on [github](https://github.com/StJohn3D/repanel) or [twitter](https://twitter.com/StJohn3D)
 ___
 
-[![Build Status](https://travis-ci.org/StJohn3D/repanel.svg?branch=master)](https://travis-ci.org/StJohn3D/repanel) [![Coverage Status](https://coveralls.io/repos/github/StJohn3D/repanel/badge.svg?branch=master)](https://coveralls.io/github/StJohn3D/repanel?branch=master)
+[![Build Status](https://travis-ci.org/StJohn3D/repanel.svg?branch=master)](https://travis-ci.org/StJohn3D/repanel)
+[![Coverage Status](https://coveralls.io/repos/github/StJohn3D/repanel/badge.svg?branch=master)](https://coveralls.io/github/StJohn3D/repanel?branch=master)
+[![Dependency Status](https://gemnasium.com/badges/github.com/StJohn3D/repanel.svg)](https://gemnasium.com/github.com/StJohn3D/repanel)
 
 ##How to use it
 

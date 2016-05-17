@@ -2,7 +2,9 @@
 
 ####A configurable Redux panel framework inspired by blender.org
 
-[![Build Status](https://travis-ci.org/StJohn3D/repanel.svg?branch=master)](https://travis-ci.org/StJohn3D/repanel) [![Coverage Status](https://coveralls.io/repos/github/StJohn3D/repanel/badge.svg?branch=master)](https://coveralls.io/github/StJohn3D/repanel?branch=master)
+[![Build Status](https://travis-ci.org/StJohn3D/repanel.svg?branch=master)](https://travis-ci.org/StJohn3D/repanel)
+[![Coverage Status](https://coveralls.io/repos/github/StJohn3D/repanel/badge.svg?branch=master)](https://coveralls.io/github/StJohn3D/repanel?branch=master)
+[![Dependency Status](https://gemnasium.com/badges/github.com/StJohn3D/repanel.svg)](https://gemnasium.com/github.com/StJohn3D/repanel)
 
 ##How to use it
 
