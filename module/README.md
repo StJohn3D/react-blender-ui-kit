@@ -48,10 +48,6 @@ import { Repanel, Container, Panel } from 'repanel'
 ```
 
 ##Project Road-map
-
- - Travis Integration tests **_maintenance_**
- - 100% code coverage **_maintenance_**
- - Greeenkeeper integration **_maintenance_**
  - Resize edge snapping **_feature_**
  - Cross container panel merging **_feature_**
  - Thorough documentation on github **_maintenance_**
@@ -61,6 +57,13 @@ import { Repanel, Container, Panel } from 'repanel'
 
 ##Change log
 
+###0.0.8
+
+**Improvements**
+ - Travis Integration tests **_maintenance_**
+ - 100% code coverage **_maintenance_**
+ - Greeenkeeper integration **_maintenance_**
+
 ###0.0.7
 
 **Improvements**
@@ -69,6 +72,7 @@ import { Repanel, Container, Panel } from 'repanel'
    - NOTE: If you were overriding the CSS this will break your overrides. I'm releasing this under 0.0.7 because it is a hot fix for a publish that went out yesterday. Normally a breaking change like this would follow semver.
 ___
 ###0.0.6
+
 **New Features**
  - Splitting/Merging Panels
 
