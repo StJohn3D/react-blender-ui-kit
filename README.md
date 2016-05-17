@@ -25,7 +25,10 @@ import { Repanel, Container, Panel } from 'repanel'
 ...
  render() {
     return(
-    <Repanel tools={[ myAweseomeComponent1, myOtherCoolComponent]}>
+    <Repanel tools={[
+        <myAweseomeComponent1 name={"DropdownName"} yourProp1={"yourValue"} />,
+        <myOtherCoolComponent name={"DropdownName at index 1"} {...YourBrops} />
+    ]}>
         <Container flow="HORIZONTAL">
             <Panel width="25%" toolIndex={0}/>
             <Panel toolIndex={1}/>
