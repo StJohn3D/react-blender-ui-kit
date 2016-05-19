@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 var React = require('react');
-var render = require('../utils/cheerio-react');
+var render = require('cheerio-react');
 
 require("babel-register");
 var Row = require('../src/components/Row').default
