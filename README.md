@@ -6,6 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/StJohn3D/repanel/badge.svg?branch=master)](https://coveralls.io/github/StJohn3D/repanel?branch=master)
 [![Dependency Status](https://gemnasium.com/badges/github.com/StJohn3D/repanel.svg)](https://gemnasium.com/github.com/StJohn3D/repanel)
 [![npm version](https://badge.fury.io/js/repanel.svg)](https://badge.fury.io/js/repanel)
+[![Downloads](https://img.shields.io/npm/dm/repanel.svg)](https://www.npmjs.com/package/repanel)
 
 ##How to use it
 
